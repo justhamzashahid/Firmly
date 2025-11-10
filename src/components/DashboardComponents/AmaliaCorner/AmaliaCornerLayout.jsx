@@ -92,14 +92,14 @@ const AmaliaCornerLayout = () => {
           <TextBlock
             title="Based on your profile, I can see your Glow Areas (strengths) are:"
             items={glowAreas}
-            bgColor="bg-purple-50"
+            bgColor="bg-[#F5F5FF]"
           />
 
           {/* Grow Areas */}
           <TextBlock
             title="Your Grow Areas (development opportunities) are:"
             items={growAreas}
-            bgColor="bg-purple-50"
+            bgColor="bg-[#F5F5FF]"
           />
 
           {/* Summary Cards */}
@@ -123,17 +123,17 @@ const AmaliaCornerLayout = () => {
           </div>
 
           {/* Dashboard Information */}
-          <p className="text-sm md:text-base text-gray-800 mb-6 md:mb-8">
+          <p className="text-sm md:text-base font-inter-regular text-black  mb-6 md:mb-8 bg-[#F5F5FF] p-4 rounded-xl">
             You can now view your Glow and Grow areas at all times on your
             dashboard. I will help you to work on them and improve your skills.
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
-            <button className="flex-1 px-4 md:px-6 py-2 md:py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-lg font-medium transition-colors text-sm md:text-base">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8 max-w-2xl mx-auto">
+            <button className="flex-1 px-5  py-4  bg-[#F5F5F5]  text-[#578DDD] rounded-xl font-medium transition-colors text-sm md:text-base">
               Generate my Leadership Pathway
             </button>
-            <button className="flex-1 px-4 md:px-6 py-2 md:py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-lg font-medium transition-colors text-sm md:text-base">
+            <button className="flex-1   py-3  bg-[#3D3D3D] text-[#F5F5F5] rounded-xl font-medium transition-colors text-sm md:text-base">
               Go to Dashboard
             </button>
           </div>

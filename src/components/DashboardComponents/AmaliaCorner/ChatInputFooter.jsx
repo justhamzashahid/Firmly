@@ -12,7 +12,7 @@ const ChatInputFooter = () => {
   };
 
   return (
-    <div className="border-t border-gray-200 bg-white p-4 md:p-6">
+    <div className=" bg-white p-4">
       <div className="flex flex-col md:flex-row gap-3 md:gap-4 items-end md:items-center">
         {/* Input Field */}
         <input
