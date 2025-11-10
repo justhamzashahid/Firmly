@@ -26,6 +26,30 @@ const AmaliaCornerLayout = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Prevent body scrolling on mobile when sidebar is open
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile && !isSidebarCollapsed) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      // Prevent scrolling
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        // Restore scrolling
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isSidebarCollapsed]);
+
   const message = (
     <>
       Hi, Lily, <br /> I'm so glad you decided to dive deeper into your results
@@ -140,7 +164,11 @@ const AmaliaCornerLayout = () => {
         </div>
 
         {/* Fixed Footer */}
-        <div className="absolute bottom-0 left-0 right-0">
+        <div
+          className={`absolute bottom-0 left-0 right-0 ${
+            isSidebarCollapsed ? "z-50" : ""
+          } md:z-50`}
+        >
           <ChatInputFooter />
         </div>
       </div>

@@ -8,15 +8,38 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
       {/* Mobile overlay */}
       {!isCollapsed && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50  z-40 md:hidden"
           onClick={onToggleCollapse}
         />
       )}
+      {/* Desktop toggle button when sidebar is collapsed */}
+      {isCollapsed && (
+        <button
+          onClick={onToggleCollapse}
+          className="hidden md:flex fixed left-0 top-4 z-50 bg-white border border-[#ECECEC] rounded-r-2xl p-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors shadow-sm"
+          aria-label="Open sidebar"
+          title="Open sidebar to view all conversations"
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      )}
       <div
-        className={`bg-white mr-4 border border-[#ECECEC] rounded-2xl transition-all duration-300 ${
+        className={`bg-white rounded-2xl transition-all duration-300 ${
           isCollapsed
             ? "w-0 overflow-hidden -translate-x-full md:translate-x-0"
-            : "w-3/4 md:w-1/4 lg:w-1/5 translate-x-0"
+            : "w-3/4 md:w-1/4 lg:w-1/5 translate-x-0 mr-4"
         } fixed md:relative z-50 md:z-auto flex flex-col h-screen`}
       >
         {/* Header */}
