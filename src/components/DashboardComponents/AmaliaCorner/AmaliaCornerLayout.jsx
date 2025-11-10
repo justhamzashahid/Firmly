@@ -65,32 +65,6 @@ const AmaliaCornerLayout = () => {
     { abbreviation: "SEL", label: "Self-belief", score: 22 },
   ];
 
-  // Icons for summary cards - starburst/snowflake style
-  const starIcon = (
-    <svg
-      className="w-12 h-12 md:w-16 md:h-16"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d="M12 2l2.4 4.85L20 8l-3.5 3.4.8 4.9L12 16.5l-5.3 2.8.8-4.9L4 8l5.6-1.15L12 2zm0 2.8L9.8 7.5 5.5 8.2l2.8 2.7-.7 4.1L12 14.5l4.4 2.5-.7-4.1 2.8-2.7-4.3-.7L12 4.8z" />
-      <path d="M12 6l1.2 2.4L16 9l-1.8 1.8.4 2.2L12 12.5l-2.6 1.5.4-2.2L8 9l2.8-.6L12 6z" />
-    </svg>
-  );
-
-  // Brain/swirl icon
-  const brainIcon = (
-    <svg
-      className="w-12 h-12 md:w-16 md:h-16"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d="M12 2C8.5 2 6 4.5 6 8c0 2.2 1.1 4.1 2.8 5.3V16c0 .6.4 1 1 1h4.4c.6 0 1-.4 1-1v-2.7c1.7-1.2 2.8-3.1 2.8-5.3 0-3.5-2.5-6-6-6zm-2 11v-1h4v1c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1zm0-4h4v2h-4v-2z" />
-      <path d="M10 10c0 .6.4 1 1 1h2c.6 0 1-.4 1-1s-.4-1-1-1h-2c-.6 0-1 .4-1 1z" />
-      <circle cx="9" cy="7" r="1" />
-      <circle cx="15" cy="7" r="1" />
-    </svg>
-  );
-
   return (
     <div className="flex flex-col md:flex-row h-screen  overflow-hidden">
       {/* Sidebar */}
@@ -134,17 +108,17 @@ const AmaliaCornerLayout = () => {
               title="Doing great"
               subtitle="Your female talent is thriving in the following domains."
               items={doingGreatItems}
-              bgColor="bg-teal-600"
+              bgColor="bg-[#378C78]"
               iconColor="text-teal-200"
-              icon={starIcon}
+              iconImage="/assets/images/dashboard/doing.png"
             />
             <SummaryCard
               title="Growth areas"
               subtitle="These areas need your immediate attention to balance workplace wellbeing."
               items={growthAreasItems}
-              bgColor="bg-orange-700"
+              bgColor="bg-[#C56A55]"
               iconColor="text-orange-200"
-              icon={brainIcon}
+              iconImage="/assets/images/dashboard/growth.png"
             />
           </div>
 

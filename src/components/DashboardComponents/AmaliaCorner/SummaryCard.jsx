@@ -1,28 +1,23 @@
 import React from "react";
 
-const SummaryCard = ({
-  title,
-  subtitle,
-  items,
-  bgColor,
-  iconColor,
-  icon,
-}) => {
+const SummaryCard = ({ title, subtitle, items, bgColor, iconImage }) => {
   return (
-    <div
-      className={`${bgColor} rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 relative overflow-hidden`}
-    >
+    <div className={`${bgColor} rounded-2xl p-5 relative overflow-hidden`}>
       {/* Icon */}
-      <div className={`${iconColor} absolute top-4 left-4 md:top-6 md:left-6 opacity-30`}>
-        {icon}
-      </div>
+      {iconImage && (
+        <img
+          src={iconImage}
+          alt={title}
+          className=" top-2 left-4    2xl:w-28 2xl:h-28 xl:w-24 xl:h-24 lg:w-20 lg:h-20 w-16 h-16"
+        />
+      )}
 
       {/* Content */}
-      <div className="relative z-10">
-        <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-3">
+      <div className="relative z-10 mt-4">
+        <h3 className="text-xl md:text-2xl lg:text-2xl font-bold text-white mb-2 font-cormorant">
           {title}
         </h3>
-        <p className="text-sm md:text-base text-white mb-4 md:mb-6 opacity-90">
+        <p className="text-xs text-[#FFFFFF]/70 mb-4 md:mb-6 font-inter-medium">
           {subtitle}
         </p>
 
@@ -31,15 +26,15 @@ const SummaryCard = ({
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex items-center gap-3 md:gap-4 bg-white bg-opacity-20 rounded-lg p-2 md:p-3"
+              className="flex items-center gap-3 border-b border-[#FFFFFF]/10 pb-4"
             >
-              <span className="text-xs md:text-sm font-semibold text-gray-800 bg-gray-200 px-2 md:px-3 py-1 rounded">
+              <span className="text-xs md:text-sm font-inter-medium text-[#F5F5F5] bg-[#F5F5F5]/10 px-2 md:px-3 py-1 rounded-lg border-[1px] border-[#FFFFFF]">
                 {item.abbreviation}
               </span>
-              <span className="text-sm md:text-base text-white flex-1">
+              <span className="text-sm md:text-lg text-white flex-1 font-cormorant">
                 {item.label}
               </span>
-              <span className="text-lg md:text-xl lg:text-2xl font-bold text-white">
+              <span className="text-lg md:text-xl lg:text-2xl  text-white font-cormorant">
                 {item.score}
               </span>
             </div>
@@ -51,4 +46,3 @@ const SummaryCard = ({
 };
 
 export default SummaryCard;
-
