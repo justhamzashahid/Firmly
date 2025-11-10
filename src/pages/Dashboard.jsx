@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import GrowAndGlowSection from "../components/DashboardComponents/Dashboard/GrowAndGlowSection";
 import LeadershipPathwaySection from "../components/DashboardComponents/Dashboard/LeadershipPathwaySection";
 import DashboardHeader from "../components/DashboardComponents/Dashboard/DashboardHeader";
-import GuidedTour from "../components/DashboardComponents/Dashboard/GuidedTour";
 
 export default function Dashboard() {
-  const [showTour, setShowTour] = useState(false);
-
-  useEffect(() => {
-    const tourCompleted = localStorage.getItem("dashboard-tour-completed");
-    if (!tourCompleted) {
-      // Small delay to ensure DOM is ready
-      setTimeout(() => {
-        setShowTour(true);
-      }, 500);
-    }
-  }, []);
-
-  const handleTourComplete = () => {
-    setShowTour(false);
-  };
 
   return (
     <div className="min-h-screen relative">
@@ -38,7 +22,6 @@ export default function Dashboard() {
           className="h-8 w-8 sm:h-12 sm:w-12 transition-transform duration-300 group-hover:scale-110"
         />
       </button>
-      {showTour && <GuidedTour onComplete={handleTourComplete} />}
     </div>
   );
 }
