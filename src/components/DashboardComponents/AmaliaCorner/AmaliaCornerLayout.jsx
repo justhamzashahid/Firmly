@@ -66,7 +66,7 @@ const AmaliaCornerLayout = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row h-screen  overflow-hidden">
+    <div className="flex flex-col md:flex-row h-full overflow-hidden">
       {/* Sidebar */}
       <Sidebar
         isCollapsed={isSidebarCollapsed}
@@ -74,14 +74,14 @@ const AmaliaCornerLayout = () => {
       />
 
       {/* Main Content */}
-      <div className="flex-1  flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC]">
+      <div className="flex-1  flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC] relative">
         {/* Chat Header */}
         <ChatHeader
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto   max-w-5xl mx-auto lg:px-0 px-4">
+        <div className="flex-1 overflow-y-auto max-w-5xl mx-auto lg:px-0 px-4 pb-24">
           {/* Chat Message */}
           <ChatMessage message={message} />
 
@@ -139,7 +139,10 @@ const AmaliaCornerLayout = () => {
           </div>
         </div>
 
-        <ChatInputFooter />
+        {/* Fixed Footer */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <ChatInputFooter />
+        </div>
       </div>
     </div>
   );
