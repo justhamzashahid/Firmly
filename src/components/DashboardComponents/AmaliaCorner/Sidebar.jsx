@@ -1,0 +1,82 @@
+import React, { useState } from "react";
+
+const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  return (
+    <>
+      {/* Mobile overlay */}
+      {!isCollapsed && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          onClick={onToggleCollapse}
+        />
+      )}
+      <div
+        className={`bg-white mr-4 border border-[#ECECEC] rounded-2xl transition-all duration-300 ${
+          isCollapsed
+            ? "w-0 overflow-hidden -translate-x-full md:translate-x-0"
+            : "w-3/4 md:w-1/4 lg:w-1/5 translate-x-0"
+        } fixed md:relative z-50 md:z-auto flex flex-col h-screen`}
+      >
+        {/* Header */}
+        <div className="px-5 py-3 flex items-center justify-between">
+          <h2 className="text-xl md:text-2xl font-semibold text-black font-cormorant">
+            {!isCollapsed && "All Conversations"}
+          </h2>
+          <button
+            onClick={onToggleCollapse}
+            className="text-gray-600 hover:text-gray-900 transition-colors "
+            aria-label="Toggle sidebar"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={isCollapsed ? "M9 5l7 7-7 7" : "M15 19l-7-7 7-7"}
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Search Bar */}
+        <div className="p-3">
+          <input
+            type="text"
+            placeholder="Search conversation"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 text-[#9E9CAE] font-inter py-3 bg-transparent border-[1px] border-[#ECECEC] rounded-xl  focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] text-sm md:text-base"
+          />
+        </div>
+
+        {/* Recent Section */}
+        <div className="px-3  py-3 mb-2">
+          <h3 className="text-xs md:text-sm font-semibold text-black/30 uppercase tracking-wide">
+            Recent
+          </h3>
+        </div>
+
+        {/* Conversation List */}
+        <div className="flex-1 overflow-y-auto px-3 pb-4">
+          <div className="bg-[#F5F5F5] rounded-xl border border-[#ECECEC] p-3  mb-2 cursor-pointer  transition-colors">
+            <p className="text-xs text-[#3D3D3D]/60 mb-1">
+              JUN 08, 2025 - 03:52 pm
+            </p>
+            <p className="text-sm md:text-lg font-medium text-[#3D3D3D] font-inter">
+              Diagnostic Debrief
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Sidebar;

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Hero from "./Hero";
 
-const DashboardHeader = () => {
+const Header2 = () => {
   const [selectedTab, setSelectedTab] = useState("Dashboard");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -28,13 +27,7 @@ const DashboardHeader = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible md:overflow-hidden">
-      {/* Top background image */}
-      <img
-        src="/assets/images/dashboard/dashtop.png"
-        alt="dashboard top background"
-        className="absolute top-0 left-0 w-[613px] z-0 h-[515px] object-cover object-top pointer-events-none"
-      />
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4   relative overflow-visible md:overflow-hidden">
       <div className="relative z-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -213,16 +206,8 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
-      <div className="relative z-20">
-        <Hero />
-      </div>
-      <img
-        src="/assets/images/dashboard/dashbottom.png"
-        alt="dashboard bottom background"
-        className="absolute bottom-0 right-0 w-[613px] z-0 h-[515px] object-cover object-bottom pointer-events-none"
-      />
     </header>
   );
 };
 
-export default DashboardHeader;
+export default Header2;
