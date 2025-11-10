@@ -2,7 +2,7 @@ import React from "react";
 
 const ChatHeader = ({ onMenuClick }) => {
   return (
-    <div className="p-4 md:p-6 border-b border-gray-200 bg-white flex items-center gap-4">
+    <div className="p-4  flex items-center gap-4">
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
@@ -23,7 +23,7 @@ const ChatHeader = ({ onMenuClick }) => {
           />
         </svg>
       </button>
-      <h1 className="text-xl md:text-2xl font-semibold text-gray-900">
+      <h1 className="text-xl md:text-2xl font-semibold text-black font-cormorant">
         In Conversation with Amalia
       </h1>
     </div>

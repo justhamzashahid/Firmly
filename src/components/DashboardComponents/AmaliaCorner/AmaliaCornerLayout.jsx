@@ -26,8 +26,20 @@ const AmaliaCornerLayout = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const message =
-    "Hi, Lily, I'm so glad you decided to dive deeper into your results with me. What I see in your diagnostic is really quite insightful - it paints a clear picture of who you are as a leader right now and where your greatest opportunities lie. Let's start by looking at your overall profile together. The 'peers' benchmark shows you how your scores compare to other women in your organization who have completed this same diagnostic, giving you valuable context for understanding your results relative to your workplace environment.";
+  const message = (
+    <>
+      Hi, Lily, <br /> I'm so glad you decided to dive deeper into your results
+      with me. What I see in your diagnostic is really quite insightful - it
+      paints a clear picture of who you are as a leader right now and where your
+      greatest opportunities lie. Let's start by looking at your overall profile
+      together.
+      <br />
+      The 'peers' benchmark shows you how your scores compare to other women in
+      your organization who have completed this same diagnostic, giving you
+      valuable context for understanding your results relative to your workplace
+      environment.
+    </>
+  );
 
   const glowAreas = [
     "Goal Orientation - You excel at setting and pursuing objectives",
@@ -88,14 +100,14 @@ const AmaliaCornerLayout = () => {
       />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1  flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC]">
         {/* Chat Header */}
         <ChatHeader
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+        <div className="flex-1 overflow-y-auto  max-w-5xl mx-auto lg:px-0 px-4">
           {/* Chat Message */}
           <ChatMessage message={message} />
 

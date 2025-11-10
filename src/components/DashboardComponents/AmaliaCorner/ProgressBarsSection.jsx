@@ -3,12 +3,22 @@ import ProgressBar from "./ProgressBar";
 
 const ProgressBarsSection = () => {
   const progressData = [
-    { label: "Goal Orientation", score: 89, color: "green" },
-    { label: "Workplace Belonging", score: 82, color: "blue" },
-    { label: "Engagement", score: 48, color: "purple" },
-    { label: "Resilience", score: 79, color: "pink" },
-    { label: "Self-Belief", score: 52, color: "orange" },
-    { label: "Empathy", score: 44, color: "lightBlue" },
+    {
+      label: "Goal Orientation",
+      score: 89,
+      color: "green",
+      vectorPosition: 69,
+    },
+    {
+      label: "Workplace Belonging",
+      score: 82,
+      color: "blue",
+      vectorPosition: 71,
+    },
+    { label: "Engagement", score: 48, color: "purple", vectorPosition: 73 },
+    { label: "Resilience", score: 79, color: "pink", vectorPosition: 70 },
+    { label: "Self-Belief", score: 52, color: "orange", vectorPosition: 72 },
+    { label: "Empathy", score: 44, color: "lightBlue", vectorPosition: 74 },
   ];
 
   return (
@@ -20,6 +30,7 @@ const ProgressBarsSection = () => {
           yourScore={item.score}
           peersScore={67}
           color={item.color}
+          initialVectorPosition={item.vectorPosition}
         />
       ))}
     </div>
@@ -27,4 +38,3 @@ const ProgressBarsSection = () => {
 };
 
 export default ProgressBarsSection;
-
