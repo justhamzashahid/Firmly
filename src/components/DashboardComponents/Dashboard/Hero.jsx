@@ -45,7 +45,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative py-8  overflow-hidden">
+    <section className="relative lg:py-8 py-4 overflow-hidden">
       <div className="text-white">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white font-cormorant">
           Welcome, Lily

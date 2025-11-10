@@ -66,7 +66,7 @@ const DashboardHeader = () => {
         </nav>
 
         {/* User Profile Section */}
-        <div className="flex items-center space-x- sm:space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           {/* User Info */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
@@ -121,10 +121,10 @@ const DashboardHeader = () => {
           </button>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden relative" ref={menuRef}>
+          <div className="md:hidden relative z-[60]" ref={menuRef}>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors"
+              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors relative z-[60]"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -160,7 +160,7 @@ const DashboardHeader = () => {
 
             {/* Mobile Menu Dropdown */}
             {isMobileMenuOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-[#7d7cd9] border border-white/20 rounded-xl shadow-lg z-50 overflow-hidden">
+              <div className="absolute top-full right-0 mt-2 w-48 bg-[#7d7cd9] border border-white/20 rounded-xl shadow-lg z-[60] overflow-hidden">
                 <button
                   onClick={() => {
                     setSelectedTab("Dashboard");
