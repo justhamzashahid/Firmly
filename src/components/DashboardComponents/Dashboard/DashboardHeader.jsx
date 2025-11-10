@@ -95,7 +95,7 @@ const DashboardHeader = () => {
           </button>
 
           {/* Language Selector */}
-          <button className="flex items-center space-x-1 text-white  px-3 py-2 rounded-lg transition-colors">
+          <button className="flex items-center space-x-2 text-white  px-3 py-2 rounded-lg transition-colors">
             <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl ">
               LT
             </span>
