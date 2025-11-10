@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import WelcomeSection from "./WelcomeSection";
+import Hero from "./Hero";
 
 const DashboardHeader = () => {
   const [selectedTab, setSelectedTab] = useState("Dashboard");
@@ -24,8 +24,8 @@ const DashboardHeader = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl">
-      <div className=" flex items-center justify-between">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-hidden">
+      <div className="relative z-10 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
           <img
@@ -186,7 +186,9 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
-      <WelcomeSection />
+      <div className="relative z-10">
+        <Hero />
+      </div>
     </header>
   );
 };

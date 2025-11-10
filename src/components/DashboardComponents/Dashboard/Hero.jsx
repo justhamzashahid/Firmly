@@ -1,0 +1,170 @@
+import React, { useState } from "react";
+
+const Hero = () => {
+  const [currentMetric, setCurrentMetric] = useState(0);
+
+  const metrics = [
+    {
+      name: "Goal Orientation",
+      description:
+        "The tendency to set goals and make plans. People with high levels of goal orientation tend to think about their goals in advance.",
+    },
+    {
+      name: "Self-Belief",
+      description:
+        "Confidence in one's own abilities and judgment. People with high self-belief trust their capabilities and make decisions with conviction.",
+    },
+    {
+      name: "Resilience",
+      description:
+        "The capacity to recover quickly from difficulties. Resilient individuals adapt well to adversity and maintain their performance under stress.",
+    },
+    {
+      name: "Empathy",
+      description:
+        "The ability to understand and share the feelings of others. Empathetic individuals build stronger relationships and create.",
+    },
+    {
+      name: "Workplace Belonging",
+      description:
+        "The sense of being accepted and valued in the workplace. High belonging leads to increased engagement and retention.",
+    },
+    {
+      name: "Engagement",
+      description:
+        "The level of involvement and enthusiasm in work. Engaged employees are more productive and contribute positively to organizational goals.",
+    },
+  ];
+
+  const nextMetric = () => {
+    setCurrentMetric((prev) => (prev + 1) % metrics.length);
+  };
+
+  const prevMetric = () => {
+    setCurrentMetric((prev) => (prev - 1 + metrics.length) % metrics.length);
+  };
+
+  return (
+    <section className="relative py-8  overflow-hidden">
+      <div className="text-white">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white font-sans">
+          Welcome, Lily
+        </h1>
+        <p className="text-base lg:text-lg text-white/70 mb-4  font-sans max-w-2xl ">
+          This visual summary displays your scores across six research-backed
+          metrics that impact women's workplace effectiveness and leadership
+          potential.
+        </p>
+      </div>
+      <div className="relative mt-7">
+        <div className="flex items-center text-white text-sm ">
+          <span className="w-2 h-2 bg-[#FFCD4F] rounded-full mr-2"></span>
+          Today
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center lg:mt-0 mt-5">
+          <div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/assets/images/dashboard/poly.png"
+                alt="star icon"
+                className="lg:h-[350px] lg:w-[430px] h-full w-full"
+              />
+            </div>
+          </div>
+          <div className="space-y-4">
+            {/* Overall Score Card */}
+            <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
+              <p className="text-white/70 text-sm lg:text-base">
+                Your overall score
+              </p>
+              <div className="flex items-center justify-between ">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                  Balanced
+                </h2>
+                <div className="flex items-baseline">
+                  <span className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white">
+                    65
+                  </span>
+                  <span className="text-2xl sm:text-3xl text-white/40 ml-2">
+                    /100
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Metric Explanation Card */}
+            <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
+              <div className="flex  lg:flex-row flex-col justify-between">
+                <p className="text-white/70 text-sm lg:text-base mb-4 lg:mb-0">
+                  Understanding your metrics
+                </p>
+                <button className=" bg-white  font-medium py-3 px-6 rounded-xl flex items-center justify-center space-x-2 transition-colors mb-4">
+                  <img
+                    src="/assets/images/dashboard/starpurple.png"
+                    alt="star icon"
+                    className="h-5 w-5"
+                  />
+                  <span className="text-[#6664D3]">Start a Debrief</span>
+                </button>
+              </div>
+              <div className="max-w-lg">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
+                  {metrics[currentMetric].name}
+                </h3>
+                <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-6">
+                  {metrics[currentMetric].description}
+                </p>
+              </div>
+
+              {/* Start a Debrief Button */}
+
+              {/* Navigation Arrows */}
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={prevMetric}
+                  className="w-10 h-10 rounded-xl bg-transparent border border-white/20  text-white flex items-center justify-center transition-colors"
+                  aria-label="Previous metric"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextMetric}
+                  className="w-10 h-10 rounded-xl bg-transparent border border-white/20  text-white flex items-center justify-center transition-colors"
+                  aria-label="Next metric"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
