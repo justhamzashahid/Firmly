@@ -31,4 +31,3 @@ const ChatHeader = ({ onMenuClick }) => {
 };
 
 export default ChatHeader;
-

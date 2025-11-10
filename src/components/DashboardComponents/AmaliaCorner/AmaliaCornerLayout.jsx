@@ -81,7 +81,7 @@ const AmaliaCornerLayout = () => {
         />
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto  max-w-5xl mx-auto lg:px-0 px-4">
+        <div className="flex-1 overflow-y-auto   max-w-5xl mx-auto lg:px-0 px-4">
           {/* Chat Message */}
           <ChatMessage message={message} />
 

@@ -27,7 +27,7 @@ const Header2 = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4   relative overflow-visible md:overflow-hidden">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 relative overflow-visible md:overflow-hidden">
       <div className="relative z-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
