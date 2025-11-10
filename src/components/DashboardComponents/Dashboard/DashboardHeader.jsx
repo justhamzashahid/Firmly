@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Hero from "./Hero";
 
 const DashboardHeader = () => {
   const [selectedTab, setSelectedTab] = useState("Dashboard");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('Mobile menu state changed:', isMobileMenuOpen);
-  }, [isMobileMenuOpen]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -60,7 +59,10 @@ const DashboardHeader = () => {
             Dashboard
           </button>
           <button
-            onClick={() => setSelectedTab("Amalia Corner")}
+            onClick={() => {
+              setSelectedTab("Amalia Corner");
+              navigate("/amalia-corner");
+            }}
             className={`px-6 py-2 rounded-xl transition-colors  ${
               selectedTab === "Amalia Corner"
                 ? "bg-[#7d7cd9] border border-white/20 text-white"
@@ -72,7 +74,7 @@ const DashboardHeader = () => {
         </nav>
 
         {/* User Profile Section */}
-        <div className="flex items-center space-x-2 sm:space-x-4 relative z-[200]">
+        <div className="flex items-center  sm:space-x-4 relative z-[200]">
           {/* User Info */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
@@ -132,16 +134,12 @@ const DashboardHeader = () => {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Menu button clicked, current state:', isMobileMenuOpen);
                 setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
-              onTouchStart={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Menu button touched, current state:', isMobileMenuOpen);
-                setIsMobileMenuOpen(!isMobileMenuOpen);
+              style={{
+                touchAction: "manipulation",
+                WebkitTapHighlightColor: "transparent",
               }}
-              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
               className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors relative z-[200] cursor-pointer"
               aria-label="Toggle menu"
               type="button"
@@ -179,16 +177,17 @@ const DashboardHeader = () => {
 
             {/* Mobile Menu Dropdown */}
             {isMobileMenuOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-[#7d7cd9] border border-white/20 rounded-xl shadow-lg z-[200] overflow-hidden" style={{ position: 'absolute', top: '100%', right: 0 }}>
+              <div
+                className="absolute top-full right-0 mt-2 w-44 bg-white border border-white/20 rounded-lg shadow-lg z-[200] overflow-hidden"
+                style={{ position: "absolute", top: "100%", right: 0 }}
+              >
                 <button
                   onClick={() => {
                     setSelectedTab("Dashboard");
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
-                    selectedTab === "Dashboard"
-                      ? "bg-[#6664D3] text-white"
-                      : "text-white/70 hover:bg-[#6664D3] hover:text-white"
+                  className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
+                    selectedTab === "Dashboard" ? " text-[#6664D3]" : ""
                   }`}
                   type="button"
                 >
@@ -198,11 +197,10 @@ const DashboardHeader = () => {
                   onClick={() => {
                     setSelectedTab("Amalia Corner");
                     setIsMobileMenuOpen(false);
+                    navigate("/amalia-corner");
                   }}
-                  className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors border-t border-white/10 ${
-                    selectedTab === "Amalia Corner"
-                      ? "bg-[#6664D3] text-white"
-                      : "text-white/70 hover:bg-[#6664D3] hover:text-white"
+                  className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors border-t border-[#6664D3] ${
+                    selectedTab === "Amalia Corner" ? "text-[#6664D3]" : ""
                   }`}
                   type="button"
                 >
