@@ -139,7 +139,6 @@ const AmaliaCornerLayout = () => {
           </div>
         </div>
 
-        {/* Chat Input Footer */}
         <ChatInputFooter />
       </div>
     </div>
