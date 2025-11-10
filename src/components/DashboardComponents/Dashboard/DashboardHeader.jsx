@@ -25,6 +25,12 @@ const DashboardHeader = () => {
 
   return (
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-hidden">
+      {/* Top background image */}
+      <img
+        src="/assets/images/dashboard/dashtop.png"
+        alt="dashboard top background"
+        className="absolute top-0 left-0 w-[613px] z-50 h-[515px] object-cover object-top"
+      />
       <div className="relative z-10 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -189,6 +195,11 @@ const DashboardHeader = () => {
       <div className="relative z-10">
         <Hero />
       </div>
+      <img
+        src="/assets/images/dashboard/dashbottom.png"
+        alt="dashboard bottom background"
+        className="absolute bottom-0 right-0 w-[613px] z-50 h-[515px] z-50 object-cover object-bottom"
+      />
     </header>
   );
 };
