@@ -6,6 +6,10 @@ const DashboardHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
+  useEffect(() => {
+    console.log('Mobile menu state changed:', isMobileMenuOpen);
+  }, [isMobileMenuOpen]);
+
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -16,22 +20,24 @@ const DashboardHeader = () => {
 
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-hidden">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible md:overflow-hidden">
       {/* Top background image */}
       <img
         src="/assets/images/dashboard/dashtop.png"
         alt="dashboard top background"
-        className="absolute top-0 left-0 w-[613px] z-50 h-[515px] object-cover object-top"
+        className="absolute top-0 left-0 w-[613px] z-0 h-[515px] object-cover object-top pointer-events-none"
       />
-      <div className="relative z-10 flex items-center justify-between">
+      <div className="relative z-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
           <img
@@ -66,7 +72,7 @@ const DashboardHeader = () => {
         </nav>
 
         {/* User Profile Section */}
-        <div className="flex items-center space-x-2 sm:space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4 relative z-[200]">
           {/* User Info */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
@@ -121,11 +127,24 @@ const DashboardHeader = () => {
           </button>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden relative z-[60]" ref={menuRef}>
+          <div className="md:hidden relative z-[200]" ref={menuRef}>
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors relative z-[60]"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Menu button clicked, current state:', isMobileMenuOpen);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
+              onTouchStart={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Menu button touched, current state:', isMobileMenuOpen);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
+              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors relative z-[200] cursor-pointer"
               aria-label="Toggle menu"
+              type="button"
             >
               {isMobileMenuOpen ? (
                 <svg
@@ -160,7 +179,7 @@ const DashboardHeader = () => {
 
             {/* Mobile Menu Dropdown */}
             {isMobileMenuOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-[#7d7cd9] border border-white/20 rounded-xl shadow-lg z-[60] overflow-hidden">
+              <div className="absolute top-full right-0 mt-2 w-48 bg-[#7d7cd9] border border-white/20 rounded-xl shadow-lg z-[200] overflow-hidden" style={{ position: 'absolute', top: '100%', right: 0 }}>
                 <button
                   onClick={() => {
                     setSelectedTab("Dashboard");
@@ -171,6 +190,7 @@ const DashboardHeader = () => {
                       ? "bg-[#6664D3] text-white"
                       : "text-white/70 hover:bg-[#6664D3] hover:text-white"
                   }`}
+                  type="button"
                 >
                   Dashboard
                 </button>
@@ -184,6 +204,7 @@ const DashboardHeader = () => {
                       ? "bg-[#6664D3] text-white"
                       : "text-white/70 hover:bg-[#6664D3] hover:text-white"
                   }`}
+                  type="button"
                 >
                   Amalia Corner
                 </button>
@@ -192,13 +213,13 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
-      <div className="relative z-10">
+      <div className="relative z-20">
         <Hero />
       </div>
       <img
         src="/assets/images/dashboard/dashbottom.png"
         alt="dashboard bottom background"
-        className="absolute bottom-0 right-0 w-[613px] z-50 h-[515px] z-50 object-cover object-bottom"
+        className="absolute bottom-0 right-0 w-[613px] z-0 h-[515px] object-cover object-bottom pointer-events-none"
       />
     </header>
   );

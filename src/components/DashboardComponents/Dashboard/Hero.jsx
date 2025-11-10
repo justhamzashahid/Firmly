@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Hero = () => {
   const [currentMetric, setCurrentMetric] = useState(0);
+
+  useEffect(() => {
+    console.log("Current metric changed:", currentMetric);
+  }, [currentMetric]);
 
   const metrics = [
     {
@@ -12,12 +16,12 @@ const Hero = () => {
     {
       name: "Self-Belief",
       description:
-        "Confidence in one's own abilities and judgment. People with high self-belief trust their capabilities and make decisions with conviction.",
+        "Confidence in one's own abilities and judgment. People with high self-belief trust their capabilities and make conviction.",
     },
     {
       name: "Resilience",
       description:
-        "The capacity to recover quickly from difficulties. Resilient individuals adapt well to adversity and maintain their performance under stress.",
+        "The capacity to recover quickly from difficulties. Resilient individuals adapt well to adversity and maintain their  stress.",
     },
     {
       name: "Empathy",
@@ -32,7 +36,7 @@ const Hero = () => {
     {
       name: "Engagement",
       description:
-        "The level of involvement and enthusiasm in work. Engaged employees are more productive and contribute positively to organizational goals.",
+        "The level of involvement and enthusiasm in work. Engaged employees are more productive and contribute positively goals.",
     },
   ];
 
@@ -93,7 +97,7 @@ const Hero = () => {
             </div>
 
             {/* Metric Explanation Card */}
-            <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
+            <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4 relative z-30">
               <div className="flex  lg:flex-row flex-col justify-between">
                 <p className="text-white/70 text-sm lg:text-base mb-4 lg:mb-0 font-inter">
                   Understanding your metrics
@@ -119,14 +123,33 @@ const Hero = () => {
               {/* Start a Debrief Button */}
 
               {/* Navigation Arrows */}
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 relative z-40">
                 <button
-                  onClick={prevMetric}
-                  className="w-10 h-10 rounded-xl bg-transparent border border-white/20  text-white flex items-center justify-center transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Prev button clicked");
+                    prevMetric();
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Prev button touched");
+                    prevMetric();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                  }}
+                  style={{
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "transparent",
+                  }}
+                  className="w-10 h-10 rounded-xl bg-transparent border border-white/20 text-white flex items-center justify-center transition-colors active:bg-white/10 relative z-40 cursor-pointer"
                   aria-label="Previous metric"
+                  type="button"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 pointer-events-none"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -140,12 +163,31 @@ const Hero = () => {
                   </svg>
                 </button>
                 <button
-                  onClick={nextMetric}
-                  className="w-10 h-10 rounded-xl bg-transparent border border-white/20  text-white flex items-center justify-center transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Next button clicked");
+                    nextMetric();
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Next button touched");
+                    nextMetric();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                  }}
+                  style={{
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "transparent",
+                  }}
+                  className="w-10 h-10 rounded-xl bg-transparent border border-white/20 text-white flex items-center justify-center transition-colors active:bg-white/10 relative z-40 cursor-pointer"
                   aria-label="Next metric"
+                  type="button"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 pointer-events-none"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
