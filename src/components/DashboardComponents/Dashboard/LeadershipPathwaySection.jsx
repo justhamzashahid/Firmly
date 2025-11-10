@@ -2,8 +2,7 @@ import React from 'react';
 
 const LeadershipPathwaySection = () => {
   return (
-    <section className="bg-white py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-white py-8 sm:py-12 lg:py-16">
         {/* Section Header */}
         <div className="mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
@@ -58,7 +57,6 @@ const LeadershipPathwaySection = () => {
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 };
