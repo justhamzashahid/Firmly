@@ -8,11 +8,9 @@ import SummaryCard from "./SummaryCard";
 import ChatInputFooter from "./ChatInputFooter";
 
 const AmaliaCornerLayout = () => {
-  // Start collapsed on mobile, open on desktop
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   useEffect(() => {
-    // Set initial state based on screen size
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsSidebarCollapsed(false);
@@ -20,31 +18,24 @@ const AmaliaCornerLayout = () => {
         setIsSidebarCollapsed(true);
       }
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Prevent body scrolling on mobile when sidebar is open
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
     if (isMobile && !isSidebarCollapsed) {
-      // Save current scroll position
       const scrollY = window.scrollY;
-      // Prevent scrolling
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-
       return () => {
-        // Restore scrolling
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.width = "";
         document.body.style.overflow = "";
-        // Restore scroll position
         window.scrollTo(0, scrollY);
       };
     }
@@ -91,68 +82,47 @@ const AmaliaCornerLayout = () => {
 
   return (
     <div className="flex flex-col md:flex-row h-full overflow-hidden">
-      {/* Sidebar */}
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
       />
-
-      {/* Main Content */}
       <div className="flex-1  flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC] relative">
-        {/* Chat Header */}
         <ChatHeader
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
-
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto max-w-5xl mx-auto lg:px-0 px-4 pb-24">
-          {/* Chat Message */}
+        <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24">
           <ChatMessage message={message} />
-
-          {/* Progress Bars */}
           <ProgressBarsSection />
-
-          {/* Glow Areas */}
           <TextBlock
             title="Based on your profile, I can see your Glow Areas (strengths) are:"
             items={glowAreas}
             bgColor="bg-[#F5F5FF]"
           />
-
-          {/* Grow Areas */}
           <TextBlock
             title="Your Grow Areas (development opportunities) are:"
             items={growAreas}
             bgColor="bg-[#F5F5FF]"
           />
-
-          {/* Summary Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
             <SummaryCard
               title="Doing great"
               subtitle="Your female talent is thriving in the following domains."
               items={doingGreatItems}
               bgColor="bg-[#378C78]"
-              iconColor="text-teal-200"
-              iconImage="/assets/images/dashboard/doing.png"
+              iconImage="/assets/images/dashboard/doing.webp"
             />
             <SummaryCard
               title="Growth areas"
               subtitle="These areas need your immediate attention to balance workplace wellbeing."
               items={growthAreasItems}
               bgColor="bg-[#C56A55]"
-              iconColor="text-orange-200"
-              iconImage="/assets/images/dashboard/growth.png"
+              iconImage="/assets/images/dashboard/growth.webp"
             />
           </div>
-
-          {/* Dashboard Information */}
           <p className="text-sm md:text-base font-inter-regular text-black  mb-6 md:mb-8 bg-[#F5F5FF] p-4 rounded-xl">
             You can now view your Glow and Grow areas at all times on your
             dashboard. I will help you to work on them and improve your skills.
           </p>
-
-          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8 max-w-2xl mx-auto">
             <button className="flex-1 px-5  py-4  bg-[#F5F5F5]  text-[#578DDD] rounded-xl font-medium transition-colors text-sm md:text-base">
               Generate my Leadership Pathway
@@ -162,8 +132,6 @@ const AmaliaCornerLayout = () => {
             </button>
           </div>
         </div>
-
-        {/* Fixed Footer */}
         <div
           className={`absolute bottom-0 left-0 right-0 ${
             isSidebarCollapsed ? "z-50" : ""

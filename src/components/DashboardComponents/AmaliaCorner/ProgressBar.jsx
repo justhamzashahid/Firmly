@@ -18,7 +18,6 @@ const ProgressBar = ({
 
   const barColor = colorClasses[color] || colorClasses.green;
   const isHigherThanPeers = yourScore > peersScore;
-  // Set default vector position from prop or peers score, slightly offset to the right
   const [vectorPosition, setVectorPosition] = useState(() =>
     initialVectorPosition !== undefined
       ? Math.min(initialVectorPosition, 100)
@@ -29,14 +28,12 @@ const ProgressBar = ({
 
   const updateVectorPosition = useCallback((clientX) => {
     if (!barRef.current) return;
-
     const rect = barRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
     const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
     setVectorPosition(percentage);
   }, []);
 
-  // Mouse event handlers
   const handleMouseDown = useCallback(
     (e) => {
       e.preventDefault();
@@ -59,7 +56,6 @@ const ProgressBar = ({
     setIsDragging(false);
   }, []);
 
-  // Touch event handlers for mobile
   const handleTouchStart = useCallback(
     (e) => {
       e.preventDefault();
@@ -85,7 +81,6 @@ const ProgressBar = ({
     setIsDragging(false);
   }, []);
 
-  // Add global mouse and touch event listeners when dragging
   useEffect(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
@@ -111,13 +106,10 @@ const ProgressBar = ({
 
   return (
     <div className="mb-4 md:mb-6">
-      {/* Label */}
       <div className="flex items-center justify-between mb-2 gap-4">
         <span className="text-sm md:text-base font-semibold text-[#3D3D3D] font-inter">
           {label}
         </span>
-
-        {/* Scores above the bar */}
         <div className="flex items-center  gap-4">
           {isHigherThanPeers ? (
             <>
@@ -140,13 +132,10 @@ const ProgressBar = ({
           )}
         </div>
       </div>
-
-      {/* Progress Bar */}
       <div
         ref={barRef}
         className="relative h-3.5 bg-gray-100 rounded-full overflow-visible"
       >
-        {/* Your score bar - full width colored bar */}
         <div
           className={`${barColor} h-full rounded-full`}
           style={{
@@ -155,8 +144,6 @@ const ProgressBar = ({
             transform: "translateZ(0)",
           }}
         />
-
-        {/* Vector image - draggable */}
         <div
           className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 z-20 cursor-grab active:cursor-grabbing touch-none select-none"
           style={{
@@ -168,7 +155,7 @@ const ProgressBar = ({
           onTouchStart={handleTouchStart}
         >
           <img
-            src="/assets/images/dashboard/vector.png"
+            src="/assets/images/dashboard/vector.webp"
             alt="Vector"
             className="w-5 h-5 object-contain pointer-events-none"
             draggable={false}

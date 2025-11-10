@@ -3,7 +3,6 @@ import React from "react";
 const SummaryCard = ({ title, subtitle, items, bgColor, iconImage }) => {
   return (
     <div className={`${bgColor} rounded-2xl p-5 relative overflow-hidden`}>
-      {/* Icon */}
       {iconImage && (
         <img
           src={iconImage}
@@ -11,8 +10,6 @@ const SummaryCard = ({ title, subtitle, items, bgColor, iconImage }) => {
           className=" top-2 left-4    2xl:w-28 2xl:h-28 xl:w-24 xl:h-24 lg:w-20 lg:h-20 w-16 h-16"
         />
       )}
-
-      {/* Content */}
       <div className="relative z-10 mt-4">
         <h3 className="text-xl md:text-2xl lg:text-2xl font-bold text-white mb-2 font-cormorant">
           {title}
@@ -20,8 +17,6 @@ const SummaryCard = ({ title, subtitle, items, bgColor, iconImage }) => {
         <p className="text-xs text-[#FFFFFF]/70 mb-4 md:mb-6 font-inter-medium">
           {subtitle}
         </p>
-
-        {/* Items List */}
         <div className="space-y-3 md:space-y-4">
           {items.map((item, index) => (
             <div

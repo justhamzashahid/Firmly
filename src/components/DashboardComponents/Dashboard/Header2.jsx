@@ -7,7 +7,6 @@ const Header2 = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -29,16 +28,13 @@ const Header2 = () => {
   return (
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 relative overflow-visible md:overflow-hidden">
       <div className="relative z-20 flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center">
           <img
-            src="/assets/images/dashboard/logowhite.png"
+            src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
             className="h-auto w-20"
           />
         </div>
-
-        {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => {
@@ -67,14 +63,11 @@ const Header2 = () => {
             Amalia Corner
           </button>
         </nav>
-
-        {/* User Profile Section */}
         <div className="flex items-center  sm:space-x-4 relative z-[200]">
-          {/* User Info */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
               <img
-                src="/assets/images/dashboard/starwhite.png"
+                src="/assets/images/dashboard/starwhite.webp"
                 alt="user icon"
                 className="h-5 w-5 sm:h-6 sm:w-6"
               />
@@ -84,8 +77,6 @@ const Header2 = () => {
               </span>
             </div>
           </div>
-
-          {/* Notifications */}
           <button className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors">
             <svg
               className="w-7 h-7 sm:w-8 sm:h-8"
@@ -102,8 +93,6 @@ const Header2 = () => {
             </svg>
             <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full"></span>
           </button>
-
-          {/* Language Selector */}
           <button className="flex items-center space-x-2 text-white  px-3 py-2 rounded-lg transition-colors">
             <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl ">
               LT
@@ -122,8 +111,6 @@ const Header2 = () => {
               />
             </svg>
           </button>
-
-          {/* Mobile Menu Button */}
           <div className="md:hidden relative z-[200]" ref={menuRef}>
             <button
               onClick={(e) => {
@@ -169,8 +156,6 @@ const Header2 = () => {
                 </svg>
               )}
             </button>
-
-            {/* Mobile Menu Dropdown */}
             {isMobileMenuOpen && (
               <div
                 className="absolute top-full right-0 mt-2 w-44 bg-white border border-white/20 rounded-lg shadow-lg z-[200] overflow-hidden"

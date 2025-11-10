@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Hero = () => {
   const [currentMetric, setCurrentMetric] = useState(0);
-
-  useEffect(() => {
-    console.log("Current metric changed:", currentMetric);
-  }, [currentMetric]);
 
   const metrics = [
     {
@@ -69,14 +65,13 @@ const Hero = () => {
             </div>
             <div className="flex items-center justify-center">
               <img
-                src="/assets/images/dashboard/poly.png"
+                src="/assets/images/dashboard/poly.webp"
                 alt="star icon"
                 className="lg:h-[350px] lg:w-[430px] h-full w-full"
               />
             </div>
           </div>
           <div className="space-y-4">
-            {/* Overall Score Card */}
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
               <p className="text-white/70 text-sm lg:text-base font-inter">
                 Your overall score
@@ -95,8 +90,6 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-
-            {/* Metric Explanation Card */}
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4 relative z-30">
               <div className="flex  lg:flex-row flex-col justify-between">
                 <p className="text-white/70 text-sm lg:text-base mb-4 lg:mb-0 font-inter">
@@ -104,7 +97,7 @@ const Hero = () => {
                 </p>
                 <button className=" bg-white  font-medium py-3 px-6 rounded-xl flex items-center justify-center space-x-2 transition-colors mb-4">
                   <img
-                    src="/assets/images/dashboard/starpurple.png"
+                    src="/assets/images/dashboard/starpurple.webp"
                     alt="star icon"
                     className="h-5 w-5"
                   />
@@ -119,22 +112,16 @@ const Hero = () => {
                   {metrics[currentMetric].description}
                 </p>
               </div>
-
-              {/* Start a Debrief Button */}
-
-              {/* Navigation Arrows */}
               <div className="flex items-center space-x-4 relative z-40">
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log("Prev button clicked");
                     prevMetric();
                   }}
                   onTouchStart={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log("Prev button touched");
                     prevMetric();
                   }}
                   onTouchEnd={(e) => {
@@ -166,13 +153,11 @@ const Hero = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log("Next button clicked");
                     nextMetric();
                   }}
                   onTouchStart={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log("Next button touched");
                     nextMetric();
                   }}
                   onTouchEnd={(e) => {

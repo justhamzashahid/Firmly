@@ -5,14 +5,12 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
 
   return (
     <>
-      {/* Mobile overlay */}
       {!isCollapsed && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50  z-40 md:hidden"
           onClick={onToggleCollapse}
         />
       )}
-      {/* Desktop toggle button when sidebar is collapsed */}
       {isCollapsed && (
         <button
           onClick={onToggleCollapse}
@@ -42,7 +40,6 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
             : "w-3/4 md:w-1/4 lg:w-1/5 translate-x-0 mr-4"
         } fixed md:relative z-50 md:z-auto flex flex-col h-screen`}
       >
-        {/* Header */}
         <div className="px-5 py-3 flex items-center justify-between">
           <h2 className="text-xl md:text-2xl font-semibold text-black font-cormorant">
             {!isCollapsed && "All Conversations"}
@@ -67,8 +64,6 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
             </svg>
           </button>
         </div>
-
-        {/* Search Bar */}
         <div className="p-3">
           <input
             type="text"
@@ -78,15 +73,11 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
             className="w-full px-4 text-[#9E9CAE] font-inter py-3 bg-transparent border-[1px] border-[#ECECEC] rounded-xl  focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] text-sm md:text-base"
           />
         </div>
-
-        {/* Recent Section */}
         <div className="px-3  py-3 mb-2">
           <h3 className="text-xs md:text-sm font-semibold text-black/30 uppercase tracking-wide">
             Recent
           </h3>
         </div>
-
-        {/* Conversation List */}
         <div className="flex-1 overflow-y-auto px-3 pb-4">
           <div className="bg-[#F5F5F5] rounded-xl border border-[#ECECEC] p-3  mb-2 cursor-pointer  transition-colors">
             <p className="text-xs text-[#3D3D3D]/60 mb-1">

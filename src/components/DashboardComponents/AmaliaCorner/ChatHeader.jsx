@@ -3,7 +3,6 @@ import React from "react";
 const ChatHeader = ({ onMenuClick }) => {
   return (
     <div className="p-4  flex items-center gap-4">
-      {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
         className="md:hidden text-gray-600 hover:text-gray-900 transition-colors p-2"

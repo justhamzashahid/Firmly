@@ -8,7 +8,6 @@ const DashboardHeader = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -29,23 +28,19 @@ const DashboardHeader = () => {
 
   return (
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible md:overflow-hidden">
-      {/* Top background image */}
       <img
-        src="/assets/images/dashboard/dashtop.png"
+        src="/assets/images/dashboard/dashtop.webp"
         alt="dashboard top background"
         className="absolute top-0 left-0 w-[613px] z-0 h-[515px] object-cover object-top pointer-events-none"
       />
       <div className="relative z-20 flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center">
           <img
-            src="/assets/images/dashboard/logowhite.png"
+            src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
             className="h-auto w-20"
           />
         </div>
-
-        {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => {
@@ -74,14 +69,11 @@ const DashboardHeader = () => {
             Amalia Corner
           </button>
         </nav>
-
-        {/* User Profile Section */}
         <div className="flex items-center  sm:space-x-4 relative z-[200]">
-          {/* User Info */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
               <img
-                src="/assets/images/dashboard/starwhite.png"
+                src="/assets/images/dashboard/starwhite.webp"
                 alt="user icon"
                 className="h-5 w-5 sm:h-6 sm:w-6"
               />
@@ -91,8 +83,6 @@ const DashboardHeader = () => {
               </span>
             </div>
           </div>
-
-          {/* Notifications */}
           <button className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors">
             <svg
               className="w-7 h-7 sm:w-8 sm:h-8"
@@ -109,8 +99,6 @@ const DashboardHeader = () => {
             </svg>
             <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full"></span>
           </button>
-
-          {/* Language Selector */}
           <button className="flex items-center space-x-2 text-white  px-3 py-2 rounded-lg transition-colors">
             <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl ">
               LT
@@ -129,8 +117,6 @@ const DashboardHeader = () => {
               />
             </svg>
           </button>
-
-          {/* Mobile Menu Button */}
           <div className="md:hidden relative z-[200]" ref={menuRef}>
             <button
               onClick={(e) => {
@@ -176,8 +162,6 @@ const DashboardHeader = () => {
                 </svg>
               )}
             </button>
-
-            {/* Mobile Menu Dropdown */}
             {isMobileMenuOpen && (
               <div
                 className="absolute top-full right-0 mt-2 w-44 bg-white border border-white/20 rounded-lg shadow-lg z-[200] overflow-hidden"
@@ -217,7 +201,7 @@ const DashboardHeader = () => {
         <Hero />
       </div>
       <img
-        src="/assets/images/dashboard/dashbottom.png"
+        src="/assets/images/dashboard/dashbottom.webp"
         alt="dashboard bottom background"
         className="absolute bottom-0 right-0 w-[613px] z-0 h-[515px] object-cover object-bottom pointer-events-none"
       />
