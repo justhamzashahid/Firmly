@@ -1,12 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Hero from "./Hero";
 
 const DashboardHeader = () => {
-  const [selectedTab, setSelectedTab] = useState("Dashboard");
+  const location = useLocation();
+  const [selectedTab, setSelectedTab] = useState(
+    location.pathname === "/amalia-corner" ? "Amalia Corner" : "Dashboard"
+  );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === "/amalia-corner") {
+      setSelectedTab("Amalia Corner");
+    } else if (location.pathname === "/dashboard") {
+      setSelectedTab("Dashboard");
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
