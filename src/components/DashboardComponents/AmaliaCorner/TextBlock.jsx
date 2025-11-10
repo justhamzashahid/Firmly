@@ -1,14 +1,17 @@
 import React from "react";
 
-const TextBlock = ({ title, items, bgColor = "bg-purple-50" }) => {
+const TextBlock = ({ title, items, bgColor = "bg-[#F5F5FF]" }) => {
   return (
-    <div className={`${bgColor} rounded-lg p-4 md:p-6 mb-4 md:mb-6`}>
-      <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-3 md:mb-4">
+    <div className={`${bgColor} rounded-xl p-4  mb-4 md:mb-6`}>
+      <h3 className="text-sm md:text-base  text-black mb-1 font-inter-regular">
         {title}
       </h3>
-      <ul className="space-y-2 md:space-y-3">
+      <ul className="space-y-1">
         {items.map((item, index) => (
-          <li key={index} className="text-sm md:text-base text-gray-800">
+          <li
+            key={index}
+            className="text-sm md:text-base font-inter-regular text-black"
+          >
             • {item}
           </li>
         ))}
@@ -18,4 +21,3 @@ const TextBlock = ({ title, items, bgColor = "bg-purple-50" }) => {
 };
 
 export default TextBlock;
-
