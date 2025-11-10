@@ -2,7 +2,7 @@ import React from "react";
 
 const GrowAndGlowSection = () => {
   return (
-    <section className="py-8 lg:py-12">
+    <section data-tour="grow-glow" className="py-8 lg:py-12">
       {/* Section Header */}
       <div className="mb-6">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-1 font-cormorant">

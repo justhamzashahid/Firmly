@@ -61,12 +61,12 @@ const Hero = () => {
         </p>
       </div>
       <div className="relative mt-7">
-        <div className="flex items-center text-white text-sm ">
-          <span className="w-2 h-2 bg-[#FFCD4F] rounded-full mr-2"></span>
-          Today
-        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center lg:mt-0 mt-5">
-          <div>
+          <div data-tour="radar-chart">
+            <div className="flex items-center text-white text-sm ">
+              <span className="w-2 h-2 bg-[#FFCD4F] rounded-full mr-2"></span>
+              Today
+            </div>
             <div className="flex items-center justify-center">
               <img
                 src="/assets/images/dashboard/poly.png"
@@ -75,7 +75,7 @@ const Hero = () => {
               />
             </div>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4" data-tour="overall-score">
             {/* Overall Score Card */}
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
               <p className="text-white/70 text-sm lg:text-base font-inter">
