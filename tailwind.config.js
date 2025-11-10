@@ -5,11 +5,16 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          dark: '#5C4B9B',
-          DEFAULT: '#6B5BA8',
-          light: '#8A7BBF',
-          lighter: '#9A8BCF',
+          dark: "#5C4B9B",
+          DEFAULT: "#6B5BA8",
+          light: "#8A7BBF",
+          lighter: "#9A8BCF",
         },
+      },
+      fontFamily: {
+        cormorant: ["Cormorant", "serif"],
+        inter: ["Inter", "sans-serif"],
+        "times-new-roman": ['"Times New Roman"', "Times", "serif"],
       },
     },
   },

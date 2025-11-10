@@ -47,10 +47,10 @@ const Hero = () => {
   return (
     <section className="relative py-8  overflow-hidden">
       <div className="text-white">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white font-sans">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white font-cormorant">
           Welcome, Lily
         </h1>
-        <p className="text-base lg:text-lg text-white/70 mb-4  font-sans max-w-2xl ">
+        <p className="text-base lg:text-lg text-white/70 mb-4  font-inter max-w-2xl ">
           This visual summary displays your scores across six research-backed
           metrics that impact women's workplace effectiveness and leadership
           potential.
@@ -74,18 +74,18 @@ const Hero = () => {
           <div className="space-y-4">
             {/* Overall Score Card */}
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
-              <p className="text-white/70 text-sm lg:text-base">
+              <p className="text-white/70 text-sm lg:text-base font-inter">
                 Your overall score
               </p>
               <div className="flex items-center justify-between ">
-                <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                <h2 className="text-2xl sm:text-4xl font-bold text-white font-cormorant">
                   Balanced
                 </h2>
                 <div className="flex items-baseline">
-                  <span className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white">
+                  <span className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white font-times-new-roman ">
                     65
                   </span>
-                  <span className="text-2xl sm:text-3xl text-white/40 ml-2">
+                  <span className="text-2xl sm:text-3xl text-white/40 ml-2 font-times-new-roman">
                     /100
                   </span>
                 </div>
@@ -95,7 +95,7 @@ const Hero = () => {
             {/* Metric Explanation Card */}
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
               <div className="flex  lg:flex-row flex-col justify-between">
-                <p className="text-white/70 text-sm lg:text-base mb-4 lg:mb-0">
+                <p className="text-white/70 text-sm lg:text-base mb-4 lg:mb-0 font-inter">
                   Understanding your metrics
                 </p>
                 <button className=" bg-white  font-medium py-3 px-6 rounded-xl flex items-center justify-center space-x-2 transition-colors mb-4">
@@ -107,11 +107,11 @@ const Hero = () => {
                   <span className="text-[#6664D3]">Start a Debrief</span>
                 </button>
               </div>
-              <div className="max-w-lg">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
+              <div className="max-w-md">
+                <h3 className="text-xl sm:text-3xl font-bold text-white mb-2 font-cormorant">
                   {metrics[currentMetric].name}
                 </h3>
-                <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-6">
+                <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-6 font-inter">
                   {metrics[currentMetric].description}
                 </p>
               </div>

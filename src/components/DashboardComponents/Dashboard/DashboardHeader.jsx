@@ -45,7 +45,7 @@ const DashboardHeader = () => {
         <nav className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => setSelectedTab("Dashboard")}
-            className={`px-6 py-2 rounded-xl transition-colors ${
+            className={`px-6 py-2 rounded-xl transition-colors  ${
               selectedTab === "Dashboard"
                 ? "bg-[#7d7cd9] border border-white/20 text-white"
                 : "text-white/70 hover:text-white"
@@ -55,7 +55,7 @@ const DashboardHeader = () => {
           </button>
           <button
             onClick={() => setSelectedTab("Amalia Corner")}
-            className={`px-6 py-2 rounded-xl transition-colors ${
+            className={`px-6 py-2 rounded-xl transition-colors  ${
               selectedTab === "Amalia Corner"
                 ? "bg-[#7d7cd9] border border-white/20 text-white"
                 : "text-white/70 hover:text-white"
