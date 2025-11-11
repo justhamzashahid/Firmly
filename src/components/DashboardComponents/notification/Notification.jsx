@@ -57,6 +57,29 @@ const NotificationPopup = ({ isOpen, onClose }) => {
     },
   ];
 
+  // Prevent body scroll when popup is open (especially on mobile)
+  useEffect(() => {
+    if (isOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+
+      // Prevent scrolling on body
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        // Restore scrolling when popup closes
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isOpen]);
+
   // Close popup when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -81,13 +104,10 @@ const NotificationPopup = ({ isOpen, onClose }) => {
   return (
     <>
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 z-[299] bg-black/20"
-        onClick={onClose}
-      ></div>
+      <div className="fixed inset-0 z-[299] " onClick={onClose}></div>
 
       {/* Popup */}
-      <div className="fixed z-[300] top-20  right-0 sm:right-8 md:right-12 lg:right-16">
+      <div className="fixed z-[300] top-20   right-0 sm:right-8 md:right-12 lg:right-16">
         <div
           className=" shadow-2xl w-full max-w-md border border-gray-200 overflow-hidden"
           ref={popupRef}
@@ -138,7 +158,7 @@ const NotificationPopup = ({ isOpen, onClose }) => {
           </div>
 
           {/* Notifications List */}
-          <div className="max-h-[600px] overflow-y-auto bg-white">
+          <div className="lg:max-h-[600px] max-h-[500px] overflow-y-auto bg-white">
             {notifications.map((notification, index) => (
               <div key={notification.id}>
                 <div className="px-4 py-4 hover:bg-gray-50 transition-colors">

@@ -27,7 +27,10 @@ const Header2 = () => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMobileMenuOpen(false);
       }
-      if (ltDropdownRef.current && !ltDropdownRef.current.contains(event.target)) {
+      if (
+        ltDropdownRef.current &&
+        !ltDropdownRef.current.contains(event.target)
+      ) {
         setIsLTDropdownOpen(false);
       }
     };
@@ -164,7 +167,7 @@ const Header2 = () => {
                 touchAction: "manipulation",
                 WebkitTapHighlightColor: "transparent",
               }}
-              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors relative z-[200] cursor-pointer"
+              className="text-white p-2 rounded-lg  transition-colors relative z-[200] cursor-pointer"
               aria-label="Toggle menu"
               type="button"
             >
