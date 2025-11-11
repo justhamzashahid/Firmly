@@ -5,9 +5,11 @@ import NotificationPopup from "../notification/Notification";
 
 const DashboardHeader = () => {
   const location = useLocation();
-  const [selectedTab, setSelectedTab] = useState(
-    location.pathname === "/amalia-corner" ? "Amalia Corner" : "Dashboard"
-  );
+  const [selectedTab, setSelectedTab] = useState(() => {
+    if (location.pathname === "/amalia-corner") return "Amalia Corner";
+    if (location.pathname === "/dashboard") return "Dashboard";
+    return null;
+  });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLTDropdownOpen, setIsLTDropdownOpen] = useState(false);
@@ -20,6 +22,8 @@ const DashboardHeader = () => {
       setSelectedTab("Amalia Corner");
     } else if (location.pathname === "/dashboard") {
       setSelectedTab("Dashboard");
+    } else {
+      setSelectedTab(null);
     }
   }, [location.pathname]);
 
