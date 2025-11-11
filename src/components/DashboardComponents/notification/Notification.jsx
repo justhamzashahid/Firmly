@@ -87,7 +87,7 @@ const NotificationPopup = ({ isOpen, onClose }) => {
       ></div>
 
       {/* Popup */}
-      <div className="fixed z-[300] top-20 right-4 sm:right-8 md:right-12 lg:right-16">
+      <div className="fixed z-[300] top-20  right-0 sm:right-8 md:right-12 lg:right-16">
         <div
           className=" shadow-2xl w-full max-w-md border border-gray-200 overflow-hidden"
           ref={popupRef}
@@ -195,10 +195,10 @@ const NotificationPopup = ({ isOpen, onClose }) => {
                       {/* Action Buttons */}
                       {notification.hasActions && (
                         <div className="flex items-center space-x-2 mt-3">
-                          <button className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">
+                          <button className="px-4 py-2 bg-[#3D3D3D] text-[#F5F5F5] rounded-xl text-sm font-inter-medium hover:bg-gray-700 transition-colors">
                             Accept
                           </button>
-                          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">
                             ignore
                           </button>
                         </div>

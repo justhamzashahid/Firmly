@@ -9,7 +9,9 @@ const Header2 = () => {
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isLTDropdownOpen, setIsLTDropdownOpen] = useState(false);
   const menuRef = useRef(null);
+  const ltDropdownRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,9 +27,12 @@ const Header2 = () => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMobileMenuOpen(false);
       }
+      if (ltDropdownRef.current && !ltDropdownRef.current.contains(event.target)) {
+        setIsLTDropdownOpen(false);
+      }
     };
 
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isLTDropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.addEventListener("touchstart", handleClickOutside);
     }
@@ -36,10 +41,10 @@ const Header2 = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, isLTDropdownOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 overflow-visible md:overflow-hidden">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 overflow-visible">
       <div className="relative z-20 flex items-center justify-between">
         <div className="flex items-center">
           <img
@@ -109,24 +114,45 @@ const Header2 = () => {
             </svg>
             <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full"></span>
           </button>
-          <button className="flex items-center space-x-2 text-white  px-3 py-2 rounded-lg transition-colors">
-            <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl ">
-              LT
-            </span>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div className="relative z-[200]" ref={ltDropdownRef}>
+            <button
+              onClick={() => setIsLTDropdownOpen(!isLTDropdownOpen)}
+              className="flex items-center space-x-2 text-white px-3 py-2 rounded-lg transition-colors "
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
+              <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl ">
+                LT
+              </span>
+              <svg
+                className={`w-4 h-4 transition-transform ${
+                  isLTDropdownOpen ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {isLTDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-[300] overflow-hidden">
+                <button
+                  onClick={() => {
+                    setIsLTDropdownOpen(false);
+                    // Add navigation to account settings here if needed
+                  }}
+                  className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+                  type="button"
+                >
+                  Account settings
+                </button>
+              </div>
+            )}
+          </div>
           <div className="md:hidden relative z-[200]" ref={menuRef}>
             <button
               onClick={(e) => {

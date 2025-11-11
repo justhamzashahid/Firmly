@@ -133,8 +133,8 @@ const AmaliaCornerLayout = () => {
           </div>
         </div>
         <div
-          className={`absolute bottom-0 left-0 right-0 ${
-            isSidebarCollapsed ? "z-50" : ""
+          className={`absolute bottom-0  left-0 right-0 ${
+            isSidebarCollapsed ? "" : ""
           } `}
         >
           <ChatInputFooter />
