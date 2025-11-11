@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SettingsHeader() {
   return (
-    <div className="my-8">
+    <div className="lg:my-8 my-4">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-cormorant font-bold text-[#3D3D3D] mb-2">
         Account settings
       </h1>

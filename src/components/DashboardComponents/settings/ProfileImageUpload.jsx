@@ -37,7 +37,7 @@ export default function ProfileImageUpload({
         <h2 className="font-inter font-medium text-[#3D3D3D]/60">
           Profile image
         </h2>
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-row gap-3">
           <label className="cursor-pointer">
             <input
               type="file"

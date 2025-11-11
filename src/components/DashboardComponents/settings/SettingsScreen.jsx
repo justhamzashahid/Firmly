@@ -61,7 +61,6 @@ export default function SettingsScreen() {
     // Handle save logic here
     console.log("Saving personal information:", personalInfo);
   };
-  
 
   const handleChangePassword = () => {
     // Handle password change logic here
@@ -71,7 +70,7 @@ export default function SettingsScreen() {
   return (
     <div className="py-8">
       <SettingsHeader />
-      <main className="grid lg:grid-cols-12 bg-white gap-7 rounded-3xl shadow-md lg:p-8 p-5 items-stretch">
+      <main className="grid lg:grid-cols-12 bg-white lg:gap-7 gap-4 rounded-3xl shadow-md lg:p-8 p-5 items-stretch">
         <div className="lg:col-span-3 flex">
           <SettingsSidebar />
         </div>

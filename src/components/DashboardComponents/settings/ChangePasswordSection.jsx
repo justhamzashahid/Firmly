@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
 export default function ChangePasswordSection({
   passwordInfo,
   onPasswordChange,
-  onChangePassword
+  onChangePassword,
 }) {
   return (
-    <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm">
-      <div className="mb-6">
-        <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
+    <div className="shadow-sm p-4 lg:p-6 bg-[#fafafa] border-[#f2f2f2] border lg:rounded-3xl rounded-2xl">
+      <div className="mb-10">
+        <h2 className="text-xl lg:text-2xl font-cormorant font-bold text-[#3D3D3D] mb-1">
           Change password
         </h2>
-        <p className="text-sm sm:text-base text-gray-600">
+        <p className="text-sm sm:text-base text-[#3D3D3D]/60 font-inter font-medium">
           Your new password must be at least 8 characters long.
         </p>
       </div>
@@ -19,7 +19,7 @@ export default function ChangePasswordSection({
       {/* Password Form Fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Current password
           </label>
           <input
@@ -28,12 +28,12 @@ export default function ChangePasswordSection({
             value={passwordInfo.currentPassword}
             onChange={onPasswordChange}
             placeholder="Insert current password"
-            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6664D3] focus:border-transparent"
+            className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             New password
           </label>
           <input
@@ -42,12 +42,12 @@ export default function ChangePasswordSection({
             value={passwordInfo.newPassword}
             onChange={onPasswordChange}
             placeholder="Insert new password"
-            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6664D3] focus:border-transparent"
+            className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Confirm password
           </label>
           <input
@@ -56,7 +56,7 @@ export default function ChangePasswordSection({
             value={passwordInfo.confirmPassword}
             onChange={onPasswordChange}
             placeholder="Confirm new password"
-            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6664D3] focus:border-transparent"
+            className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function ChangePasswordSection({
       {/* Change Password Button */}
       <button
         onClick={onChangePassword}
-        className="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors font-medium text-sm sm:text-base"
+        className="px-6 py-3 bg-[#b0b0b0] text-[#F5F5F5] rounded-2xl transition-colors font-medium text-sm sm:text-base"
         type="button"
       >
         Change password
@@ -72,4 +72,3 @@ export default function ChangePasswordSection({
     </div>
   );
 }
-
