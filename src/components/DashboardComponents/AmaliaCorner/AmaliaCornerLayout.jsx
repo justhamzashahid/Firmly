@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import ChatHeader from "./ChatHeader";
 import ChatMessage from "./ChatMessage";
@@ -8,7 +9,9 @@ import SummaryCard from "./SummaryCard";
 import ChatInputFooter from "./ChatInputFooter";
 
 const AmaliaCornerLayout = () => {
+  const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,7 +44,7 @@ const AmaliaCornerLayout = () => {
     }
   }, [isSidebarCollapsed]);
 
-  const message = (
+  const initialMessage = (
     <>
       Hi, Lily, <br /> I'm so glad you decided to dive deeper into your results
       with me. What I see in your diagnostic is really quite insightful - it
@@ -55,6 +58,25 @@ const AmaliaCornerLayout = () => {
       environment.
     </>
   );
+
+  const handleGeneratePathway = () => {
+    const pathwayMessage = (
+      <>
+        Great! Let's work together to create your personalized Leadership Pathway. 
+        Based on your Glow and Grow areas, I'll help you develop a tailored plan 
+        to enhance your leadership skills and reach your full potential.
+        <br />
+        <br />
+        Let's start by discussing your goals and priorities. What would you like 
+        to focus on first?
+      </>
+    );
+    setMessages([...messages, pathwayMessage]);
+  };
+
+  const handleGoToDashboard = () => {
+    navigate("/dashboard");
+  };
 
   const glowAreas = [
     "Goal Orientation - You excel at setting and pursuing objectives",
@@ -91,7 +113,10 @@ const AmaliaCornerLayout = () => {
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
         <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24">
-          <ChatMessage message={message} />
+          <ChatMessage message={initialMessage} />
+          {messages.map((msg, index) => (
+            <ChatMessage key={index} message={msg} />
+          ))}
           <ProgressBarsSection />
           <TextBlock
             title="Based on your profile, I can see your Glow Areas (strengths) are:"
@@ -124,10 +149,16 @@ const AmaliaCornerLayout = () => {
             dashboard. I will help you to work on them and improve your skills.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4  max-w-2xl mx-auto">
-            <button className="flex-1 px-5  py-4  bg-[#F5F5F5]  text-[#578DDD] rounded-xl font-medium transition-colors text-sm md:text-base">
+            <button 
+              onClick={handleGeneratePathway}
+              className="flex-1 px-5  py-4  bg-[#F5F5F5]  text-[#578DDD] rounded-xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
+            >
               Generate my Leadership Pathway
             </button>
-            <button className="flex-1   py-3  bg-[#3D3D3D] text-[#F5F5F5] rounded-xl font-medium transition-colors text-sm md:text-base">
+            <button 
+              onClick={handleGoToDashboard}
+              className="flex-1   py-3  bg-[#3D3D3D] text-[#F5F5F5] rounded-xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
+            >
               Go to Dashboard
             </button>
           </div>
