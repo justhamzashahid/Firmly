@@ -83,13 +83,18 @@ const Header2 = () => {
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 py-2 px-4 sticky top-0 z-50">
       <div className="relative z-20 flex items-center justify-between h-16">
         {/* Logo */}
-        <div className="flex items-center">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+          type="button"
+          aria-label="Go to Dashboard"
+        >
           <img
             src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
             className="h-7 w-auto"
           />
-        </div>
+        </button>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-4">
@@ -140,7 +145,7 @@ const Header2 = () => {
           {/* Notification */}
           <div className="relative">
             <button
-              className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
+              className="relative text-white  p-2 rounded-lg transition-colors"
               onClick={() => setIsNotificationOpen((s) => !s)}
               aria-expanded={isNotificationOpen}
               aria-label="Toggle notifications"

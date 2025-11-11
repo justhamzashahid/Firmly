@@ -176,13 +176,18 @@ const DashboardHeader = () => {
       />
 
       <div className="relative z-20 flex items-center justify-between">
-        <div className="flex items-center">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+          type="button"
+          aria-label="Go to Dashboard"
+        >
           <img
             src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
             className="h-7 w-auto"
           />
-        </div>
+        </button>
 
         <nav className="hidden md:flex items-center space-x-4">
           <button
@@ -229,7 +234,7 @@ const DashboardHeader = () => {
 
           <button
             onClick={() => setIsNotificationOpen((s) => !s)}
-            className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
+            className="relative text-white  p-2 rounded-lg transition-colors"
             aria-expanded={isNotificationOpen}
             aria-label="Toggle notifications"
             type="button"
