@@ -146,7 +146,7 @@ const Header2 = () => {
                 <button
                   onClick={() => {
                     setIsLTDropdownOpen(false);
-                    // Add navigation to account settings here if needed
+                    navigate('/dashboard/account-settings');
                   }}
                   className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
                   type="button"

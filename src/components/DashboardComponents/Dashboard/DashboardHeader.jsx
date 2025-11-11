@@ -48,7 +48,7 @@ const DashboardHeader = () => {
   }, [isMobileMenuOpen, isLTDropdownOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible md:overflow-hidden">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible">
       <img
         src="/assets/images/dashboard/dashtop.webp"
         alt="dashboard top background"
@@ -123,7 +123,7 @@ const DashboardHeader = () => {
             </svg>
             <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full"></span>
           </button>
-          <div className="relative" ref={ltDropdownRef}>
+          <div className="relative z-[200]" ref={ltDropdownRef}>
             <button
               onClick={() => setIsLTDropdownOpen(!isLTDropdownOpen)}
               className="flex items-center space-x-2 text-white px-3 py-2 rounded-lg transition-colors "
@@ -148,11 +148,11 @@ const DashboardHeader = () => {
               </svg>
             </button>
             {isLTDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-white/20 rounded-lg shadow-lg z-[200] overflow-hidden">
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-[300] overflow-hidden">
                 <button
                   onClick={() => {
                     setIsLTDropdownOpen(false);
-                    // Add navigation to account settings here if needed
+                    navigate('/dashboard/account-settings');
                   }}
                   className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
                   type="button"
