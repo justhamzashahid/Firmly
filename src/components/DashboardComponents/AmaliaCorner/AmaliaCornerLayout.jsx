@@ -123,7 +123,7 @@ const AmaliaCornerLayout = () => {
             You can now view your Glow and Grow areas at all times on your
             dashboard. I will help you to work on them and improve your skills.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8 max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4  max-w-2xl mx-auto">
             <button className="flex-1 px-5  py-4  bg-[#F5F5F5]  text-[#578DDD] rounded-xl font-medium transition-colors text-sm md:text-base">
               Generate my Leadership Pathway
             </button>
@@ -134,7 +134,7 @@ const AmaliaCornerLayout = () => {
         </div>
         <div
           className={`absolute bottom-0  left-0 right-0 ${
-            isSidebarCollapsed ? "" : ""
+            isSidebarCollapsed ? "z-50" : "z-50"
           } `}
         >
           <ChatInputFooter />
