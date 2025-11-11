@@ -17,7 +17,7 @@ const Hero = () => {
     {
       name: "Resilience",
       description:
-        "The capacity to recover quickly from difficulties. Resilient individuals adapt well to adversity and maintain their  stress.",
+        "The capacity to recover quickly from difficulties. Resilient individuals adapt well to adversity and maintain their stress.",
     },
     {
       name: "Empathy",
@@ -36,16 +36,13 @@ const Hero = () => {
     },
   ];
 
-  const nextMetric = () => {
+  const nextMetric = () =>
     setCurrentMetric((prev) => (prev + 1) % metrics.length);
-  };
-
-  const prevMetric = () => {
+  const prevMetric = () =>
     setCurrentMetric((prev) => (prev - 1 + metrics.length) % metrics.length);
-  };
 
   return (
-    <section className="relative lg:py-8 py-4 overflow-hidden">
+    <section className="relative lg:py-8 py-4 overflow-visible">
       <div className="text-white">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white font-cormorant">
           Welcome, Lily
@@ -56,6 +53,7 @@ const Hero = () => {
           potential.
         </p>
       </div>
+
       <div className="relative mt-7">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center lg:mt-0 mt-5">
           <div>
@@ -71,6 +69,7 @@ const Hero = () => {
               />
             </div>
           </div>
+
           <div className="space-y-4">
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4">
               <p className="text-white/70 text-sm lg:text-base font-inter">
@@ -90,12 +89,16 @@ const Hero = () => {
                 </div>
               </div>
             </div>
+
             <div className="bg-[#7d7cd9] border border-white/20  rounded-2xl lg:px-5 lg:py-4 px-4 py-4 relative z-30">
               <div className="flex  lg:flex-row flex-col justify-between">
                 <p className="text-white/70 text-sm lg:text-base mb-4 lg:mb-0 font-inter">
                   Understanding your metrics
                 </p>
-                <button className=" bg-white  font-medium py-3 px-6 rounded-xl flex items-center justify-center space-x-2 transition-colors mb-4">
+                <button
+                  type="button"
+                  className=" bg-white  font-medium py-3 px-6 rounded-xl flex items-center justify-center space-x-2 transition-colors mb-4"
+                >
                   <img
                     src="/assets/images/dashboard/starpurple.webp"
                     alt="star icon"
@@ -104,6 +107,7 @@ const Hero = () => {
                   <span className="text-[#6664D3]">Start a Debrief</span>
                 </button>
               </div>
+
               <div className="max-w-md">
                 <h3 className="text-xl sm:text-3xl font-bold text-white mb-2 font-cormorant">
                   {metrics[currentMetric].name}
@@ -112,28 +116,13 @@ const Hero = () => {
                   {metrics[currentMetric].description}
                 </p>
               </div>
+
               <div className="flex items-center space-x-4 relative z-40">
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    prevMetric();
-                  }}
-                  onTouchStart={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    prevMetric();
-                  }}
-                  onTouchEnd={(e) => {
-                    e.preventDefault();
-                  }}
-                  style={{
-                    touchAction: "manipulation",
-                    WebkitTapHighlightColor: "transparent",
-                  }}
+                  onClick={prevMetric}
+                  type="button"
                   className="w-10 h-10 rounded-xl bg-transparent border border-white/20 text-white flex items-center justify-center transition-colors active:bg-white/10 relative z-40 cursor-pointer"
                   aria-label="Previous metric"
-                  type="button"
                 >
                   <svg
                     className="w-5 h-5 pointer-events-none"
@@ -150,26 +139,10 @@ const Hero = () => {
                   </svg>
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    nextMetric();
-                  }}
-                  onTouchStart={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    nextMetric();
-                  }}
-                  onTouchEnd={(e) => {
-                    e.preventDefault();
-                  }}
-                  style={{
-                    touchAction: "manipulation",
-                    WebkitTapHighlightColor: "transparent",
-                  }}
+                  onClick={nextMetric}
+                  type="button"
                   className="w-10 h-10 rounded-xl bg-transparent border border-white/20 text-white flex items-center justify-center transition-colors active:bg-white/10 relative z-40 cursor-pointer"
                   aria-label="Next metric"
-                  type="button"
                 >
                   <svg
                     className="w-5 h-5 pointer-events-none"

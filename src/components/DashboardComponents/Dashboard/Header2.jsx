@@ -80,14 +80,14 @@ const Header2 = () => {
   };
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 py-2 px-4 sticky top-0 z-50">
       <div className="relative z-20 flex items-center justify-between h-16">
         {/* Logo */}
         <div className="flex items-center">
           <img
             src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
-            className="h-10 w-auto"
+            className="h-7 w-auto"
           />
         </div>
 

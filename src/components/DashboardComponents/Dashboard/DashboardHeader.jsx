@@ -1,13 +1,104 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import Hero from "./Hero";
 import NotificationPopup from "../notification/Notification";
+
+const PortalDropdown = ({
+  children,
+  anchorRef,
+  open,
+  onClose,
+  placement = "bottom-right",
+  className = "",
+}) => {
+  const elRef = useRef(null);
+
+  if (!elRef.current) {
+    elRef.current = document.createElement("div");
+  }
+
+  useEffect(() => {
+    const el = elRef.current;
+    el.style.position = "absolute";
+    el.style.pointerEvents = "auto";
+    el.style.zIndex = "9999";
+    el.className = className;
+    document.body.appendChild(el);
+    return () => {
+      try {
+        document.body.removeChild(el);
+      } catch (e) {}
+    };
+  }, [className]);
+
+  // position calculation
+  useEffect(() => {
+    const el = elRef.current;
+    if (!open || !anchorRef?.current || !el) return;
+
+    const anchor = anchorRef.current;
+    const rect = anchor.getBoundingClientRect();
+    const margin = 8;
+
+    // default bottom-right
+    const top = rect.bottom + margin + window.scrollY;
+    const left = rect.right - el.offsetWidth + window.scrollX;
+
+    // set left/top in a safe manner; we'll compute again after element is mounted
+    el.style.top = `${top}px`;
+    el.style.left = `${left}px`;
+
+    // After browser paints, adjust left if overflow
+    const adjust = () => {
+      const elRect = el.getBoundingClientRect();
+      let newLeft = elRect.left;
+      let newTop = elRect.top;
+      // keep inside viewport horizontally
+      if (elRect.right > window.innerWidth) {
+        newLeft = Math.max(8, window.innerWidth - elRect.width - 8);
+      }
+      if (elRect.left < 8) {
+        newLeft = 8;
+      }
+      // if bottom overflows, place above anchor
+      if (elRect.bottom > window.innerHeight) {
+        newTop = rect.top - elRect.height - margin + window.scrollY;
+      }
+      el.style.left = `${newLeft}px`;
+      el.style.top = `${newTop}px`;
+    };
+
+    // small delay for proper measurement
+    const t = setTimeout(adjust, 0);
+    const onResize = () => setTimeout(adjust, 0);
+    window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", onResize, true);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onResize, true);
+    };
+  }, [open, anchorRef]);
+
+  // close on Escape
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => {
+      if (e.key === "Escape") onClose?.();
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open, onClose]);
+
+  if (!open) return null;
+  return ReactDOM.createPortal(children, elRef.current);
+};
 
 const DashboardHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // initial selected tab from current path
   const [selectedTab, setSelectedTab] = useState(() => {
     if (location.pathname === "/amalia-corner") return "Amalia Corner";
     if (location.pathname === "/dashboard") return "Dashboard";
@@ -18,57 +109,55 @@ const DashboardHeader = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLTDropdownOpen, setIsLTDropdownOpen] = useState(false);
 
-  const menuRef = useRef(null);
   const mobileToggleRef = useRef(null);
-  const ltDropdownRef = useRef(null);
+  const ltToggleRef = useRef(null);
 
-  // keep selected tab synced when route changes and close mobile menu
+  // sync route and close menus
   useEffect(() => {
-    if (location.pathname === "/amalia-corner") {
-      setSelectedTab("Amalia Corner");
-    } else if (location.pathname === "/dashboard") {
-      setSelectedTab("Dashboard");
-    } else {
-      setSelectedTab(null);
-    }
+    if (location.pathname === "/amalia-corner") setSelectedTab("Amalia Corner");
+    else if (location.pathname === "/dashboard") setSelectedTab("Dashboard");
+    else setSelectedTab(null);
 
-    // close menus on route change
     setIsMobileMenuOpen(false);
     setIsLTDropdownOpen(false);
   }, [location.pathname]);
 
-  // click outside handler to close menus
+  // click-outside for portal dropdowns: watch document and close if click not inside toggle or dropdown
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      // mobile menu: check both menu and toggle so clicking toggle doesn't immediately close
-      if (
-        isMobileMenuOpen &&
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        mobileToggleRef.current &&
-        !mobileToggleRef.current.contains(event.target)
-      ) {
-        setIsMobileMenuOpen(false);
+    const handler = (e) => {
+      // mobile menu
+      if (isMobileMenuOpen) {
+        const toggle = mobileToggleRef.current;
+        // the dropdown lives in body; use event.composedPath to detect presence
+        const path = e.composedPath ? e.composedPath() : e.path || [];
+        const clickedInsideToggle =
+          toggle && (path.includes(toggle) || toggle.contains(e.target));
+        const clickedInsideDropdown = path.some(
+          (n) => n?.dataset?.dashboardMobileMenu === "true"
+        );
+        if (!clickedInsideToggle && !clickedInsideDropdown)
+          setIsMobileMenuOpen(false);
       }
 
       // LT dropdown
-      if (
-        isLTDropdownOpen &&
-        ltDropdownRef.current &&
-        !ltDropdownRef.current.contains(event.target)
-      ) {
-        setIsLTDropdownOpen(false);
+      if (isLTDropdownOpen) {
+        const toggle = ltToggleRef.current;
+        const path = e.composedPath ? e.composedPath() : e.path || [];
+        const clickedInsideToggle =
+          toggle && (path.includes(toggle) || toggle.contains(e.target));
+        const clickedInsideDropdown = path.some(
+          (n) => n?.dataset?.dashboardLtMenu === "true"
+        );
+        if (!clickedInsideToggle && !clickedInsideDropdown)
+          setIsLTDropdownOpen(false);
       }
     };
 
-    if (isMobileMenuOpen || isLTDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("touchstart", handleClickOutside);
-    }
-
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
     };
   }, [isMobileMenuOpen, isLTDropdownOpen]);
 
@@ -80,7 +169,6 @@ const DashboardHeader = () => {
 
   return (
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible">
-      {/* top-left decorative image */}
       <img
         src="/assets/images/dashboard/dashtop.webp"
         alt="dashboard top background"
@@ -88,16 +176,14 @@ const DashboardHeader = () => {
       />
 
       <div className="relative z-20 flex items-center justify-between">
-        {/* logo */}
         <div className="flex items-center">
           <img
             src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
-            className="h-10 w-auto"
+            className="h-7 w-auto"
           />
         </div>
 
-        {/* desktop nav */}
         <nav className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => goTo("/dashboard", "Dashboard")}
@@ -126,9 +212,7 @@ const DashboardHeader = () => {
           </button>
         </nav>
 
-        {/* right side controls */}
         <div className="flex items-center sm:space-x-4 relative z-[200]">
-          {/* user status (hidden on very small screens) */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
               <img
@@ -143,7 +227,6 @@ const DashboardHeader = () => {
             </div>
           </div>
 
-          {/* notification button */}
           <button
             onClick={() => setIsNotificationOpen((s) => !s)}
             className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
@@ -168,9 +251,10 @@ const DashboardHeader = () => {
             <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full" />
           </button>
 
-          {/* LT dropdown */}
-          <div className="relative z-[200]" ref={ltDropdownRef}>
+          {/* LT toggle */}
+          <div className="relative z-[200]">
             <button
+              ref={ltToggleRef}
               onClick={() => setIsLTDropdownOpen((s) => !s)}
               className="flex items-center space-x-2 text-white px-3 py-2 rounded-lg transition-colors"
               aria-expanded={isLTDropdownOpen}
@@ -189,12 +273,26 @@ const DashboardHeader = () => {
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
-            {isLTDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-[300] overflow-hidden">
+            <PortalDropdown
+              anchorRef={ltToggleRef}
+              open={isLTDropdownOpen}
+              onClose={() => setIsLTDropdownOpen(false)}
+              className="dashboard-lt-portal"
+            >
+              <div
+                data-dashboard-lt-menu="true"
+                className="bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden"
+                style={{ minWidth: 180 }}
+              >
                 <button
                   onClick={() => {
                     setIsLTDropdownOpen(false);
@@ -206,11 +304,11 @@ const DashboardHeader = () => {
                   Account settings
                 </button>
               </div>
-            )}
+            </PortalDropdown>
           </div>
 
-          {/* mobile menu toggle (visible on small screens) */}
-          <div className="md:hidden relative" ref={menuRef}>
+          {/* mobile toggle */}
+          <div className="md:hidden relative">
             <button
               ref={mobileToggleRef}
               onClick={() => setIsMobileMenuOpen((s) => !s)}
@@ -218,33 +316,59 @@ const DashboardHeader = () => {
                 touchAction: "manipulation",
                 WebkitTapHighlightColor: "transparent",
               }}
-              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors"
+              className="text-white p-2 rounded-lg hover:bg-[#7d7cd9] transition-colors z-[210]"
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
               type="button"
             >
               {isMobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
 
-            {/* mobile dropdown */}
-            {isMobileMenuOpen && (
+            <PortalDropdown
+              anchorRef={mobileToggleRef}
+              open={isMobileMenuOpen}
+              onClose={() => setIsMobileMenuOpen(false)}
+              className="dashboard-mobile-portal"
+            >
               <div
-                ref={menuRef}
-                className="absolute right-0 mt-2 w-52 bg-white border border-white/20 rounded-lg shadow-lg z-50 overflow-hidden"
-                style={{ top: "calc(100% + 8px)" }}
+                data-dashboard-mobile-menu="true"
+                className="bg-white border border-white/20 rounded-lg shadow-lg overflow-hidden"
+                style={{ minWidth: 200 }}
               >
                 <button
                   onClick={() => goTo("/dashboard", "Dashboard")}
                   className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
-                    selectedTab === "Dashboard" ? "text-[#6664D3]" : "text-gray-700"
+                    selectedTab === "Dashboard"
+                      ? "text-[#6664D3]"
+                      : "text-gray-700"
                   }`}
                   type="button"
                 >
@@ -254,45 +378,34 @@ const DashboardHeader = () => {
                 <button
                   onClick={() => goTo("/amalia-corner", "Amalia Corner")}
                   className={`w-full text-left px-4 py-3 text-sm font-medium border-t transition-colors ${
-                    selectedTab === "Amalia Corner" ? "text-[#6664D3]" : "text-gray-700"
+                    selectedTab === "Amalia Corner"
+                      ? "text-[#6664D3]"
+                      : "text-gray-700"
                   }`}
                   type="button"
                 >
                   Amalia Corner
                 </button>
-
-                <div className="border-t px-2 py-2">
-                  <button
-                    onClick={() => {
-                      navigate("/dashboard/account-settings");
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded"
-                    type="button"
-                  >
-                    Account settings
-                  </button>
-                </div>
               </div>
-            )}
+            </PortalDropdown>
           </div>
         </div>
       </div>
 
-      {/* Hero section (keeps positioned within header) */}
       <div className="relative z-20 mt-4">
         <Hero />
       </div>
 
-      {/* bottom-right decorative image */}
       <img
         src="/assets/images/dashboard/dashbottom.webp"
         alt="dashboard bottom background"
         className="absolute bottom-0 right-0 w-[613px] z-0 h-[515px] object-cover object-bottom pointer-events-none"
       />
 
-      {/* notification popup */}
-      <NotificationPopup isOpen={isNotificationOpen} onClose={() => setIsNotificationOpen(false)} />
+      <NotificationPopup
+        isOpen={isNotificationOpen}
+        onClose={() => setIsNotificationOpen(false)}
+      />
     </header>
   );
 };
