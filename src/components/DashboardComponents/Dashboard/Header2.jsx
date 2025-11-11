@@ -1,21 +1,29 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NotificationPopup from "../notification/Notification";
 
 const Header2 = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // set selectedTab based on current location
   const [selectedTab, setSelectedTab] = useState(() => {
     if (location.pathname === "/amalia-corner") return "Amalia Corner";
     if (location.pathname === "/dashboard") return "Dashboard";
     return null;
   });
+
+  // UI state
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLTDropdownOpen, setIsLTDropdownOpen] = useState(false);
+
+  // refs for click-outside
   const menuRef = useRef(null);
   const ltDropdownRef = useRef(null);
-  const navigate = useNavigate();
+  const mobileToggleRef = useRef(null);
 
+  // keep selectedTab synced with path changes
   useEffect(() => {
     if (location.pathname === "/amalia-corner") {
       setSelectedTab("Amalia Corner");
@@ -24,13 +32,27 @@ const Header2 = () => {
     } else {
       setSelectedTab(null);
     }
+
+    // close mobile menu when route changes
+    setIsMobileMenuOpen(false);
+    // close LT dropdown too
+    setIsLTDropdownOpen(false);
   }, [location.pathname]);
 
+  // click outside handler for menu and LT dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      // mobile menu
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        mobileToggleRef.current &&
+        !mobileToggleRef.current.contains(event.target)
+      ) {
         setIsMobileMenuOpen(false);
       }
+
+      // lt dropdown
       if (
         ltDropdownRef.current &&
         !ltDropdownRef.current.contains(event.target)
@@ -50,45 +72,57 @@ const Header2 = () => {
     };
   }, [isMobileMenuOpen, isLTDropdownOpen]);
 
+  // helper navigate + set selected tab + close mobile menu
+  const goTo = (path, tabName = null) => {
+    if (tabName) setSelectedTab(tabName);
+    navigate(path);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 overflow-visible">
-      <div className="relative z-20 flex items-center justify-between">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50">
+      <div className="relative z-20 flex items-center justify-between h-16">
+        {/* Logo */}
         <div className="flex items-center">
           <img
             src="/assets/images/dashboard/logowhite.webp"
             alt="firmly logo"
-            className="h-auto w-20"
+            className="h-10 w-auto"
           />
         </div>
+
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-4">
           <button
-            onClick={() => {
-              setSelectedTab("Dashboard");
-              navigate("/dashboard");
-            }}
-            className={`px-6 py-2 rounded-xl transition-colors  ${
+            onClick={() => goTo("/dashboard", "Dashboard")}
+            className={`px-5 py-2 rounded-xl transition-colors ${
               selectedTab === "Dashboard"
                 ? "bg-[#7d7cd9] border border-white/20 text-white"
                 : "text-white/70 hover:text-white"
             }`}
+            type="button"
+            aria-current={selectedTab === "Dashboard" ? "page" : undefined}
           >
             Dashboard
           </button>
+
           <button
-            onClick={() => {
-              setSelectedTab("Amalia Corner");
-              navigate("/amalia-corner");
-            }}
-            className={`px-6 py-2 rounded-xl transition-colors  ${
+            onClick={() => goTo("/amalia-corner", "Amalia Corner")}
+            className={`px-5 py-2 rounded-xl transition-colors ${
               selectedTab === "Amalia Corner"
                 ? "bg-[#7d7cd9] border border-white/20 text-white"
                 : "text-white/70 hover:text-white"
             }`}
+            type="button"
+            aria-current={selectedTab === "Amalia Corner" ? "page" : undefined}
           >
             Amalia Corner
           </button>
         </nav>
-        <div className="flex items-center  sm:space-x-4 relative z-[200]">
+
+        {/* Right side controls */}
+        <div className="flex items-center sm:space-x-4">
+          {/* Profile / status (hidden on smallest screens) */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
               <img
@@ -97,36 +131,49 @@ const Header2 = () => {
                 className="h-5 w-5 sm:h-6 sm:w-6"
               />
               <span className="text-white/70 text-sm sm:text-base">Amalia</span>
-              <span className=" text-sm flex items-center justify-center bg-[#7d7cd9] border border-white/20 text-white/70 px-2 py-0.5 rounded-full">
+              <span className="text-sm flex items-center justify-center bg-[#7d7cd9] border border-white/20 text-white/70 px-2 py-0.5 rounded-full">
                 • online
               </span>
             </div>
           </div>
-          <button
-            className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
-            onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-          >
-            <svg
-              className="w-7 h-7 sm:w-8 sm:h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-            <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full"></span>
-          </button>
-          <div className="relative z-[200]" ref={ltDropdownRef}>
+
+          {/* Notification */}
+          <div className="relative">
             <button
-              onClick={() => setIsLTDropdownOpen(!isLTDropdownOpen)}
-              className="flex items-center space-x-2 text-white px-3 py-2 rounded-lg transition-colors "
+              className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
+              onClick={() => setIsNotificationOpen((s) => !s)}
+              aria-expanded={isNotificationOpen}
+              aria-label="Toggle notifications"
+              type="button"
             >
-              <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl ">
+              <svg
+                className="w-7 h-7 sm:w-8 sm:h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                />
+              </svg>
+              <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full" />
+            </button>
+          </div>
+
+          {/* LT dropdown */}
+          <div className="relative" ref={ltDropdownRef}>
+            <button
+              onClick={() => setIsLTDropdownOpen((s) => !s)}
+              className="flex items-center space-x-2 text-white px-3 py-2 rounded-lg transition-colors"
+              aria-expanded={isLTDropdownOpen}
+              aria-haspopup="true"
+              type="button"
+            >
+              <span className="text-sm lg:text-lg font-semibold bg-[#7d7cd9] border border-white/20 text-white/70 px-4 py-3 rounded-2xl">
                 LT
               </span>
               <svg
@@ -136,6 +183,7 @@ const Header2 = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -145,12 +193,13 @@ const Header2 = () => {
                 />
               </svg>
             </button>
+
             {isLTDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-[300] overflow-hidden">
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-40 overflow-hidden">
                 <button
                   onClick={() => {
                     setIsLTDropdownOpen(false);
-                    navigate('/dashboard/account-settings');
+                    navigate("/dashboard/account-settings");
                   }}
                   className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
                   type="button"
@@ -160,19 +209,19 @@ const Header2 = () => {
               </div>
             )}
           </div>
-          <div className="md:hidden relative z-[200]" ref={menuRef}>
+
+          {/* Mobile menu toggle */}
+          <div className="md:hidden relative" ref={menuRef}>
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-              }}
+              ref={mobileToggleRef}
+              onClick={() => setIsMobileMenuOpen((s) => !s)}
               style={{
                 touchAction: "manipulation",
                 WebkitTapHighlightColor: "transparent",
               }}
-              className="text-white p-2 rounded-lg  transition-colors relative z-[200] cursor-pointer"
+              className="text-white p-2 rounded-lg transition-colors"
               aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
               type="button"
             >
               {isMobileMenuOpen ? (
@@ -205,31 +254,31 @@ const Header2 = () => {
                 </svg>
               )}
             </button>
+
+            {/* Mobile dropdown */}
             {isMobileMenuOpen && (
               <div
-                className="absolute top-full right-0 mt-2 w-44 bg-white border border-white/20 rounded-lg shadow-lg z-[200] overflow-hidden"
-                style={{ position: "absolute", top: "100%", right: 0 }}
+                className="absolute right-0 mt-2 w-52 bg-white border  border-white/20 rounded-lg shadow-lg z-50 overflow-hidden"
+                style={{ top: "calc(100% + 8px)" }}
               >
                 <button
-                  onClick={() => {
-                    setSelectedTab("Dashboard");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
-                    selectedTab === "Dashboard" ? " text-[#6664D3]" : ""
+                  onClick={() => goTo("/dashboard", "Dashboard")}
+                  className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
+                    selectedTab === "Dashboard"
+                      ? "text-[#6664D3]"
+                      : "text-gray-700 "
                   }`}
                   type="button"
                 >
                   Dashboard
                 </button>
+
                 <button
-                  onClick={() => {
-                    setSelectedTab("Amalia Corner");
-                    setIsMobileMenuOpen(false);
-                    navigate("/amalia-corner");
-                  }}
-                  className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors border-t border-[#6664D3] ${
-                    selectedTab === "Amalia Corner" ? "text-[#6664D3]" : ""
+                  onClick={() => goTo("/amalia-corner", "Amalia Corner")}
+                  className={`w-full text-left px-4 py-3 text-sm font-medium border-t transition-colors ${
+                    selectedTab === "Amalia Corner"
+                      ? "text-[#6664D3]"
+                      : "text-gray-700"
                   }`}
                   type="button"
                 >
@@ -240,6 +289,8 @@ const Header2 = () => {
           </div>
         </div>
       </div>
+
+      {/* Notification popup (keeps same API) */}
       <NotificationPopup
         isOpen={isNotificationOpen}
         onClose={() => setIsNotificationOpen(false)}
