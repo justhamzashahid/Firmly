@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import NotificationPopup from "../notification/Notification";
 
 const Header2 = () => {
   const location = useLocation();
@@ -7,6 +8,7 @@ const Header2 = () => {
     location.pathname === "/amalia-corner" ? "Amalia Corner" : "Dashboard"
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ const Header2 = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 relative overflow-visible md:overflow-hidden">
+    <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 sticky top-0 z-50 overflow-visible md:overflow-hidden">
       <div className="relative z-20 flex items-center justify-between">
         <div className="flex items-center">
           <img
@@ -88,7 +90,10 @@ const Header2 = () => {
               </span>
             </div>
           </div>
-          <button className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors">
+          <button
+            className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
+            onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+          >
             <svg
               className="w-7 h-7 sm:w-8 sm:h-8"
               fill="none"
@@ -202,6 +207,10 @@ const Header2 = () => {
           </div>
         </div>
       </div>
+      <NotificationPopup
+        isOpen={isNotificationOpen}
+        onClose={() => setIsNotificationOpen(false)}
+      />
     </header>
   );
 };

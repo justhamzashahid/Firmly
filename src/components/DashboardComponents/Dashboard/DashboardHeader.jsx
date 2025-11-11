@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Hero from "./Hero";
+import NotificationPopup from "../notification/Notification";
 
 const DashboardHeader = () => {
   const location = useLocation();
@@ -8,6 +9,7 @@ const DashboardHeader = () => {
     location.pathname === "/amalia-corner" ? "Amalia Corner" : "Dashboard"
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
@@ -94,7 +96,10 @@ const DashboardHeader = () => {
               </span>
             </div>
           </div>
-          <button className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors">
+          <button
+            onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+            className="relative text-white hover:bg-[#7d7cd9] p-2 rounded-lg transition-colors"
+          >
             <svg
               className="w-7 h-7 sm:w-8 sm:h-8"
               fill="none"
@@ -215,6 +220,10 @@ const DashboardHeader = () => {
         src="/assets/images/dashboard/dashbottom.webp"
         alt="dashboard bottom background"
         className="absolute bottom-0 right-0 w-[613px] z-0 h-[515px] object-cover object-bottom pointer-events-none"
+      />
+      <NotificationPopup
+        isOpen={isNotificationOpen}
+        onClose={() => setIsNotificationOpen(false)}
       />
     </header>
   );
