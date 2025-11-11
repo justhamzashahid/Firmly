@@ -1,7 +1,6 @@
 import React from "react";
 import AmaliaCornerLayout from "../components/DashboardComponents/AmaliaCorner/AmaliaCornerLayout";
 import Header2 from "../components/DashboardComponents/Dashboard/Header2";
-
 export default function AmaliaCorner() {
   return (
     <div className="h-screen overflow-hidden flex flex-col">

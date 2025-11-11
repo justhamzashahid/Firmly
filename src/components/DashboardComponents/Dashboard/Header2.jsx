@@ -1,29 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NotificationPopup from "../notification/Notification";
-
 const Header2 = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // set selectedTab based on current location
   const [selectedTab, setSelectedTab] = useState(() => {
     if (location.pathname === "/amalia-corner") return "Amalia Corner";
     if (location.pathname === "/dashboard") return "Dashboard";
     return null;
   });
-
-  // UI state
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLTDropdownOpen, setIsLTDropdownOpen] = useState(false);
-
-  // refs for click-outside
   const menuRef = useRef(null);
   const ltDropdownRef = useRef(null);
   const mobileToggleRef = useRef(null);
-
-  // keep selectedTab synced with path changes
   useEffect(() => {
     if (location.pathname === "/amalia-corner") {
       setSelectedTab("Amalia Corner");
@@ -32,17 +23,11 @@ const Header2 = () => {
     } else {
       setSelectedTab(null);
     }
-
-    // close mobile menu when route changes
     setIsMobileMenuOpen(false);
-    // close LT dropdown too
     setIsLTDropdownOpen(false);
   }, [location.pathname]);
-
-  // click outside handler for menu and LT dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // mobile menu
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target) &&
@@ -51,8 +36,6 @@ const Header2 = () => {
       ) {
         setIsMobileMenuOpen(false);
       }
-
-      // lt dropdown
       if (
         ltDropdownRef.current &&
         !ltDropdownRef.current.contains(event.target)
@@ -60,29 +43,23 @@ const Header2 = () => {
         setIsLTDropdownOpen(false);
       }
     };
-
     if (isMobileMenuOpen || isLTDropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.addEventListener("touchstart", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isMobileMenuOpen, isLTDropdownOpen]);
-
-  // helper navigate + set selected tab + close mobile menu
   const goTo = (path, tabName = null) => {
     if (tabName) setSelectedTab(tabName);
     navigate(path);
     setIsMobileMenuOpen(false);
   };
-
   return (
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 py-2 px-4 sticky top-0 z-50">
       <div className="relative z-20 flex items-center justify-between h-16">
-        {/* Logo */}
         <button
           onClick={() => navigate("/dashboard")}
           className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
@@ -95,8 +72,6 @@ const Header2 = () => {
             className="h-7 w-auto"
           />
         </button>
-
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => goTo("/dashboard", "Dashboard")}
@@ -110,7 +85,6 @@ const Header2 = () => {
           >
             Dashboard
           </button>
-
           <button
             onClick={() => goTo("/amalia-corner", "Amalia Corner")}
             className={`px-5 py-2 rounded-xl transition-colors ${
@@ -124,10 +98,7 @@ const Header2 = () => {
             Amalia Corner
           </button>
         </nav>
-
-        {/* Right side controls */}
         <div className="flex items-center sm:space-x-4">
-          {/* Profile / status (hidden on smallest screens) */}
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
               <img
@@ -141,8 +112,6 @@ const Header2 = () => {
               </span>
             </div>
           </div>
-
-          {/* Notification */}
           <div className="relative">
             <button
               className="relative text-white  p-2 rounded-lg transition-colors"
@@ -168,8 +137,6 @@ const Header2 = () => {
               <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full" />
             </button>
           </div>
-
-          {/* LT dropdown */}
           <div className="relative" ref={ltDropdownRef}>
             <button
               onClick={() => setIsLTDropdownOpen((s) => !s)}
@@ -198,7 +165,6 @@ const Header2 = () => {
                 />
               </svg>
             </button>
-
             {isLTDropdownOpen && (
               <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-40 overflow-hidden">
                 <button
@@ -214,8 +180,6 @@ const Header2 = () => {
               </div>
             )}
           </div>
-
-          {/* Mobile menu toggle */}
           <div className="md:hidden relative" ref={menuRef}>
             <button
               ref={mobileToggleRef}
@@ -259,8 +223,6 @@ const Header2 = () => {
                 </svg>
               )}
             </button>
-
-            {/* Mobile dropdown */}
             {isMobileMenuOpen && (
               <div
                 className="absolute right-0 mt-2 w-52 bg-white border  border-white/20 rounded-lg shadow-lg z-50 overflow-hidden"
@@ -277,7 +239,6 @@ const Header2 = () => {
                 >
                   Dashboard
                 </button>
-
                 <button
                   onClick={() => goTo("/amalia-corner", "Amalia Corner")}
                   className={`w-full text-left px-4 py-3 text-sm font-medium border-t transition-colors ${
@@ -294,8 +255,6 @@ const Header2 = () => {
           </div>
         </div>
       </div>
-
-      {/* Notification popup (keeps same API) */}
       <NotificationPopup
         isOpen={isNotificationOpen}
         onClose={() => setIsNotificationOpen(false)}
@@ -303,5 +262,4 @@ const Header2 = () => {
     </header>
   );
 };
-
 export default Header2;

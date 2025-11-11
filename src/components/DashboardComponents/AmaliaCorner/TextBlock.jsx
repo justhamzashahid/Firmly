@@ -1,5 +1,4 @@
 import React from "react";
-
 const TextBlock = ({ title, items, bgColor = "bg-[#F5F5FF]" }) => {
   return (
     <div className={`${bgColor} rounded-xl p-4  mb-4 md:mb-6`}>
@@ -19,5 +18,4 @@ const TextBlock = ({ title, items, bgColor = "bg-[#F5F5FF]" }) => {
     </div>
   );
 };
-
 export default TextBlock;

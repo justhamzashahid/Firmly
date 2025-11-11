@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-
 const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
   const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <>
       {!isCollapsed && (
@@ -92,5 +90,4 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
     </>
   );
 };
-
 export default Sidebar;

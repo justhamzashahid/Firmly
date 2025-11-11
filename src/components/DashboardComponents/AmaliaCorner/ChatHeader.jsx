@@ -1,5 +1,4 @@
 import React from "react";
-
 const ChatHeader = ({ onMenuClick }) => {
   return (
     <div className="p-4  flex items-center gap-4">
@@ -28,5 +27,4 @@ const ChatHeader = ({ onMenuClick }) => {
     </div>
   );
 };
-
 export default ChatHeader;

@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-
 const ProgressBar = ({
   label,
   yourScore,
@@ -15,7 +14,6 @@ const ProgressBar = ({
     orange: "bg-[#C56A55]",
     lightBlue: "bg-cyan-400",
   };
-
   const barColor = colorClasses[color] || colorClasses.green;
   const isHigherThanPeers = yourScore > peersScore;
   const [vectorPosition, setVectorPosition] = useState(() =>
@@ -25,7 +23,6 @@ const ProgressBar = ({
   );
   const [isDragging, setIsDragging] = useState(false);
   const barRef = useRef(null);
-
   const updateVectorPosition = useCallback((clientX) => {
     if (!barRef.current) return;
     const rect = barRef.current.getBoundingClientRect();
@@ -33,7 +30,6 @@ const ProgressBar = ({
     const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
     setVectorPosition(percentage);
   }, []);
-
   const handleMouseDown = useCallback(
     (e) => {
       e.preventDefault();
@@ -42,7 +38,6 @@ const ProgressBar = ({
     },
     [updateVectorPosition]
   );
-
   const handleMouseMove = useCallback(
     (e) => {
       if (isDragging) {
@@ -51,11 +46,9 @@ const ProgressBar = ({
     },
     [isDragging, updateVectorPosition]
   );
-
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
   }, []);
-
   const handleTouchStart = useCallback(
     (e) => {
       e.preventDefault();
@@ -65,7 +58,6 @@ const ProgressBar = ({
     },
     [updateVectorPosition]
   );
-
   const handleTouchMove = useCallback(
     (e) => {
       e.preventDefault();
@@ -76,11 +68,9 @@ const ProgressBar = ({
     },
     [isDragging, updateVectorPosition]
   );
-
   const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
   }, []);
-
   useEffect(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
@@ -103,7 +93,6 @@ const ProgressBar = ({
     handleTouchMove,
     handleTouchEnd,
   ]);
-
   return (
     <div className="mb-4 md:mb-6">
       <div className="flex items-center justify-between mb-2 gap-4">
@@ -165,5 +154,4 @@ const ProgressBar = ({
     </div>
   );
 };
-
 export default ProgressBar;

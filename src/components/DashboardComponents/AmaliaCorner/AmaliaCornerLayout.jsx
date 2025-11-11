@@ -7,12 +7,10 @@ import ProgressBarsSection from "./ProgressBarsSection";
 import TextBlock from "./TextBlock";
 import SummaryCard from "./SummaryCard";
 import ChatInputFooter from "./ChatInputFooter";
-
 const AmaliaCornerLayout = () => {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const [messages, setMessages] = useState([]);
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -25,7 +23,6 @@ const AmaliaCornerLayout = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
     if (isMobile && !isSidebarCollapsed) {
@@ -43,7 +40,6 @@ const AmaliaCornerLayout = () => {
       };
     }
   }, [isSidebarCollapsed]);
-
   const initialMessage = (
     <>
       Hi, Lily, <br /> I'm so glad you decided to dive deeper into your results
@@ -58,7 +54,6 @@ const AmaliaCornerLayout = () => {
       environment.
     </>
   );
-
   const handleGeneratePathway = () => {
     const pathwayMessage = (
       <>
@@ -73,35 +68,29 @@ const AmaliaCornerLayout = () => {
     );
     setMessages([...messages, pathwayMessage]);
   };
-
   const handleGoToDashboard = () => {
     navigate("/dashboard");
   };
-
   const glowAreas = [
     "Goal Orientation - You excel at setting and pursuing objectives",
     "Workplace Belonging - You create strong connections with your team",
     "Resilience - You bounce back from challenges and setbacks",
   ];
-
   const growAreas = [
     "Empathy - Understanding and connecting with others' emotions",
     "Self-Belief - Confidence in your leadership abilities",
     "Engagement - Maintaining good motivation and involvement",
   ];
-
   const doingGreatItems = [
     { abbreviation: "GOA", label: "Goal Orientation", score: 96 },
     { abbreviation: "WOR", label: "Workplace Belonging", score: 89 },
     { abbreviation: "RES", label: "Resilience", score: 87 },
   ];
-
   const growthAreasItems = [
     { abbreviation: "EMP", label: "Empathy", score: 32 },
     { abbreviation: "ENG", label: "Engagement", score: 24 },
     { abbreviation: "SEL", label: "Self-belief", score: 22 },
   ];
-
   return (
     <div className="flex flex-col md:flex-row h-full overflow-hidden">
       <Sidebar
@@ -174,5 +163,4 @@ const AmaliaCornerLayout = () => {
     </div>
   );
 };
-
 export default AmaliaCornerLayout;

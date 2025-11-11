@@ -1,5 +1,4 @@
 import React from "react";
-
 export default function SettingsHeader() {
   return (
     <div className="lg:my-8 my-4">

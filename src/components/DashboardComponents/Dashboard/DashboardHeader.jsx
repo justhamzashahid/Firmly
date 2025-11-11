@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import Hero from "./Hero";
 import NotificationPopup from "../notification/Notification";
-
 const PortalDropdown = ({
   children,
   anchorRef,
@@ -13,11 +12,9 @@ const PortalDropdown = ({
   className = "",
 }) => {
   const elRef = useRef(null);
-
   if (!elRef.current) {
     elRef.current = document.createElement("div");
   }
-
   useEffect(() => {
     const el = elRef.current;
     el.style.position = "absolute";
@@ -31,45 +28,32 @@ const PortalDropdown = ({
       } catch (e) {}
     };
   }, [className]);
-
-  // position calculation
   useEffect(() => {
     const el = elRef.current;
     if (!open || !anchorRef?.current || !el) return;
-
     const anchor = anchorRef.current;
     const rect = anchor.getBoundingClientRect();
     const margin = 8;
-
-    // default bottom-right
     const top = rect.bottom + margin + window.scrollY;
     const left = rect.right - el.offsetWidth + window.scrollX;
-
-    // set left/top in a safe manner; we'll compute again after element is mounted
     el.style.top = `${top}px`;
     el.style.left = `${left}px`;
-
-    // After browser paints, adjust left if overflow
     const adjust = () => {
       const elRect = el.getBoundingClientRect();
       let newLeft = elRect.left;
       let newTop = elRect.top;
-      // keep inside viewport horizontally
       if (elRect.right > window.innerWidth) {
         newLeft = Math.max(8, window.innerWidth - elRect.width - 8);
       }
       if (elRect.left < 8) {
         newLeft = 8;
       }
-      // if bottom overflows, place above anchor
       if (elRect.bottom > window.innerHeight) {
         newTop = rect.top - elRect.height - margin + window.scrollY;
       }
       el.style.left = `${newLeft}px`;
       el.style.top = `${newTop}px`;
     };
-
-    // small delay for proper measurement
     const t = setTimeout(adjust, 0);
     const onResize = () => setTimeout(adjust, 0);
     window.addEventListener("resize", onResize);
@@ -80,8 +64,6 @@ const PortalDropdown = ({
       window.removeEventListener("scroll", onResize, true);
     };
   }, [open, anchorRef]);
-
-  // close on Escape
   useEffect(() => {
     if (!open) return;
     const handler = (e) => {
@@ -90,45 +72,33 @@ const PortalDropdown = ({
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [open, onClose]);
-
   if (!open) return null;
   return ReactDOM.createPortal(children, elRef.current);
 };
-
 const DashboardHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const [selectedTab, setSelectedTab] = useState(() => {
     if (location.pathname === "/amalia-corner") return "Amalia Corner";
     if (location.pathname === "/dashboard") return "Dashboard";
     return null;
   });
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLTDropdownOpen, setIsLTDropdownOpen] = useState(false);
-
   const mobileToggleRef = useRef(null);
   const ltToggleRef = useRef(null);
-
-  // sync route and close menus
   useEffect(() => {
     if (location.pathname === "/amalia-corner") setSelectedTab("Amalia Corner");
     else if (location.pathname === "/dashboard") setSelectedTab("Dashboard");
     else setSelectedTab(null);
-
     setIsMobileMenuOpen(false);
     setIsLTDropdownOpen(false);
   }, [location.pathname]);
-
-  // click-outside for portal dropdowns: watch document and close if click not inside toggle or dropdown
   useEffect(() => {
     const handler = (e) => {
-      // mobile menu
       if (isMobileMenuOpen) {
         const toggle = mobileToggleRef.current;
-        // the dropdown lives in body; use event.composedPath to detect presence
         const path = e.composedPath ? e.composedPath() : e.path || [];
         const clickedInsideToggle =
           toggle && (path.includes(toggle) || toggle.contains(e.target));
@@ -138,8 +108,6 @@ const DashboardHeader = () => {
         if (!clickedInsideToggle && !clickedInsideDropdown)
           setIsMobileMenuOpen(false);
       }
-
-      // LT dropdown
       if (isLTDropdownOpen) {
         const toggle = ltToggleRef.current;
         const path = e.composedPath ? e.composedPath() : e.path || [];
@@ -152,7 +120,6 @@ const DashboardHeader = () => {
           setIsLTDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handler);
     document.addEventListener("touchstart", handler);
     return () => {
@@ -160,13 +127,11 @@ const DashboardHeader = () => {
       document.removeEventListener("touchstart", handler);
     };
   }, [isMobileMenuOpen, isLTDropdownOpen]);
-
   const goTo = (path, tabName = null) => {
     if (tabName) setSelectedTab(tabName);
     navigate(path);
     setIsMobileMenuOpen(false);
   };
-
   return (
     <header className="bg-[#6664D3] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4 py-2 rounded-b-3xl relative overflow-visible">
       <img
@@ -174,7 +139,6 @@ const DashboardHeader = () => {
         alt="dashboard top background"
         className="absolute top-0 left-0 w-[613px] z-0 h-[515px] object-cover object-top pointer-events-none"
       />
-
       <div className="relative z-20 flex items-center justify-between">
         <button
           onClick={() => navigate("/dashboard")}
@@ -188,7 +152,6 @@ const DashboardHeader = () => {
             className="h-7 w-auto"
           />
         </button>
-
         <nav className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => goTo("/dashboard", "Dashboard")}
@@ -202,7 +165,6 @@ const DashboardHeader = () => {
           >
             Dashboard
           </button>
-
           <button
             onClick={() => goTo("/amalia-corner", "Amalia Corner")}
             className={`px-6 py-2 rounded-xl transition-colors ${
@@ -216,7 +178,6 @@ const DashboardHeader = () => {
             Amalia Corner
           </button>
         </nav>
-
         <div className="flex items-center sm:space-x-4 relative z-[200]">
           <div className="hidden sm:flex items-center space-x-2 text-white">
             <div className="flex items-center space-x-2">
@@ -231,7 +192,6 @@ const DashboardHeader = () => {
               </span>
             </div>
           </div>
-
           <button
             onClick={() => setIsNotificationOpen((s) => !s)}
             className="relative text-white  p-2 rounded-lg transition-colors"
@@ -255,8 +215,6 @@ const DashboardHeader = () => {
             </svg>
             <span className="absolute top-1 right-2 h-2.5 w-2.5 bg-[#D46FA8] rounded-full" />
           </button>
-
-          {/* LT toggle */}
           <div className="relative z-[200]">
             <button
               ref={ltToggleRef}
@@ -286,7 +244,6 @@ const DashboardHeader = () => {
                 />
               </svg>
             </button>
-
             <PortalDropdown
               anchorRef={ltToggleRef}
               open={isLTDropdownOpen}
@@ -311,8 +268,6 @@ const DashboardHeader = () => {
               </div>
             </PortalDropdown>
           </div>
-
-          {/* mobile toggle */}
           <div className="md:hidden relative">
             <button
               ref={mobileToggleRef}
@@ -356,7 +311,6 @@ const DashboardHeader = () => {
                 </svg>
               )}
             </button>
-
             <PortalDropdown
               anchorRef={mobileToggleRef}
               open={isMobileMenuOpen}
@@ -379,7 +333,6 @@ const DashboardHeader = () => {
                 >
                   Dashboard
                 </button>
-
                 <button
                   onClick={() => goTo("/amalia-corner", "Amalia Corner")}
                   className={`w-full text-left px-4 py-3 text-sm font-medium border-t transition-colors ${
@@ -396,17 +349,14 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
-
       <div className="relative z-20 mt-4">
         <Hero />
       </div>
-
       <img
         src="/assets/images/dashboard/dashbottom.webp"
         alt="dashboard bottom background"
         className="absolute bottom-0 right-0 w-[613px] z-0 h-[515px] object-cover object-bottom pointer-events-none"
       />
-
       <NotificationPopup
         isOpen={isNotificationOpen}
         onClose={() => setIsNotificationOpen(false)}
@@ -414,5 +364,4 @@ const DashboardHeader = () => {
     </header>
   );
 };
-
 export default DashboardHeader;

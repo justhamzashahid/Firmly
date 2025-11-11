@@ -1,5 +1,4 @@
 import React from "react";
-
 const SummaryCard = ({ title, subtitle, items, bgColor, iconImage }) => {
   return (
     <div className={`${bgColor} rounded-2xl p-5 relative overflow-hidden`}>
@@ -39,5 +38,4 @@ const SummaryCard = ({ title, subtitle, items, bgColor, iconImage }) => {
     </div>
   );
 };
-
 export default SummaryCard;

@@ -3,9 +3,7 @@ import SettingsSidebar from "./SettingsSidebar";
 import SettingsHeader from "./SettingsHeader";
 import PersonalInformationSection from "./PersonalInformationSection";
 import ChangePasswordSection from "./ChangePasswordSection";
-
 export default function SettingsScreen() {
-  // Form state for Personal Information
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "maya",
     lastName: "maya@firmly.com",
@@ -14,18 +12,14 @@ export default function SettingsScreen() {
     currentJobRole: "Computing",
     yearsOfExperience: "2-5 years",
   });
-
-  // Form state for Password Change
   const [passwordInfo, setPasswordInfo] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
-
   const [profileImage, setProfileImage] = useState(
-    "/assets/images/dashboard/avatar.png"
+    "/assets/images/dashboard/avatar.webp"
   );
-
   const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
     setPersonalInfo((prev) => ({
@@ -33,7 +27,6 @@ export default function SettingsScreen() {
       [name]: value,
     }));
   };
-
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
     setPasswordInfo((prev) => ({
@@ -41,7 +34,6 @@ export default function SettingsScreen() {
       [name]: value,
     }));
   };
-
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -52,21 +44,15 @@ export default function SettingsScreen() {
       reader.readAsDataURL(file);
     }
   };
-
   const handleImageDelete = () => {
     setProfileImage(null);
   };
-
   const handleSaveChanges = () => {
-    // Handle save logic here
     console.log("Saving personal information:", personalInfo);
   };
-
   const handleChangePassword = () => {
-    // Handle password change logic here
     console.log("Changing password:", passwordInfo);
   };
-
   return (
     <div className="py-8">
       <SettingsHeader />

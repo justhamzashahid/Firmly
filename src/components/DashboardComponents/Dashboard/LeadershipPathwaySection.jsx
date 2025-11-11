@@ -1,5 +1,4 @@
 import React from "react";
-
 const LeadershipPathwaySection = () => {
   return (
     <>
@@ -37,5 +36,4 @@ const LeadershipPathwaySection = () => {
     </>
   );
 };
-
 export default LeadershipPathwaySection;

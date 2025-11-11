@@ -1,6 +1,5 @@
 import React from "react";
 import ProfileImageUpload from "./ProfileImageUpload";
-
 export default function PersonalInformationSection({
   personalInfo,
   profileImage,
@@ -19,15 +18,11 @@ export default function PersonalInformationSection({
           Add and update your personal information.
         </p>
       </div>
-
-      {/* Profile Image Section */}
       <ProfileImageUpload
         profileImage={profileImage}
         onImageUpload={onImageUpload}
         onImageDelete={onImageDelete}
       />
-
-      {/* Form Fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>
           <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
@@ -41,7 +36,6 @@ export default function PersonalInformationSection({
             className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
-
         <div>
           <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Last name
@@ -54,7 +48,6 @@ export default function PersonalInformationSection({
             className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
-
         <div>
           <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Age
@@ -67,7 +60,6 @@ export default function PersonalInformationSection({
             className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
-
         <div>
           <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Email
@@ -80,7 +72,6 @@ export default function PersonalInformationSection({
             className="w-full px-4 py-3 bg-[#f7f7f7] border border-[#e8e8e8] rounded-2xl text-gray-900 focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] focus:border-transparent"
           />
         </div>
-
         <div>
           <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Current job role
@@ -98,7 +89,6 @@ export default function PersonalInformationSection({
             <option value="Sales">Sales</option>
           </select>
         </div>
-
         <div>
           <label className="block  font-medium font-inter text-[#3D3D3D]/60 mb-2">
             Years of experience
@@ -116,8 +106,6 @@ export default function PersonalInformationSection({
           </select>
         </div>
       </div>
-
-      {/* Save Changes Button */}
       <button
         onClick={onSaveChanges}
         className="px-6 py-3 bg-[#b0b0b0] text-[#F5F5F5] rounded-2xl transition-colors font-medium text-sm sm:text-base"

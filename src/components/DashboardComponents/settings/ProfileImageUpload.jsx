@@ -1,6 +1,5 @@
 import { Trash } from "lucide-react";
 import React from "react";
-
 export default function ProfileImageUpload({
   profileImage,
   onImageUpload,

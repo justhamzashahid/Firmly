@@ -1,11 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-
 const NotificationPopup = ({ isOpen, onClose }) => {
   const [filter, setFilter] = useState("All");
   const [imageError, setImageError] = useState(false);
   const popupRef = useRef(null);
-
-  // Sample notification data based on the image
   const notifications = [
     {
       id: 1,
@@ -56,21 +53,14 @@ const NotificationPopup = ({ isOpen, onClose }) => {
       hasActions: false,
     },
   ];
-
-  // Prevent body scroll when popup is open (especially on mobile)
   useEffect(() => {
     if (isOpen) {
-      // Save current scroll position
       const scrollY = window.scrollY;
-
-      // Prevent scrolling on body
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-
       return () => {
-        // Restore scrolling when popup closes
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.width = "";
@@ -79,59 +69,44 @@ const NotificationPopup = ({ isOpen, onClose }) => {
       };
     }
   }, [isOpen]);
-
-  // Close popup when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         onClose();
       }
     };
-
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.addEventListener("touchstart", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isOpen, onClose]);
-
   if (!isOpen) return null;
-
   return (
     <>
-      {/* Backdrop */}
       <div className="fixed inset-0 z-[299] " onClick={onClose}></div>
-
-      {/* Popup */}
       <div className="fixed z-[300] top-20   right-0 sm:right-8 md:right-12 lg:right-16">
         <div
           className=" shadow-2xl w-full max-w-md border border-gray-200 overflow-hidden"
           ref={popupRef}
         >
-          {/* Header */}
           <div className="px-4 py-4 bg-[#ededed] flex items-center justify-between relative overflow-hidden">
-            {/* Background Image with Filter */}
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
               style={{
-                backgroundImage: "url(/assets/images/dashboard/notibg.png)",
+                backgroundImage: "url(/assets/images/dashboard/notibg.webp)",
                 filter: "brightness(0.9) contrast(1.1) saturate(0.8)",
               }}
             ></div>
-
-            {/* Content */}
             <div className="relative z-10 flex items-center justify-between w-full">
               <div className="flex items-center justify-between">
                 <h2 className="lg:text-2xl text-xl font-cormorant text-[#3D3D3D]">
                   Notifications
                 </h2>
               </div>
-
-              {/* Filter Buttons */}
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setFilter("All")}
@@ -156,19 +131,16 @@ const NotificationPopup = ({ isOpen, onClose }) => {
               </div>
             </div>
           </div>
-
-          {/* Notifications List */}
           <div className="lg:max-h-[600px] max-h-[450px] overflow-y-auto bg-white">
             {notifications.map((notification, index) => (
               <div key={notification.id}>
                 <div className="px-4 py-4 hover:bg-gray-50 transition-colors">
                   <div className="flex items-start space-x-3">
-                    {/* Icon */}
                     <div className="flex-shrink-0 mt-1">
                       <div className="w-8 h-8  flex items-center justify-center overflow-hidden">
                         {!imageError ? (
                           <img
-                            src="/assets/images/dashboard/noti.png"
+                            src="/assets/images/dashboard/noti.webp"
                             alt="notification icon"
                             className="w-full h-full object-cover"
                             onError={() => setImageError(true)}
@@ -179,7 +151,6 @@ const NotificationPopup = ({ isOpen, onClose }) => {
                             fill="currentColor"
                             viewBox="0 0 24 24"
                           >
-                            {/* Flower/Clover-like icon fallback */}
                             <circle
                               cx="12"
                               cy="12"
@@ -197,8 +168,6 @@ const NotificationPopup = ({ isOpen, onClose }) => {
                         )}
                       </div>
                     </div>
-
-                    {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <h3 className="text-lg font-bold text-[#3D3D3D] font-cormorant">
@@ -211,8 +180,6 @@ const NotificationPopup = ({ isOpen, onClose }) => {
                       <p className="text-sm text-[#3D3D3D]/50 font-inter-medium leading-relaxed">
                         {notification.message}
                       </p>
-
-                      {/* Action Buttons */}
                       {notification.hasActions && (
                         <div className="flex items-center space-x-2 mt-3">
                           <button className="px-4 py-2 bg-[#3D3D3D] text-[#F5F5F5] rounded-xl text-sm font-inter-medium hover:bg-gray-700 transition-colors">
@@ -237,5 +204,4 @@ const NotificationPopup = ({ isOpen, onClose }) => {
     </>
   );
 };
-
 export default NotificationPopup;

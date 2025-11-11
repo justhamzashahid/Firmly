@@ -1,6 +1,5 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
-
 const ProgressBarsSection = () => {
   const progressData = [
     {
@@ -20,7 +19,6 @@ const ProgressBarsSection = () => {
     { label: "Self-Belief", score: 52, color: "orange", vectorPosition: 72 },
     { label: "Empathy", score: 44, color: "lightBlue", vectorPosition: 74 },
   ];
-
   return (
     <div className="mb-6 md:mb-8">
       {progressData.map((item, index) => (
@@ -36,5 +34,4 @@ const ProgressBarsSection = () => {
     </div>
   );
 };
-
 export default ProgressBarsSection;

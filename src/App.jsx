@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import AmaliaCorner from "./pages/AmaliaCorner";
 import AccountSettings from "./pages/AccountSettings";
-
 function App() {
   return (
     <Router>
@@ -14,5 +13,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

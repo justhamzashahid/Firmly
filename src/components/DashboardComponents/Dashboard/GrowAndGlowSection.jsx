@@ -1,5 +1,4 @@
 import React from "react";
-
 const GrowAndGlowSection = () => {
   return (
     <section  className="py-8 lg:py-12">
@@ -56,5 +55,4 @@ const GrowAndGlowSection = () => {
     </section>
   );
 };
-
 export default GrowAndGlowSection;

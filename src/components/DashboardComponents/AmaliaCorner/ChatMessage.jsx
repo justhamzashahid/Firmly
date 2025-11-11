@@ -1,5 +1,4 @@
 import React from "react";
-
 const ChatMessage = ({ message }) => {
   return (
     <div className="mb-6 md:mb-8">
@@ -11,5 +10,4 @@ const ChatMessage = ({ message }) => {
     </div>
   );
 };
-
 export default ChatMessage;

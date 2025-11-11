@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-
 const ChatInputFooter = () => {
   const [message, setMessage] = useState("");
-
   const handleSend = () => {
     if (message.trim()) {
       setMessage("");
     }
   };
-
   return (
     <div className=" bg-white p-4 max-w-5xl mx-auto ">
       <div className="flex flex-row gap-2 md:gap-4 items-center">
@@ -50,5 +47,4 @@ const ChatInputFooter = () => {
     </div>
   );
 };
-
 export default ChatInputFooter;
