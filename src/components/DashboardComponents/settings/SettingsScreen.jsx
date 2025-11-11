@@ -1,42 +1,44 @@
-import React, { useState } from 'react';
-import SettingsSidebar from './SettingsSidebar';
-import SettingsHeader from './SettingsHeader';
-import PersonalInformationSection from './PersonalInformationSection';
-import ChangePasswordSection from './ChangePasswordSection';
+import React, { useState } from "react";
+import SettingsSidebar from "./SettingsSidebar";
+import SettingsHeader from "./SettingsHeader";
+import PersonalInformationSection from "./PersonalInformationSection";
+import ChangePasswordSection from "./ChangePasswordSection";
 
 export default function SettingsScreen() {
   // Form state for Personal Information
   const [personalInfo, setPersonalInfo] = useState({
-    firstName: 'maya',
-    lastName: 'maya@firmly.com',
-    age: 'maya',
-    email: 'maya@firmly.com',
-    currentJobRole: 'Computing',
-    yearsOfExperience: '2-5 years',
+    firstName: "maya",
+    lastName: "maya@firmly.com",
+    age: "maya",
+    email: "maya@firmly.com",
+    currentJobRole: "Computing",
+    yearsOfExperience: "2-5 years",
   });
 
   // Form state for Password Change
   const [passwordInfo, setPasswordInfo] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
-  const [profileImage, setProfileImage] = useState('/assets/images/dashboard/noti.png');
+  const [profileImage, setProfileImage] = useState(
+    "/assets/images/dashboard/avatar.png"
+  );
 
   const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
-    setPersonalInfo(prev => ({
+    setPersonalInfo((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
-    setPasswordInfo(prev => ({
+    setPasswordInfo((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -57,26 +59,23 @@ export default function SettingsScreen() {
 
   const handleSaveChanges = () => {
     // Handle save logic here
-    console.log('Saving personal information:', personalInfo);
+    console.log("Saving personal information:", personalInfo);
   };
+  
 
   const handleChangePassword = () => {
     // Handle password change logic here
-    console.log('Changing password:', passwordInfo);
+    console.log("Changing password:", passwordInfo);
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-full overflow-auto">
-      {/* Left Sidebar Navigation */}
-      <SettingsSidebar />
-
-      {/* Main Content Area */}
-      <main className="flex-1 overflow-auto bg-[#f5f5f5] p-4 sm:p-6 lg:p-8 xl:p-12">
-        <div className="max-w-5xl mx-auto">
-          {/* Header */}
-          <SettingsHeader />
-
-          {/* Personal Information Section */}
+    <div className="py-8">
+      <SettingsHeader />
+      <main className="grid lg:grid-cols-12 bg-white gap-7 rounded-3xl shadow-md lg:p-8 p-5 items-stretch">
+        <div className="lg:col-span-3 flex">
+          <SettingsSidebar />
+        </div>
+        <div className="lg:col-span-9 ">
           <PersonalInformationSection
             personalInfo={personalInfo}
             profileImage={profileImage}
@@ -85,8 +84,6 @@ export default function SettingsScreen() {
             onImageDelete={handleImageDelete}
             onSaveChanges={handleSaveChanges}
           />
-
-          {/* Change Password Section */}
           <ChangePasswordSection
             passwordInfo={passwordInfo}
             onPasswordChange={handlePasswordChange}

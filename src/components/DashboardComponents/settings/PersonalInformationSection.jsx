@@ -10,12 +10,12 @@ export default function PersonalInformationSection({
   onSaveChanges
 }) {
   return (
-    <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 mb-6 shadow-sm">
+    <div className="mb-6 shadow-sm p-4 lg:p-6 bg-[#fafafa] border-[#f2f2f2] border rounded-3xl">
       <div className="mb-6">
-        <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl lg:text-3xl font-cormorant font-bold text-[#3D3D3D] mb-1">
           Personal information
         </h2>
-        <p className="text-sm sm:text-base text-gray-600">
+        <p className="text-sm sm:text-base text-[#3D3D3D]/60 font-inter font-medium">
           Add and update your personal information.
         </p>
       </div>

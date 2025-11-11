@@ -6,7 +6,7 @@ export default function AccountSettings() {
   return (
     <div className="h-screen overflow-hidden flex flex-col">
       <Header2 />
-      <div className="flex-1 bg-[#f5f5f5] overflow-hidden">
+      <div className="flex-1 bg-[#f5f5f5] overflow-y-auto 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4">
         <SettingsScreen />
       </div>
     </div>
