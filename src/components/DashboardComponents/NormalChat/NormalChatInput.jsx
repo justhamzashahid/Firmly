@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
-const NormalChatInput = () => {
+const NormalChatInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
     if (message.trim()) {
+      onSendMessage?.(message.trim());
       setMessage("");
     }
   };
 
   return (
-    <div className="bg-white p-4 md:p-6  flex-shrink-0">
+    <div className="bg-white pb-4 md:pb-6  flex-shrink-0 max-w-4xl mx-auto">
       <div className="flex flex-row gap-2 md:gap-4 items-center w-full">
         <input
           type="text"
@@ -18,7 +19,7 @@ const NormalChatInput = () => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && handleSend()}
-          className="flex-1 px-3 md:px-4 py-2 md:py-3 bg-[#F5F5F5] text-[#9E9CAE] rounded-xl border border-[#ECECEC] focus:outline-none focus:ring-[1px] focus:ring-purple-500 font-inter text-xs md:text-base"
+          className="flex-1 px-3 md:px-4 py-2 md:py-3 bg-[#F5F5F5] text-[#9E9CAE] rounded-xl border border-[#ECECEC] focus:outline-none focus:ring-[1px] focus:[#6664D3] font-inter text-xs md:text-base"
         />
         <div className="flex gap-2 md:gap-3 shrink-0">
           <button

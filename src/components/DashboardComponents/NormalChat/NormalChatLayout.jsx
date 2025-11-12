@@ -6,6 +6,8 @@ import NormalChatInput from "./NormalChatInput";
 
 const NormalChatLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,10 +56,27 @@ const NormalChatLayout = () => {
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
         <div className="flex-1 overflow-hidden">
-          <NormalChatContent />
+          <NormalChatContent messages={messages} isTyping={isTyping} />
         </div>
         <div className="flex-shrink-0">
-          <NormalChatInput />
+          <NormalChatInput
+            onSendMessage={(message) => {
+              // Add user message
+              setMessages([...messages, { type: "user", text: message }]);
+              setIsTyping(true);
+              // Simulate AI response after a delay
+              setTimeout(() => {
+                setIsTyping(false);
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: "ai",
+                    text: "Welcome to our final session! Before we dive in, I want to thank you for your engagement throughout this program. Developing empathy is an ongoing journey, and the awareness and commitment you've shown are significant steps. How are you feeling about our work together so far?",
+                  },
+                ]);
+              }, 2000);
+            }}
+          />
         </div>
         <img
           src="/assets/images/dashboard/normalbottom.png"
