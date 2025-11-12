@@ -48,7 +48,7 @@ const NormalChatLayout = () => {
       />
       <div className="flex-1 flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC] relative h-full">
         <img
-          src="/assets/images/dashboard/normaltop.png"
+          src="/assets/images/dashboard/normaltop.webp"
           alt="dashboard top background"
           className="absolute top-0 left-0 w-[337px] z-0 h-[348px] object-cover object-top pointer-events-none"
         />
@@ -61,10 +61,8 @@ const NormalChatLayout = () => {
         <div className="flex-shrink-0">
           <NormalChatInput
             onSendMessage={(message) => {
-              // Add user message
               setMessages([...messages, { type: "user", text: message }]);
               setIsTyping(true);
-              // Simulate AI response after a delay
               setTimeout(() => {
                 setIsTyping(false);
                 setMessages((prev) => [
@@ -79,7 +77,7 @@ const NormalChatLayout = () => {
           />
         </div>
         <img
-          src="/assets/images/dashboard/normalbottom.png"
+          src="/assets/images/dashboard/normalbottom.webp"
           alt="dashboard bottom background"
           className="absolute bottom-0 right-0 w-[337px] z-0 h-[348px] object-cover object-bottom pointer-events-none"
         />

@@ -43,7 +43,7 @@ const SafeSpaceChatLayout = () => {
     <div className="flex flex-col md:flex-row h-full overflow-hidden ">
       <div className="flex-1 flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC] relative h-full">
         <img
-          src="/assets/images/dashboard/normaltop.png"
+          src="/assets/images/dashboard/normaltop.webp"
           alt="dashboard top background"
           className="absolute top-0 left-0 w-[337px] z-0 h-[348px] object-cover object-top pointer-events-none"
         />
@@ -51,17 +51,14 @@ const SafeSpaceChatLayout = () => {
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           hasMessages={messages.length > 0}
         />
-
         <div className="flex-1 overflow-hidden">
           <SpaceChatContent messages={messages} isTyping={isTyping} />
         </div>
         <div className="flex-shrink-0">
           <SafeSpaceChatInput
             onSendMessage={(message) => {
-              // Add user message
               setMessages([...messages, { type: "user", text: message }]);
               setIsTyping(true);
-              // Simulate AI response after a delay
               setTimeout(() => {
                 setIsTyping(false);
                 setMessages((prev) => [
@@ -76,7 +73,7 @@ const SafeSpaceChatLayout = () => {
           />
         </div>
         <img
-          src="/assets/images/dashboard/safechatbottom.png"
+          src="/assets/images/dashboard/safechatbottom.webp"
           alt="dashboard bottom background"
           className="absolute bottom-0 right-0 w-[546px] z-0 h-[400px] object-cover object-bottom pointer-events-none"
         />

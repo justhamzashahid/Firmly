@@ -9,7 +9,6 @@ export default function Dashboard() {
 
   const handleStartChat = (mode) => {
     console.log(`Starting ${mode} chat`);
-    // You can add additional logic here based on the mode
   };
 
   return (

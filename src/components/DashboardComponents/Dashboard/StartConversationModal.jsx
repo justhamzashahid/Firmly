@@ -68,28 +68,22 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 z-[299] backdrop-blur-sm"
         onClick={onClose}
       ></div>
-
-      {/* Modal */}
       <div className="fixed inset-0 z-[300] flex items-start sm:items-center justify-center p-4 overflow-y-auto">
         <div
           ref={modalRef}
           className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden my-auto sm:my-0 max-h-[90vh] sm:max-h-[95vh] flex flex-col"
         >
-          {/* Header */}
           <div className="bg-[#6664D3] px-6 sm:px-8 py-6  relative overflow-hidden">
-            {/* Background pattern */}
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
               style={{
-                backgroundImage: "url(/assets/images/dashboard/conbg.png)",
+                backgroundImage: "url(/assets/images/dashboard/conbg.webp)",
               }}
             ></div>
-
             <div className="relative z-10">
               <h2 className="text-2xl sm:text-3xl font-cormorant font-bold text-[#FFFFFF] mb-1">
                 Start a Conversation
@@ -99,23 +93,16 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
               </p>
             </div>
           </div>
-
-          {/* Body with two cards */}
           <div className="p-6 sm:p-8 overflow-y-auto flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Normal Chat Card */}
               <div className="bg-white  rounded-2xl lg:p-6 p-4 relative overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                {/* Card background pattern header */}
                 <div
                   className="absolute top-0 left-0 right-0 h-12 bg-cover bg-center bg-no-repeat rounded-t-2xl"
                   style={{
-                    backgroundImage: "url(/assets/images/dashboard/conbg.png)",
+                    backgroundImage: "url(/assets/images/dashboard/conbg.webp)",
                     backgroundColor: "#e8e8e8",
                   }}
                 ></div>
-
-                {/* Star icon */}
-
                 <div className="mt-14">
                   <div className="flex flex-row gap-2 items-start justify-between">
                     <div>
@@ -131,7 +118,7 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
                       </p>
                     </div>
                     <img
-                      src="/assets/images/dashboard/constar.png"
+                      src="/assets/images/dashboard/constar.webp"
                       alt="star icon"
                       className="w-10 h-10"
                     />
@@ -146,20 +133,14 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
                   </div>
                 </div>
               </div>
-
-              {/* Safe Space Card */}
               <div className="bg-white  rounded-2xl lg:p-6 p-4 relative overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                {/* Card background pattern header */}
                 <div
                   className="absolute top-0 left-0 right-0 h-12 bg-cover bg-center bg-no-repeat rounded-t-2xl"
                   style={{
-                    backgroundImage: "url(/assets/images/dashboard/conbg.png)",
+                    backgroundImage: "url(/assets/images/dashboard/conbg.webp)",
                     backgroundColor: "#e8e8e8",
                   }}
                 ></div>
-
-                {/* Star icon */}
-
                 <div className="mt-14">
                   <div className="flex flex-row gap-2 items-start justify-between">
                     <div>
@@ -175,7 +156,7 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
                       </p>
                     </div>
                     <img
-                      src="/assets/images/dashboard/constar.png"
+                      src="/assets/images/dashboard/constar.webp"
                       alt="star icon"
                       className="w-10 h-10"
                     />

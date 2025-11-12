@@ -2,8 +2,6 @@ import React from "react";
 
 const SpaceChatContent = ({ messages = [], isTyping = false }) => {
   const suggestedTopics = Array(7).fill("sensitive topics");
-
-  // If there are messages, show the chat view
   if (messages.length > 0) {
     return (
       <div className="h-full px-4 py-6 relative overflow-y-auto">
@@ -29,7 +27,7 @@ const SpaceChatContent = ({ messages = [], isTyping = false }) => {
           {isTyping && (
             <div className="flex items-center gap-2 px-4">
               <img
-                src="/assets/images/dashboard/normalstar.png"
+                src="/assets/images/dashboard/normalstar.webp"
                 alt="Typing indicator"
                 className="w-5 h-5 animate-spin"
               />
@@ -61,40 +59,28 @@ const SpaceChatContent = ({ messages = [], isTyping = false }) => {
       </div>
     );
   }
-
-  // Otherwise, show the welcome screen
   return (
     <div className="h-full flex items-center justify-center 2xl:pt-0 xl:pt-20 lg:pt-14 px-4 relative overflow-y-auto">
-      {/* Central content block */}
       <div className="relative z-10 max-w-2xl w-full text-center">
-        {/* Emoji icon */}
         <div className="flex justify-center mb-4">
           <img
-            src="/assets/images/dashboard/emoji.png"
+            src="/assets/images/dashboard/emoji.webp"
             alt="Normal Chat"
             className="lg:w-24 lg:h-24 h-14 w-14  object-contain"
           />
         </div>
-
-        {/* Title */}
         <h2 className="text-xl md:text-2xl lg:text-3xl font-cormorant font-bold text-black mb-4">
           Safe Space (Incognito mode){" "}
         </h2>
-
-        {/* Description */}
         <p className="text-sm md:text-base text-[#3D3D3D]/60 font-inter font-medium mb-4 max-w-md mx-auto">
           Incognito mode for sensitive topics. A darker theme with clear privacy
           indicators.
         </p>
-
-        {/* Ask about link */}
         <div className="mb-4">
           <button className="text-[#6664D3]  font-inter text-sm md:text-base transition-colors ">
             Ask about
           </button>
         </div>
-
-        {/* Suggested topics buttons - 4 in top row, 3 in bottom row */}
         <div className="flex flex-col gap-2 md:gap-3 max-w-2xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {suggestedTopics.slice(0, 4).map((topic, index) => (
