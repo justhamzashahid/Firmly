@@ -39,7 +39,7 @@ const NormalChatLayout = () => {
   }, [isSidebarCollapsed]);
 
   return (
-    <div className="flex flex-col md:flex-row h-full overflow-hidden">
+    <div className="flex flex-col md:flex-row h-full overflow-hidden ">
       <NormalChatSidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}

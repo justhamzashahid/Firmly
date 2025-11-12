@@ -38,7 +38,7 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
             : "w-3/4 md:w-1/4 lg:w-1/5 translate-x-0 mr-4"
         } fixed md:relative z-50 md:z-auto flex flex-col h-screen`}
       >
-        <div className="px-5 py-3 flex items-center justify-between">
+        <div className="px-5 py-3 flex items-center justify-between mt-4">
           <h2 className="text-xl md:text-2xl font-semibold text-black font-cormorant">
             {!isCollapsed && "All Conversations"}
           </h2>

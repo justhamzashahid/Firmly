@@ -54,8 +54,8 @@ const NormalChatSidebar = ({ isCollapsed, onToggleCollapse }) => {
         } fixed md:relative z-50 md:z-auto flex flex-col h-full`}
         style={{ maxHeight: "100%" }}
       >
-        <div className="px-5 py-3 flex items-center justify-between border-b border-[#ECECEC]">
-          <h2 className="text-xl md:text-2xl font-semibold text-black font-cormorant">
+        <div className="px-5 py-3 flex items-center justify-between  mt-4">
+          <h2 className="text-xl md:text-2xl font-semibold text-black font-cormorant ">
             All Conversations
           </h2>
           <button
@@ -78,14 +78,14 @@ const NormalChatSidebar = ({ isCollapsed, onToggleCollapse }) => {
             </svg>
           </button>
         </div>
-        <div className="p-3 border-b border-[#ECECEC]">
+        <div className="p-3">
           <div className="relative">
             <input
               type="text"
               placeholder="Search conversation"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 text-[#9E9CAE] font-inter py-3 bg-transparent border-[1px] border-[#ECECEC] rounded-xl focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] text-sm md:text-base pr-10"
+              className="w-full px-4 font-inter font-medium text-[#9E9CAE]  py-3 bg-transparent border-[1px] border-[#ECECEC] rounded-xl focus:outline-none focus:ring-[1px] focus:ring-[#6664D3] text-sm md:text-base pr-10"
             />
             <button
               className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9E9CAE] hover:text-gray-600 transition-colors"
@@ -108,7 +108,7 @@ const NormalChatSidebar = ({ isCollapsed, onToggleCollapse }) => {
           </div>
         </div>
         <div className="px-3 py-3 mb-2">
-          <h3 className="text-xs md:text-sm font-semibold text-black/30 uppercase tracking-wide">
+          <h3 className="text-xs md:text-sm font-inter font-semibold text-black/30 uppercase tracking-wide">
             Recent
           </h3>
         </div>
@@ -133,4 +133,3 @@ const NormalChatSidebar = ({ isCollapsed, onToggleCollapse }) => {
 };
 
 export default NormalChatSidebar;
-
