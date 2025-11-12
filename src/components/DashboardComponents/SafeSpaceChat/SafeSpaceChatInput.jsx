@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const NormalChatInput = ({ onSendMessage }) => {
+const SafeSpaceChatInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
@@ -52,4 +52,4 @@ const NormalChatInput = ({ onSendMessage }) => {
   );
 };
 
-export default NormalChatInput;
+export default SafeSpaceChatInput;

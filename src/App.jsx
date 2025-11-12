@@ -4,6 +4,7 @@ import AmaliaCorner from "./pages/AmaliaCorner";
 import AccountSettings from "./pages/AccountSettings";
 import Onboarding from "./pages/Onboarding";
 import NormalChat from "./pages/NormalChat";
+import SafeSpaceChat from "./pages/SafeSpaceChat";
 function App() {
   return (
     <Router>
@@ -16,6 +17,7 @@ function App() {
           element={<AccountSettings />}
         />
         <Route path="/dashboard/normal-chat" element={<NormalChat />} />
+        <Route path="/dashboard/safe-space-chat" element={<SafeSpaceChat />} />
       </Routes>
     </Router>
   );
