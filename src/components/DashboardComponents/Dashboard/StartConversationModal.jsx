@@ -51,18 +51,16 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
   const handleNormalChat = () => {
     if (onStartChat) {
       onStartChat("normal");
-    } else {
-      navigate("/amalia-corner");
     }
+    navigate("/dashboard/normal-chat");
     onClose();
   };
 
   const handleSafeSpaceChat = () => {
     if (onStartChat) {
       onStartChat("safe-space");
-    } else {
-      navigate("/amalia-corner");
     }
+    navigate("/amalia-corner");
     onClose();
   };
 
@@ -141,7 +139,7 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
                   <div className="flex  justify-end mt-4">
                     <button
                       onClick={handleNormalChat}
-                      className=" px-5 py-3 bg-[#f5f5f5] text-[#807EF1] rounded-xl font-medium  transition-colors text-sm sm:text-base"
+                      className=" px-5 py-3 bg-[#f5f5f5] text-[#807EF1] rounded-xl font-medium  transition-colors text-sm sm:text-base hover:bg-[#e5e5e5]"
                     >
                       Start Chat
                     </button>
@@ -184,8 +182,8 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
                   </div>
                   <div className="flex  justify-end mt-4">
                     <button
-                      onClick={handleNormalChat}
-                      className=" px-5 py-3 bg-[#f5f5f5] text-[#807EF1] rounded-xl font-medium  transition-colors text-sm sm:text-base"
+                      onClick={handleSafeSpaceChat}
+                      className=" px-5 py-3 bg-[#f5f5f5] text-[#807EF1] rounded-xl font-medium  transition-colors text-sm sm:text-base hover:bg-[#e5e5e5]"
                     >
                       Start Chat
                     </button>
