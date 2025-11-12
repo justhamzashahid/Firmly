@@ -30,13 +30,13 @@ const PathwayCard = ({ onPrevious, onNext }) => {
               onClick={onPrevious}
               className="px-6 py-2 bg-transparent border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-colors font-inter text-sm"
             >
-              Previous
+              I already have an Account
             </button>
             <button
               onClick={onNext}
               className="px-6 py-2 bg-white text-[#6b4bff] font-medium rounded-full shadow-sm hover:bg-white/90 transition-colors font-inter text-sm"
             >
-              Next
+              Create Account
             </button>
           </div>
         </div>
