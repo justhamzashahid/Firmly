@@ -10,7 +10,7 @@ const NormalChatInput = () => {
   };
 
   return (
-    <div className="bg-white p-4 md:p-6 border-t border-[#ECECEC] flex-shrink-0">
+    <div className="bg-white p-4 md:p-6  flex-shrink-0">
       <div className="flex flex-row gap-2 md:gap-4 items-center w-full">
         <input
           type="text"
@@ -52,4 +52,3 @@ const NormalChatInput = () => {
 };
 
 export default NormalChatInput;
-

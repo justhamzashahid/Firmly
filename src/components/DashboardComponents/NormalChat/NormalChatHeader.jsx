@@ -2,7 +2,7 @@ import React from "react";
 
 const NormalChatHeader = ({ onMenuClick }) => {
   return (
-    <div className="p-4 md:p-6 flex items-center justify-between border-b border-[#ECECEC] flex-shrink-0">
+    <div className="p-4 md:p-6 flex items-center justify-between flex-shrink-0">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
@@ -27,7 +27,7 @@ const NormalChatHeader = ({ onMenuClick }) => {
           Amalia
         </h1>
       </div>
-      <div className="text-sm md:text-base font-inter text-[#3D3D3D]">
+      <div className="text-md md:text-lg font-cormorant font-semibold underline text-black">
         Safe Space
       </div>
     </div>
@@ -35,4 +35,3 @@ const NormalChatHeader = ({ onMenuClick }) => {
 };
 
 export default NormalChatHeader;
-

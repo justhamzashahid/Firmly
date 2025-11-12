@@ -45,6 +45,11 @@ const NormalChatLayout = () => {
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
       />
       <div className="flex-1 flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC] relative h-full">
+        <img
+          src="/assets/images/dashboard/normaltop.png"
+          alt="dashboard top background"
+          className="absolute top-0 left-0 w-[337px] z-0 h-[348px] object-cover object-top pointer-events-none"
+        />
         <NormalChatHeader
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
@@ -54,10 +59,14 @@ const NormalChatLayout = () => {
         <div className="flex-shrink-0">
           <NormalChatInput />
         </div>
+        <img
+          src="/assets/images/dashboard/normalbottom.png"
+          alt="dashboard bottom background"
+          className="absolute bottom-0 right-0 w-[337px] z-0 h-[348px] object-cover object-bottom pointer-events-none"
+        />
       </div>
     </div>
   );
 };
 
 export default NormalChatLayout;
-
