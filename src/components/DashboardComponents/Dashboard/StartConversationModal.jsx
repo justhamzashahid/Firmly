@@ -106,108 +106,90 @@ const StartConversationModal = ({ isOpen, onClose, onStartChat }) => {
           <div className="p-6 sm:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Normal Chat Card */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                {/* Card background pattern */}
+              <div className="bg-white  rounded-2xl p-6 relative overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                {/* Card background pattern header */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-24 bg-cover bg-center bg-no-repeat opacity-10"
+                  className="absolute top-0 left-0 right-0 h-12 bg-cover bg-center bg-no-repeat rounded-t-2xl"
                   style={{
                     backgroundImage: "url(/assets/images/dashboard/conbg.png)",
+                    backgroundColor: "#e8e8e8",
                   }}
                 ></div>
 
-                {/* Gear icon */}
-                <div className="absolute top-4 right-4">
-                  <svg
-                    className="w-5 h-5 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                </div>
+                {/* Star icon */}
 
-                <div className="relative z-10 mt-8">
-                  <h3 className="text-xl font-bold text-[#3D3D3D] mb-3">
-                    Normal Chat
-                  </h3>
-                  <p className="text-sm sm:text-base text-[#3D3D3D]/70 mb-4 leading-relaxed">
-                    Standard coaching conversation. Messages persist so you can
-                    revisit insights anytime.
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#3D3D3D]/60 mb-6">
-                    History saved to your session.
-                  </p>
-                  <button
-                    onClick={handleNormalChat}
-                    className="w-full py-3 bg-[#6664D3] text-white rounded-xl font-medium hover:bg-[#5553C2] transition-colors text-sm sm:text-base"
-                  >
-                    Start Chat
-                  </button>
+                <div className="mt-14">
+                  <div className="flex flex-row gap-2 items-start justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold font-cormorant text-black mb-2">
+                        Normal Chat
+                      </h3>
+                      <p className="text-sm text-[#3D3D3D]/60 mb-3 font-inter font-regular leading-relaxed">
+                        Standard coaching conversation. Messages persist so you
+                        can revisit insights anytime.
+                      </p>
+                      <p className="text-xs text-[#3D3D3D]/60 mb-5 font-inter font-regular">
+                        History saved to your session.
+                      </p>
+                    </div>
+                    <img
+                      src="/assets/images/dashboard/constar.png"
+                      alt="star icon"
+                      className="w-10 h-10"
+                    />
+                  </div>
+                  <div className="flex  justify-end mt-4">
+                    <button
+                      onClick={handleNormalChat}
+                      className=" px-5 py-3 bg-[#f5f5f5] text-[#807EF1] rounded-xl font-medium  transition-colors text-sm sm:text-base"
+                    >
+                      Start Chat
+                    </button>
+                  </div>
                 </div>
               </div>
 
               {/* Safe Space Card */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                {/* Card background pattern */}
+              <div className="bg-white  rounded-2xl p-6 relative overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                {/* Card background pattern header */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-24 bg-cover bg-center bg-no-repeat opacity-10"
+                  className="absolute top-0 left-0 right-0 h-12 bg-cover bg-center bg-no-repeat rounded-t-2xl"
                   style={{
                     backgroundImage: "url(/assets/images/dashboard/conbg.png)",
+                    backgroundColor: "#e8e8e8",
                   }}
                 ></div>
 
-                {/* Gear icon */}
-                <div className="absolute top-4 right-4">
-                  <svg
-                    className="w-5 h-5 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                </div>
+                {/* Star icon */}
 
-                <div className="relative z-10 mt-8">
-                  <h3 className="text-xl font-bold text-[#3D3D3D] mb-3">
-                    Safe Space (Incognito mode)
-                  </h3>
-                  <p className="text-sm sm:text-base text-[#3D3D3D]/70 mb-4 leading-relaxed">
-                    Incognito mode for sensitive topics. A darker theme with
-                    clear privacy indicators.
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#3D3D3D]/60 mb-6">
-                    No history will be saved.
-                  </p>
-                  <button
-                    onClick={handleSafeSpaceChat}
-                    className="w-full py-3 bg-[#6664D3] text-white rounded-xl font-medium hover:bg-[#5553C2] transition-colors text-sm sm:text-base"
-                  >
-                    Start Chat
-                  </button>
+                <div className="mt-14">
+                  <div className="flex flex-row gap-2 items-start justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold font-cormorant text-black mb-2">
+                        Safe Space (Incognito mode){" "}
+                      </h3>
+                      <p className="text-sm text-[#3D3D3D]/60 mb-3 font-inter font-regular leading-relaxed">
+                        Incognito mode for sensitive topics. A darker theme with
+                        clear privacy indicators.
+                      </p>
+                      <p className="text-xs text-[#3D3D3D]/60 mb-5 font-inter font-regular">
+                        No history will be saved .
+                      </p>
+                    </div>
+                    <img
+                      src="/assets/images/dashboard/constar.png"
+                      alt="star icon"
+                      className="w-10 h-10"
+                    />
+                  </div>
+                  <div className="flex  justify-end mt-4">
+                    <button
+                      onClick={handleNormalChat}
+                      className=" px-5 py-3 bg-[#f5f5f5] text-[#807EF1] rounded-xl font-medium  transition-colors text-sm sm:text-base"
+                    >
+                      Start Chat
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
