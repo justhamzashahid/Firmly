@@ -5,6 +5,7 @@ import AccountSettings from "./pages/AccountSettings";
 import Onboarding from "./pages/Onboarding";
 import NormalChat from "./pages/NormalChat";
 import SafeSpaceChat from "./pages/SafeSpaceChat";
+import Feedback from "./pages/Feedback";
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
         />
         <Route path="/dashboard/normal-chat" element={<NormalChat />} />
         <Route path="/dashboard/safe-space-chat" element={<SafeSpaceChat />} />
+        <Route path="/dashboard/feedback" element={<Feedback />} />
       </Routes>
     </Router>
   );
