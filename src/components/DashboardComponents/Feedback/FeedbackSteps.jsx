@@ -168,16 +168,23 @@ const FeedbackSteps = () => {
             {/* Slider Container */}
             <div className="relative px-4 lg:px-0">
               {/* Slider Track */}
-              <div className="relative h-4 sm:h-5 bg-[#e3e3e3] rounded-full">
+              <div className="relative p-2 bg-[#e3e3e3] rounded-full overflow-visible">
                 {/* Slider Dots - Clickable */}
-                <div className="absolute inset-0 flex items-center justify-between">
+                <div className="absolute inset-0 flex items-center overflow-visible">
                   {[0, 1, 2, 3, 4, 5, 6].map((point) => {
-                    const position =
-                      point === 0
-                        ? "0%"
-                        : point === 6
-                        ? "100%"
-                        : `${(point / 6) * 100}%`;
+                    // Calculate position: evenly space dots across the track
+                    // For edge dots, adjust to keep them inside
+                    let position, transform;
+                    if (point === 0) {
+                      position = "0%";
+                      transform = "translateX(0)";
+                    } else if (point === 6) {
+                      position = "100%";
+                      transform = "translateX(-100%)";
+                    } else {
+                      position = `${(point / 6) * 100}%`;
+                      transform = "translateX(-50%)";
+                    }
                     return (
                       <button
                         key={point}
@@ -187,12 +194,12 @@ const FeedbackSteps = () => {
                           e.preventDefault();
                           handleSliderChange(point);
                         }}
-                        className="w-2.5 h-2.5 rounded-full bg-[#6664D3] z-40 cursor-pointer hover:scale-125 transition-transform flex items-center justify-center"
+                        className="w-1.5 h-1.5 lg:w-2.5 lg:h-2.5 rounded-full bg-[#6664D3] z-50 cursor-pointer hover:scale-125 transition-transform flex items-center justify-center touch-manipulation relative"
                         style={{
                           position: "absolute",
                           left: position,
-                          transform: "translateX(-50%)",
-                          marginTop: "0",
+                          transform: transform,
+                          pointerEvents: "auto",
                         }}
                         aria-label={`Select value ${point}`}
                       />
@@ -200,27 +207,19 @@ const FeedbackSteps = () => {
                   })}
                 </div>
 
-                {/* Slider Handle - Subtract.png */}
-                {responses[currentStep] !== 0 &&
-                  responses[currentStep] !== 6 && (
-                    <div
-                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-none transition-all duration-200"
-                      style={{
-                        left:
-                          responses[currentStep] === 0
-                            ? "0%"
-                            : responses[currentStep] === 6
-                            ? "100%"
-                            : `${(responses[currentStep] / 6) * 100}%`,
-                      }}
-                    >
-                      <img
-                        src="/assets/images/dashboard/Subtract.png"
-                        alt="slider handle"
-                        className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
-                      />
-                    </div>
-                  )}
+                {/* Slider Handle - Subtract.png - Show for all values including 0 and 6 */}
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-none transition-all duration-200"
+                  style={{
+                    left: `${(responses[currentStep] / 6) * 100}%`,
+                  }}
+                >
+                  <img
+                    src="/assets/images/dashboard/Subtract.png"
+                    alt="slider handle"
+                    className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
+                  />
+                </div>
 
                 {/* Invisible Slider Input */}
                 <input
@@ -236,13 +235,13 @@ const FeedbackSteps = () => {
 
               {/* Labels */}
               <div className="flex justify-between mt-8 sm:mt-12 md:mt-16 px-2">
-                <span className="text-xs sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
+                <span className="text-[9px] sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
                   Strongly Disagree
                 </span>
-                <span className="text-xs sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
+                <span className="text-[9px] sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
                   Neutral
                 </span>
-                <span className="text-xs sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
+                <span className="text-[9px] sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
                   Strongly Agree
                 </span>
               </div>
