@@ -172,19 +172,7 @@ const FeedbackSteps = () => {
                 {/* Slider Dots - Clickable */}
                 <div className="absolute inset-0 flex items-center overflow-visible">
                   {[0, 1, 2, 3, 4, 5, 6].map((point) => {
-                    // Calculate position: evenly space dots across the track
-                    // For edge dots, adjust to keep them inside
-                    let position, transform;
-                    if (point === 0) {
-                      position = "0%";
-                      transform = "translateX(0)";
-                    } else if (point === 6) {
-                      position = "100%";
-                      transform = "translateX(-100%)";
-                    } else {
-                      position = `${(point / 6) * 100}%`;
-                      transform = "translateX(-50%)";
-                    }
+                    const posPercent = (point / 6) * 100;
                     return (
                       <button
                         key={point}
@@ -197,8 +185,8 @@ const FeedbackSteps = () => {
                         className="w-1.5 h-1.5 lg:w-2.5 lg:h-2.5 rounded-full bg-[#6664D3] z-50 cursor-pointer hover:scale-125 transition-transform flex items-center justify-center touch-manipulation relative"
                         style={{
                           position: "absolute",
-                          left: position,
-                          transform: transform,
+                          left: `${posPercent}%`,
+                          transform: "translateX(-50%)",
                           pointerEvents: "auto",
                         }}
                         aria-label={`Select value ${point}`}
@@ -207,11 +195,12 @@ const FeedbackSteps = () => {
                   })}
                 </div>
 
-                {/* Slider Handle - Subtract.png - Show for all values including 0 and 6 */}
+                {/* Slider Handle - always centered on the dot */}
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-none transition-all duration-200"
+                  className="absolute top-1/2 z-30 pointer-events-none transition-all duration-200"
                   style={{
                     left: `${(responses[currentStep] / 6) * 100}%`,
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
                   <img
