@@ -11,7 +11,7 @@ const questions = [
 const FeedbackSteps = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
-  const [responses, setResponses] = useState([3, 3, 3, 3]); // Default to neutral (3)
+  const [responses, setResponses] = useState([3, 3, 3, 3]);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
 
   const handleSliderChange = (value) => {
@@ -46,19 +46,15 @@ const FeedbackSteps = () => {
     navigate("/dashboard");
   };
 
-  // Prevent background scrolling when modal is open
   useEffect(() => {
     if (showCompletionModal) {
-      // Save current scroll position
       const scrollY = window.scrollY;
-      // Lock body scroll
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
 
       return () => {
-        // Restore scroll when modal closes
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.width = "";
@@ -76,12 +72,9 @@ const FeedbackSteps = () => {
         className="absolute top-0 left-0 lg:w-[613px] w-[350px] z-0 lg:h-[515px] h-[250px] object-cover object-top pointer-events-none"
       />
       <div className="relative z-20 h-full flex flex-col">
-        {/* Navigation Bar */}
         <div className="relative px-4 lg:px-0 lg:py-6 py-4">
           <div className="flex items-center max-w-5xl mx-auto gap-2 sm:gap-3">
-            {/* Navigation Bar Container - Light Grey Rounded Rectangle */}
             <div className="relative flex items-center justify-between bg-[#f2f2f2] shadow-sm border border-[#ebebeb] rounded-xl sm:rounded-2xl px-1.5 sm:px-2 md:px-3 py-1.5 sm:py-2 flex-1 min-w-0">
-              {/* Previous Button - Far Left */}
               <button
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
@@ -108,13 +101,9 @@ const FeedbackSteps = () => {
                   Previous
                 </span>
               </button>
-
-              {/* Page Indicator - Centered */}
               <div className="absolute left-1/2 -translate-x-1/2 text-xs sm:text-sm md:text-base lg:text-lg text-[#3D3D3D]/80 font-inter font-medium whitespace-nowrap px-1">
                 {currentStep + 1} of {questions.length}
               </div>
-
-              {/* Right Side - Next/Finish */}
               <div className="flex items-center flex-shrink-0">
                 {currentStep === questions.length - 1 ? (
                   <button
@@ -146,8 +135,6 @@ const FeedbackSteps = () => {
                 )}
               </div>
             </div>
-
-            {/* Exit Button - Outside and on Far Right */}
             <button
               onClick={handleExit}
               className="flex-shrink-0 border border-[#e6e6e6] px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 rounded-lg sm:rounded-xl bg-transparent text-[#3D3D3D] active:scale-95 transition-all font-inter font-medium text-xs sm:text-sm md:text-base whitespace-nowrap"
@@ -156,20 +143,13 @@ const FeedbackSteps = () => {
             </button>
           </div>
         </div>
-
-        {/* Question and Slider Section */}
         <div className="flex-1 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 pb-8 sm:pb-12">
           <div className="w-full max-w-5xl">
-            {/* Question Text */}
             <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-cormorant font-bold text-black text-center mb-10 sm:mb-16 md:mb-20 leading-tight px-4">
               {questions[currentStep]}
             </h2>
-
-            {/* Slider Container */}
             <div className="relative px-4 lg:px-0">
-              {/* Slider Track */}
               <div className="relative p-2 bg-[#e3e3e3] rounded-full overflow-visible">
-                {/* Slider Dots - Clickable */}
                 <div className="absolute inset-0 flex items-center overflow-visible">
                   {[0, 1, 2, 3, 4, 5, 6].map((point) => {
                     const posPercent = (point / 6) * 100;
@@ -194,8 +174,6 @@ const FeedbackSteps = () => {
                     );
                   })}
                 </div>
-
-                {/* Slider Handle - always centered on the dot */}
                 <div
                   className="absolute top-1/2 z-30 pointer-events-none transition-all duration-200"
                   style={{
@@ -209,8 +187,6 @@ const FeedbackSteps = () => {
                     className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
                   />
                 </div>
-
-                {/* Invisible Slider Input */}
                 <input
                   type="range"
                   min="0"
@@ -221,8 +197,6 @@ const FeedbackSteps = () => {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
                 />
               </div>
-
-              {/* Labels */}
               <div className="flex justify-between mt-8 sm:mt-12 md:mt-16 px-2">
                 <span className="text-[9px] sm:text-sm md:text-base text-[#3D3D3D]/60 font-medium font-inter">
                   Strongly Disagree
@@ -243,16 +217,13 @@ const FeedbackSteps = () => {
         alt="dashboard bottom background"
         className="absolute bottom-0 right-0 lg:w-[613px] w-[350px] z-0 lg:h-[515px] h-[250px] object-cover object-bottom pointer-events-none"
       />
-      {/* Completion Modal */}
       {showCompletionModal && (
         <>
           <div className="fixed inset-0 bg-black/60 z-[299] backdrop-blur-sm"></div>
           <div className="fixed inset-0 z-[300] flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-6 sm:p-8 md:p-10 relative">
-              {/* Icon */}
               <div className="flex justify-center mb-4 sm:mb-6">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-[#6664D3] rounded-full flex items-center justify-center">
-                  {/* Three dots arranged in a star/gear pattern */}
                   <img
                     src="/assets/images/dashboard/helpbtn.webp"
                     alt="action icon"
@@ -260,19 +231,13 @@ const FeedbackSteps = () => {
                   />
                 </div>
               </div>
-
-              {/* Title */}
               <h2 className="text-xl sm:text-2xl md:text-3xl font-cormorant font-bold text-black text-center mb-4 sm:mb-6">
                 Great work today!
               </h2>
-
-              {/* Message */}
               <p className="text-sm sm:text-base md:text-lg text-black/50 text-center mb-6 sm:mb-8 md:mb-10 font-inter leading-relaxed">
                 Our session is now concluded. Remember, I'm here whenever you
                 need support on your leadership journey.
               </p>
-
-              {/* Button */}
               <div className="flex justify-center">
                 <button
                   onClick={handleGoToDashboard}
