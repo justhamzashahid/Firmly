@@ -73,7 +73,7 @@ const FeedbackSteps = () => {
       <img
         src="/assets/images/dashboard/feedbacktop.png"
         alt="dashboard top background"
-        className="absolute top-0 left-0 lg:w-[613px] w-[300px] z-0 lg:h-[515px] h-[200px] object-cover object-top pointer-events-none"
+        className="absolute top-0 left-0 lg:w-[613px] w-[350px] z-0 lg:h-[515px] h-[250px] object-cover object-top pointer-events-none"
       />
       <div className="relative z-20 h-full flex flex-col">
         {/* Navigation Bar */}
@@ -168,39 +168,69 @@ const FeedbackSteps = () => {
             {/* Slider Container */}
             <div className="relative px-4 lg:px-0">
               {/* Slider Track */}
-              <div className="relative h-4 sm:h-5  bg-[#e3e3e3] rounded-full">
-                {/* Slider Dots */}
+              <div className="relative h-4 sm:h-5 bg-[#e3e3e3] rounded-full">
+                {/* Slider Dots - Clickable */}
                 <div className="absolute inset-0 flex items-center justify-between">
-                  {[0, 1, 2, 3, 4, 5, 6].map((point) => (
-                    <div
-                      key={point}
-                      className="lg:w-2.5 lg:h-2.5 w-2 h-2 rounded-full bg-[#6664D3] z-10 ml-2 mr-2"
-                    />
-                  ))}
+                  {[0, 1, 2, 3, 4, 5, 6].map((point) => {
+                    const position =
+                      point === 0
+                        ? "0%"
+                        : point === 6
+                        ? "100%"
+                        : `${(point / 6) * 100}%`;
+                    return (
+                      <button
+                        key={point}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          handleSliderChange(point);
+                        }}
+                        className="w-2.5 h-2.5 rounded-full bg-[#6664D3] z-40 cursor-pointer hover:scale-125 transition-transform flex items-center justify-center"
+                        style={{
+                          position: "absolute",
+                          left: position,
+                          transform: "translateX(-50%)",
+                          marginTop: "0",
+                        }}
+                        aria-label={`Select value ${point}`}
+                      />
+                    );
+                  })}
                 </div>
 
                 {/* Slider Handle - Subtract.png */}
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 cursor-pointer transition-all duration-200"
-                  style={{
-                    left: `${(responses[currentStep] / 6) * 100}%`,
-                  }}
-                >
-                  <img
-                    src="/assets/images/dashboard/Subtract.png"
-                    alt="slider handle"
-                    className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain "
-                  />
-                </div>
+                {responses[currentStep] !== 0 &&
+                  responses[currentStep] !== 6 && (
+                    <div
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-none transition-all duration-200"
+                      style={{
+                        left:
+                          responses[currentStep] === 0
+                            ? "0%"
+                            : responses[currentStep] === 6
+                            ? "100%"
+                            : `${(responses[currentStep] / 6) * 100}%`,
+                      }}
+                    >
+                      <img
+                        src="/assets/images/dashboard/Subtract.png"
+                        alt="slider handle"
+                        className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
+                      />
+                    </div>
+                  )}
 
                 {/* Invisible Slider Input */}
                 <input
                   type="range"
                   min="0"
                   max="6"
+                  step="1"
                   value={responses[currentStep]}
                   onChange={(e) => handleSliderChange(parseInt(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
                 />
               </div>
 
@@ -223,7 +253,7 @@ const FeedbackSteps = () => {
       <img
         src="/assets/images/dashboard/feedbackbottom.png"
         alt="dashboard bottom background"
-        className="absolute bottom-0 right-0 lg:w-[613px] w-[300px] z-0 lg:h-[515px] h-[200px] object-cover object-bottom pointer-events-none"
+        className="absolute bottom-0 right-0 lg:w-[613px] w-[350px] z-0 lg:h-[515px] h-[250px] object-cover object-bottom pointer-events-none"
       />
       {/* Completion Modal */}
       {showCompletionModal && (
