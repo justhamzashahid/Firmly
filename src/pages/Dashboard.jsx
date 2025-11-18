@@ -3,6 +3,7 @@ import GrowAndGlowSection from "../components/DashboardComponents/Dashboard/Grow
 import LeadershipPathwaySection from "../components/DashboardComponents/Dashboard/LeadershipPathwaySection";
 import DashboardHeader from "../components/DashboardComponents/Dashboard/DashboardHeader";
 import StartConversationModal from "../components/DashboardComponents/Dashboard/StartConversationModal";
+import GuidedWalkthrough from "../components/DashboardComponents/Dashboard/GuidedWalkthrough";
 
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,6 +35,7 @@ export default function Dashboard() {
         onClose={() => setIsModalOpen(false)}
         onStartChat={handleStartChat}
       />
+      <GuidedWalkthrough />
     </div>
   );
 }

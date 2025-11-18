@@ -1,7 +1,7 @@
 import React from "react";
 const GrowAndGlowSection = () => {
   return (
-    <section  className="py-8 lg:py-12">
+    <section data-tour="grow-glow" className="py-8 lg:py-12">
       <div className="mb-6">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-1 font-cormorant">
           Grow & Glow
@@ -11,7 +11,10 @@ const GrowAndGlowSection = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        <div className="relative border border-[#0000000A] bg-gray-100 rounded-2xl p-6 overflow-hidden lg:min-h-[250px] min-h-[150px] flex items-center justify-center">
+        <div
+          data-tour="doing-great"
+          className="relative border border-[#0000000A] bg-gray-100 rounded-2xl p-6 overflow-hidden lg:min-h-[250px] min-h-[150px] flex items-center justify-center"
+        >
           <img
             src="/assets/images/dashboard/DoingGreattop.webp"
             alt="dashboard top background"
