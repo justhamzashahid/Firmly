@@ -1,58 +1,58 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const steps = [
-    {
-      id: "visual-summary",
-      title: "Visual Summary",
-      content: [
-        "This visual summary displays your scores across six research-backed metrics.",
-        "These metrics impact women's workplace effectiveness and leadership potential.",
-        "Each metric represents a key area for targeted development.",
-        "Focused improvement in these areas can accelerate your career growth.",
-      ],
-      targetSelector: '[data-tour="radar-chart"]',
-      position: "bottom-right",
-    },
-    {
-      id: "composite-score",
-      title: "Composite Score",
-      content: [
-        "This is your composite score, averaging all six metrics to give you a snapshot of your current leadership development baseline.",
-        "This number represents where you are today - your starting point for growth.",
-        "Whether it's higher or lower than you expected, it's valuable data that helps me tailor your coaching journey to maximize your leadership potential.",
-      ],
-      targetSelector: '[data-tour="overall-score"]',
-      position: "bottom-left",
-    },
-    {
-      id: "grow-glow",
-      title: "Grow & Glow Areas",
-      content: [
-        'Your "glow" areas are the strengths where you\'re already excelling - these are leadership capabilities to celebrate and leverage.',
-        'Your "grow" areas represent your greatest opportunities for development - the metrics where focused attention can create the most significant impact on your leadership effectiveness.',
-      ],
-      targetSelector: '[data-tour="grow-glow"]',
-      position: "top",
-    },
-    {
-      id: "leadership-pathway",
-      title: "Leadership Pathway",
-      content: [
-        "Based on your diagnostic results, I'll analyze your unique profile and create a personalized development plan tailored specifically to your needs.",
-        "This plan breaks down your leadership growth into manageable, bite-sized action items that you can tackle at your own pace, ensuring your development journey is both effective and sustainable.",
-      ],
-      targetSelector: '[data-tour="leadership-pathway"]',
-      position: "top",
-    },
-    {
-      id: "amalia-corner",
-      title: "Amalia Corner",
-      content: [
-        "You'll always find me here! Whenever you need guidance, have questions about your development plan, or want to discuss your leadership journey, just click here to connect with me.",
-      ],
-      targetSelector: '[data-tour="amalia-corner"]',
-      position: "top-left",
-    },
+  {
+    id: "visual-summary",
+    title: "Visual Summary",
+    content: [
+      "This visual summary displays your scores across six research-backed metrics.",
+      "These metrics impact women's workplace effectiveness and leadership potential.",
+      "Each metric represents a key area for targeted development.",
+      "Focused improvement in these areas can accelerate your career growth.",
+    ],
+    targetSelector: '[data-tour="radar-chart"]',
+    position: "bottom-right",
+  },
+  {
+    id: "composite-score",
+    title: "Composite Score",
+    content: [
+      "This is your composite score, averaging all six metrics to give you a snapshot of your current leadership development baseline.",
+      "This number represents where you are today - your starting point for growth.",
+      "Whether it's higher or lower than you expected, it's valuable data that helps me tailor your coaching journey to maximize your leadership potential.",
+    ],
+    targetSelector: '[data-tour="overall-score"]',
+    position: "bottom-left",
+  },
+  {
+    id: "grow-glow",
+    title: "Grow & Glow Areas",
+    content: [
+      'Your "glow" areas are the strengths where you\'re already excelling - these are leadership capabilities to celebrate and leverage.',
+      'Your "grow" areas represent your greatest opportunities for development - the metrics where focused attention can create the most significant impact on your leadership effectiveness.',
+    ],
+    targetSelector: '[data-tour="grow-glow"]',
+    position: "top",
+  },
+  {
+    id: "leadership-pathway",
+    title: "Leadership Pathway",
+    content: [
+      "Based on your diagnostic results, I'll analyze your unique profile and create a personalized development plan tailored specifically to your needs.",
+      "This plan breaks down your leadership growth into manageable, bite-sized action items that you can tackle at your own pace, ensuring your development journey is both effective and sustainable.",
+    ],
+    targetSelector: '[data-tour="leadership-pathway"]',
+    position: "top",
+  },
+  {
+    id: "amalia-corner",
+    title: "Amalia Corner",
+    content: [
+      "You'll always find me here! Whenever you need guidance, have questions about your development plan, or want to discuss your leadership journey, just click here to connect with me.",
+    ],
+    targetSelector: '[data-tour="amalia-corner"]',
+    position: "top-left",
+  },
 ];
 
 const GuidedWalkthrough = ({ onComplete }) => {
@@ -95,9 +95,20 @@ const GuidedWalkthrough = ({ onComplete }) => {
           height: rect.height,
         });
         // Scroll element into view smoothly
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 100);
+        // For step 3 (grow-glow), scroll down immediately without animation
+        if (currentStep === 2 && step.id === "grow-glow") {
+          // Scroll down a bit more for step 3, immediately without animation
+          const currentScrollY = window.scrollY;
+          const additionalScroll = 100; // Additional scroll amount
+          window.scrollTo({
+            top: currentScrollY + additionalScroll,
+            behavior: "auto", // No animation, instant scroll
+          });
+        } else {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 100);
+        }
       }
     };
 
@@ -184,14 +195,14 @@ const GuidedWalkthrough = ({ onComplete }) => {
       // Align vertically with the highlighted element
       left = rect.left - modalWidth - 20 + scrollX;
       top = rect.top + scrollY;
-      
+
       // If there's not enough space on the left, position it to the left but adjust
       if (left < scrollX + 20) {
         // Position it on the left side of viewport, but align with highlighted element
         left = scrollX + 20;
         top = rect.top + scrollY;
       }
-      
+
       // Ensure modal doesn't go above or below viewport
       if (top + modalHeight > viewportHeight + scrollY) {
         top = viewportHeight + scrollY - modalHeight - 20;
@@ -201,10 +212,12 @@ const GuidedWalkthrough = ({ onComplete }) => {
       }
     } else if (currentStep === 2 && currentStepData.id === "grow-glow") {
       // Position modal at the bottom-right of the screen
-      left = viewportWidth - modalWidth - 20 + scrollX;
-      top = viewportHeight - modalHeight - 20 + scrollY;
-      
-      // Ensure modal doesn't go above viewport
+      // Match the image: modal positioned in bottom-right corner with margins
+      left = viewportWidth - modalWidth - 50 + scrollX; // 20px from right edge
+      top = viewportHeight - modalHeight - 90 + scrollY; // 20px from bottom edge
+
+      // This naturally creates a large margin from top since modal is at bottom
+      // Ensure it doesn't go above viewport
       if (top < scrollY + 20) {
         top = scrollY + 20;
       }
@@ -228,7 +241,10 @@ const GuidedWalkthrough = ({ onComplete }) => {
           } else {
             // If no space on right, position below the highlighted element, aligned to right
             top = rect.bottom + 20 + scrollY;
-            left = Math.max(rect.right - modalWidth + scrollX, rect.left + scrollX);
+            left = Math.max(
+              rect.right - modalWidth + scrollX,
+              rect.left + scrollX
+            );
             // Ensure it doesn't go beyond viewport
             if (left + modalWidth > viewportWidth + scrollX) {
               left = viewportWidth - modalWidth - 20 + scrollX;
@@ -321,7 +337,6 @@ const GuidedWalkthrough = ({ onComplete }) => {
                 width: `${cutoutStyle.left}px`,
                 height: `${cutoutStyle.height}px`,
                 backgroundColor: "rgba(0, 0, 0, 0.5)",
-                
               }}
             />
             {/* Right overlay */}
@@ -372,7 +387,9 @@ const GuidedWalkthrough = ({ onComplete }) => {
             onClick={handleNext}
             className="bg-[#3D3D3D] text-white px-4 py-2 rounded-xl font-medium transition-colors font-inter flex items-center space-x-2"
           >
-            <span>{currentStep === steps.length - 1 ? "Let's go" : "Next"}</span>
+            <span>
+              {currentStep === steps.length - 1 ? "Let's go" : "Next"}
+            </span>
             {currentStep < steps.length - 1 && (
               <svg
                 className="w-4 h-4"
@@ -396,4 +413,3 @@ const GuidedWalkthrough = ({ onComplete }) => {
 };
 
 export default GuidedWalkthrough;
-
