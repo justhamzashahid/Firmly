@@ -223,7 +223,7 @@ const GuidedWalkthrough = ({ onComplete }) => {
       }
     } else if (currentStep === 3 && currentStepData.id === "leadership-pathway") {
       // Position modal on the right side, aligned with the highlighted element
-      left = viewportWidth - modalWidth - 50 + scrollX; // 20px from right edge
+      left = viewportWidth - modalWidth - 55 + scrollX; // 20px from right edge
       top = rect.top - modalHeight - 20 + scrollY; // Align with the top of the highlighted element
 
       // If there's not enough space on the right, adjust
