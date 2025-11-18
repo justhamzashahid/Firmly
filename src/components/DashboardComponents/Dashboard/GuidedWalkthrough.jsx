@@ -63,6 +63,15 @@ const GuidedWalkthrough = ({ onComplete }) => {
   const overlayRef = useRef(null);
 
   useEffect(() => {
+    // Don't show walkthrough on mobile screens
+    const checkMobile = () => {
+      return typeof window !== 'undefined' && window.innerWidth < 768;
+    };
+
+    if (checkMobile()) {
+      return; // Don't start walkthrough on mobile
+    }
+
     // Start walkthrough after 3-5 second delay
     const delay = Math.random() * 2000 + 3000; // 3000-5000ms
     const timer = setTimeout(() => {
@@ -138,7 +147,9 @@ const GuidedWalkthrough = ({ onComplete }) => {
     if (onComplete) onComplete();
   };
 
-  if (!isActive || currentStep === -1) return null;
+  // Don't show walkthrough on mobile screens
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  if (isMobile || !isActive || currentStep === -1) return null;
 
   const currentStepData = steps[currentStep];
   if (!currentStepData) return null;
@@ -184,8 +195,12 @@ const GuidedWalkthrough = ({ onComplete }) => {
     };
 
     // Position modal based on step position preference
-    const modalWidth = Math.min(550, window.innerWidth - 40);
-    const modalHeight = 350;
+    // Make modal responsive - adjust width and height based on viewport
+    const modalWidth = Math.min(
+      viewportWidth >= 1024 ? 550 : viewportWidth >= 768 ? 500 : 450,
+      viewportWidth - 40
+    );
+    const modalHeight = viewportWidth >= 1024 ? 350 : viewportWidth >= 768 ? 320 : 300;
     let top = 0;
     let left = 0;
 
@@ -315,12 +330,13 @@ const GuidedWalkthrough = ({ onComplete }) => {
 
   return (
     <>
-      {/* Overlay with cutout */}
-      <div
-        ref={overlayRef}
-        style={overlayStyle}
-        className="fixed inset-0 z-[9998]"
-      >
+      {/* Overlay with cutout - responsive on desktop */}
+      {!isMobile && (
+        <div
+          ref={overlayRef}
+          style={overlayStyle}
+          className="fixed inset-0 z-[9998]"
+        >
         {/* Top overlay */}
         {cutoutStyle && (
           <>
@@ -369,12 +385,13 @@ const GuidedWalkthrough = ({ onComplete }) => {
             />
           </>
         )}
-      </div>
+        </div>
+      )}
 
-      {/* Modal */}
+      {/* Modal - responsive */}
       <div
         style={modalStyle}
-        className="bg-white rounded-3xl shadow-2xl p-6 z-[9999]"
+        className="bg-white rounded-3xl shadow-2xl p-4 sm:p-6 z-[9999]"
       >
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 font-cormorant">
           {currentStepData.title}
