@@ -127,13 +127,6 @@ const GuidedWalkthrough = ({ onComplete }) => {
     if (onComplete) onComplete();
   };
 
-  const handleOverlayClick = (e) => {
-    // Only close if clicking the overlay itself, not the modal
-    if (e.target === overlayRef.current) {
-      handleComplete();
-    }
-  };
-
   if (!isActive || currentStep === -1) return null;
 
   const currentStepData = steps[currentStep];
@@ -168,7 +161,7 @@ const GuidedWalkthrough = ({ onComplete }) => {
       right: 0,
       bottom: 0,
       zIndex: 9998,
-      pointerEvents: "auto",
+      pointerEvents: "none", // Disable pointer events so clicks don't close modal
     };
 
     // Store cutout dimensions for rendering overlay divs
@@ -207,19 +200,11 @@ const GuidedWalkthrough = ({ onComplete }) => {
         top = scrollY + 20;
       }
     } else if (currentStep === 2 && currentStepData.id === "grow-glow") {
-      // Position modal to the right of the highlighted "Doing Great" card, top-aligned
-      left = rect.right + 20 + scrollX;
-      top = rect.top + scrollY;
+      // Position modal at the bottom-right of the screen
+      left = viewportWidth - modalWidth - 20 + scrollX;
+      top = viewportHeight - modalHeight - 20 + scrollY;
       
-      // If there's not enough space on the right, adjust
-      if (left + modalWidth > viewportWidth + scrollX) {
-        left = viewportWidth - modalWidth - 20 + scrollX;
-      }
-      
-      // Ensure modal doesn't go above or below viewport
-      if (top + modalHeight > viewportHeight + scrollY) {
-        top = viewportHeight + scrollY - modalHeight - 20;
-      }
+      // Ensure modal doesn't go above viewport
       if (top < scrollY + 20) {
         top = scrollY + 20;
       }
@@ -301,7 +286,6 @@ const GuidedWalkthrough = ({ onComplete }) => {
       <div
         ref={overlayRef}
         style={overlayStyle}
-        onClick={handleOverlayClick}
         className="fixed inset-0 z-[9998]"
       >
         {/* Top overlay */}
