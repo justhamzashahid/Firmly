@@ -213,11 +213,28 @@ const GuidedWalkthrough = ({ onComplete }) => {
     } else if (currentStep === 2 && currentStepData.id === "grow-glow") {
       // Position modal at the bottom-right of the screen
       // Match the image: modal positioned in bottom-right corner with margins
-      left = viewportWidth - modalWidth - 50 + scrollX; // 20px from right edge
-      top = viewportHeight - modalHeight - 90 + scrollY; // 20px from bottom edge
+      left = viewportWidth - modalWidth - 50 + scrollX; // 50px from right edge
+      top = viewportHeight - modalHeight - 90 + scrollY; // 90px from bottom edge
 
       // This naturally creates a large margin from top since modal is at bottom
       // Ensure it doesn't go above viewport
+      if (top < scrollY + 20) {
+        top = scrollY + 20;
+      }
+    } else if (currentStep === 3 && currentStepData.id === "leadership-pathway") {
+      // Position modal on the right side, aligned with the highlighted element
+      left = viewportWidth - modalWidth - 50 + scrollX; // 20px from right edge
+      top = rect.top - modalHeight - 20 + scrollY; // Align with the top of the highlighted element
+
+      // If there's not enough space on the right, adjust
+      if (left + modalWidth > viewportWidth + scrollX) {
+        left = viewportWidth - modalWidth - 20 + scrollX;
+      }
+
+      // Ensure modal doesn't go above or below viewport
+      if (top + modalHeight > viewportHeight + scrollY) {
+        top = viewportHeight + scrollY - modalHeight - 20;
+      }
       if (top < scrollY + 20) {
         top = scrollY + 20;
       }
