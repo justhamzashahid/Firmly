@@ -6,6 +6,7 @@ import ChatMessage from "./ChatMessage";
 import ProgressBarsSection from "./ProgressBarsSection";
 import TextBlock from "./TextBlock";
 import ChatInputFooter from "./ChatInputFooter";
+import { Clock, Lock } from "lucide-react";
 const AmaliaCornerLayout = () => {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
@@ -122,193 +123,6 @@ const AmaliaCornerLayout = () => {
                 </p>
               </div>
 
-              {/* Three Cards Section */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-                {/* Common Understanding Card - Active */}
-                <div className="bg-white border-2 border-[#3D3D3D]/10  rounded-2xl p-6 shadow-md">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg flex items-center justify-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
-                            stroke="#6664D3"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M14 2V8H20"
-                            stroke="#6664D3"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-xs font-inter-medium text-[#3D3D3D]">
-                          Expert knowledge
-                        </p>
-                        <p className="text-xs font-inter text-[#3D3D3D]/60">
-                          8 min
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-cormorant font-bold text-[#2B2B2B] mb-1">
-                    Common Understanding
-                  </h3>
-                  <p className="text-sm text-[#2B2B2B] font-inter font-medium mb-6 leading-relaxed">
-                    Introducing ideas that matter to women and their place at
-                    work, based on research and industry reporting.
-                  </p>
-                  <button className="w-fit px-4 py-3 bg-[#3D3D3D] text-[#F5F5F5] rounded-xl font-inter-medium text-sm hover:bg-[#2D2D2D] transition-colors">
-                    Start element
-                  </button>
-                </div>
-
-                {/* Reflective Practice Card - Locked */}
-                <div className="bg-white border-2 border-[#E5E5E5] rounded-2xl p-6 opacity-60">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg flex items-center justify-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="3"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-xs font-inter-medium text-[#9CA3AF]">
-                          Workbook
-                        </p>
-                        <p className="text-xs font-inter text-[#9CA3AF]">
-                          8 min
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#9CA3AF] mb-3">
-                    Reflective Practice
-                  </h3>
-                  <p className="text-sm text-[#9CA3AF] font-inter mb-6 leading-relaxed">
-                    Small description about the element contents. Lorem ipsum
-                    sit dolor amet avec consect.
-                  </p>
-                  <button className="w-full px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 1V3M8 13V15M2.22 2.22L3.64 3.64M12.36 12.36L13.78 13.78M1 8H3M13 8H15M2.22 13.78L3.64 12.36M12.36 3.64L13.78 2.22"
-                        stroke="#9CA3AF"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    Locked
-                  </button>
-                </div>
-
-                {/* Application Card - Locked */}
-                <div className="bg-white border-2 border-[#E5E5E5] rounded-2xl p-6 opacity-60">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg flex items-center justify-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="3"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-xs font-inter-medium text-[#9CA3AF]">
-                          Workbook
-                        </p>
-                        <p className="text-xs font-inter text-[#9CA3AF]">
-                          8 min
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#9CA3AF] mb-3">
-                    Application
-                  </h3>
-                  <p className="text-sm text-[#9CA3AF] font-inter mb-6 leading-relaxed">
-                    Small description about the element contents. Lorem ipsum
-                    sit dolor amet avec consect.
-                  </p>
-                  <button className="w-full px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 1V3M8 13V15M2.22 2.22L3.64 3.64M12.36 12.36L13.78 13.78M1 8H3M13 8H15M2.22 13.78L3.64 12.36M12.36 3.64L13.78 2.22"
-                        stroke="#9CA3AF"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    Locked
-                  </button>
-                </div>
-              </div>
-
               {/* Pathway Details Section */}
               <div className="bg-[#F5F5F5] rounded-2xl p-6 md:p-8 mb-8">
                 <p className="text-base md:text-lg text-[#3D3D3D] font-inter mb-6">
@@ -415,40 +229,23 @@ const AmaliaCornerLayout = () => {
               </div>
 
               {/* Three Cards Section */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-                {/* Common Understanding Card - Active */}
-                <div className="bg-white border-2 border-[#3D3D3D]/10 rounded-2xl p-6 ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 ">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg flex items-center justify-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
-                            stroke="#6664D3"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M14 2V8H20"
-                            stroke="#6664D3"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
+                      <img
+                        src="/assets/images/dashboard/expert.png"
+                        alt="Workbook"
+                        className="w-4 h-4"
+                      />
                       <div>
                         <p className="text-xs font-inter-medium text-[#3D3D3D]">
                           Expert knowledge
                         </p>
-                        <p className="text-xs font-inter text-[#3D3D3D]/60">
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4 text-[#9CA3AF]" />
+                        <p className="text-xs font-inter text-[#9CA3AF]">
                           8 min
                         </p>
                       </div>
@@ -467,39 +264,21 @@ const AmaliaCornerLayout = () => {
                 </div>
 
                 {/* Reflective Practice Card - Locked */}
-                <div className="bg-white border-2 border-[#E5E5E5] rounded-2xl p-6 opacity-60">
+                <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg flex items-center justify-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="3"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
+                      <img
+                        src="/assets/images/dashboard/workbook.png"
+                        alt="Workbook"
+                        className="w-6 h-6"
+                      />
                       <div>
                         <p className="text-xs font-inter-medium text-[#9CA3AF]">
                           Workbook
                         </p>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4 text-[#9CA3AF]" />
                         <p className="text-xs font-inter text-[#9CA3AF]">
                           8 min
                         </p>
@@ -513,60 +292,28 @@ const AmaliaCornerLayout = () => {
                     Small description about the element contents. Lorem ipsum
                     sit dolor amet avec consect.
                   </p>
-                  <button className="w-full px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 1V3M8 13V15M2.22 2.22L3.64 3.64M12.36 12.36L13.78 13.78M1 8H3M13 8H15M2.22 13.78L3.64 12.36M12.36 3.64L13.78 2.22"
-                        stroke="#9CA3AF"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <button className=" px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+                    <Lock className="w-4 h-4" />
                     Locked
                   </button>
                 </div>
 
                 {/* Application Card - Locked */}
-                <div className="bg-white border-2 border-[#E5E5E5] rounded-2xl p-6 opacity-60">
+                <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-[#F5F5F5] rounded-lg flex items-center justify-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="3"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
-                            stroke="#9CA3AF"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
+                      <img
+                        src="/assets/images/dashboard/workbook.png"
+                        alt="Workbook"
+                        className="w-6 h-6"
+                      />
                       <div>
                         <p className="text-xs font-inter-medium text-[#9CA3AF]">
                           Workbook
                         </p>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4 text-[#9CA3AF]" />
                         <p className="text-xs font-inter text-[#9CA3AF]">
                           8 min
                         </p>
@@ -580,29 +327,15 @@ const AmaliaCornerLayout = () => {
                     Small description about the element contents. Lorem ipsum
                     sit dolor amet avec consect.
                   </p>
-                  <button className="w-full px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 1V3M8 13V15M2.22 2.22L3.64 3.64M12.36 12.36L13.78 13.78M1 8H3M13 8H15M2.22 13.78L3.64 12.36M12.36 3.64L13.78 2.22"
-                        stroke="#9CA3AF"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <button className=" px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+                    <Lock className="w-4 h-4" />
                     Locked
                   </button>
                 </div>
               </div>
 
               {/* Pathway Details Section */}
-              <div className="bg-[#F5F5FF] rounded-2xl p-6 md:p-8 mb-8">
+              <div className="bg-[#F5F5FF] rounded-xl p-4  mb-4 md:mb-6">
                 <p className="text-base  text-black font-regular font-inter mb-2">
                   We'll start with Empathy. For that, I've scheduled 4 sessions
                   for you:
