@@ -90,12 +90,12 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
         {showPathwayDesign ? (
           <div>
             {/* Progress Bar */}
-            <div className="mb-5">
+            <div className="mb-6">
               <div className="flex items-center justify-between relative ">
                 {/* Background Progress Line */}
-                <div className="absolute top-1/2 left-0 right-0 h-0.5 sm:h-1 bg-[#E5E5E5] -translate-y-1/2 z-0"></div>
+                <div className="absolute top-1/2 left-0 right-0 h-2 lg:h-4 rounded-full bg-[#E5E5E5] -translate-y-1/2 z-0"></div>
                 {/* Active Progress Line - shows 1/4 progress */}
-                <div className="absolute top-1/2 left-0 w-1/4 h-0.5 sm:h-1 bg-[#578DDD] -translate-y-1/2 z-10"></div>
+                <div className="absolute top-1/2 left-0 w-1/4 h-2 lg:h-4 rounded-full bg-[#5C91E0] -translate-y-1/2 z-10"></div>
 
                 {/* Step Indicators */}
                 {pathwaySteps.map((step, index) => (
@@ -104,19 +104,19 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                     className="relative z-20 flex flex-col items-center flex-1"
                   >
                     <div
-                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center border-2 transition-all ${
+                      className={`lg:w-10 lg:h-10 w-7 h-7   rounded-full flex items-center justify-center border-2 transition-all ${
                         step.status === "active"
-                          ? "bg-white border-[#578DDD] shadow-sm"
+                          ? "bg-white border-none  shadow-sm"
                           : "bg-white border-[#E5E5E5]"
                       }`}
                     >
                       {step.status === "active" ? (
                         <Check
-                          className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-[#578DDD]"
+                          className="lg:w-5 lg:h-5 w-4 h-4   text-[#5C91E0]"
                           strokeWidth={3}
                         />
                       ) : (
-                        <Lock className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#9CA3AF]" />
+                        <Lock className="lg:w-5 lg:h-5 w-3 h-3  text-[#9CA3AF]" />
                       )}
                     </div>
                   </div>
@@ -125,14 +125,14 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
             </div>
 
             {/* Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pathwaySteps.map((step) => (
                 <div
                   key={step.id}
                   className={`bg-white border-2 rounded-2xl p-4 md:p-5 lg:p-6 transition-all ${
                     step.status === "active"
-                      ? "border-[#E5E5E5] shadow-sm"
-                      : "border-[#F5F5F5] opacity-60"
+                      ? "border-none shadow-sm"
+                      : "border-none opacity-40"
                   }`}
                 >
                   {/* Card Header */}
@@ -197,12 +197,12 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
 
                   {/* Card Button */}
                   {step.status === "active" ? (
-                    <button className=" px-4 py-2.5 md:py-3 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#2D2D2D]">
+                    <button className=" px-4 py-2 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#2D2D2D]">
                       {step.buttonText}
                     </button>
                   ) : (
                     <button
-                      className=" px-4 py-2.5 md:py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-xs sm:text-sm md:text-base flex items-center justify-center gap-2 cursor-not-allowed"
+                      className=" px-4 py-2 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-xs sm:text-sm md:text-base flex items-center justify-center gap-2 cursor-not-allowed"
                       disabled
                     >
                       <Lock className="w-3 h-3 sm:w-4 sm:h-4" />
