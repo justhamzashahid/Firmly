@@ -69,6 +69,9 @@ const AmaliaCornerLayout = () => {
     setMessages([...messages, pathwayMessage]);
   };
   const handleGoToDashboard = () => {
+    // Set flag to indicate user has visited Amalia Corner and clicked "Go to Dashboard"
+    // Use sessionStorage so it resets on page refresh
+    sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
     navigate("/dashboard");
   };
   const glowAreas = [

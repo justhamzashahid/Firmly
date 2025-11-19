@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import GrowAndGlowSection from "../components/DashboardComponents/Dashboard/GrowAndGlowSection";
 import LeadershipPathwaySection from "../components/DashboardComponents/Dashboard/LeadershipPathwaySection";
 import DashboardHeader from "../components/DashboardComponents/Dashboard/DashboardHeader";
 import StartConversationModal from "../components/DashboardComponents/Dashboard/StartConversationModal";
-import GuidedWalkthrough from "../components/DashboardComponents/Dashboard/GuidedWalkthrough";
 
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasVisitedAmaliaCorner, setHasVisitedAmaliaCorner] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if we navigated from Amalia Corner (sessionStorage flag exists)
+    // This runs on mount and whenever the pathname changes
+    const visited = sessionStorage.getItem("hasVisitedAmaliaCorner");
+    if (visited === "true") {
+      setHasVisitedAmaliaCorner(true);
+      // Clear the flag after a short delay to ensure state is set
+      // This ensures it resets on refresh but works during navigation
+      const timeoutId = setTimeout(() => {
+        sessionStorage.removeItem("hasVisitedAmaliaCorner");
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    } else {
+      // Ensure it's false on fresh page load or direct navigation
+      setHasVisitedAmaliaCorner(false);
+    }
+  }, [location.pathname]);
 
   const handleStartChat = (mode) => {
     console.log(`Starting ${mode} chat`);
@@ -16,8 +36,8 @@ export default function Dashboard() {
     <div className="min-h-screen relative">
       <DashboardHeader />
       <div className="bg-[#f5f5f5] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4">
-        <GrowAndGlowSection />
-        <LeadershipPathwaySection />
+        <GrowAndGlowSection hasVisitedAmaliaCorner={hasVisitedAmaliaCorner} />
+        <LeadershipPathwaySection hasVisitedAmaliaCorner={hasVisitedAmaliaCorner} />
       </div>
       <button
         data-tour="amalia-corner"
@@ -35,7 +55,6 @@ export default function Dashboard() {
         onClose={() => setIsModalOpen(false)}
         onStartChat={handleStartChat}
       />
-      <GuidedWalkthrough />
     </div>
   );
 }

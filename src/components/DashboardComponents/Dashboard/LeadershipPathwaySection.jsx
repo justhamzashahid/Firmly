@@ -1,5 +1,12 @@
 import React from "react";
-const LeadershipPathwaySection = () => {
+
+const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
+
+  const handleGeneratePathway = () => {
+    // Handle generate pathway action
+    console.log("Generate Leadership Pathway clicked");
+  };
+
   return (
     <>
       <section data-tour="leadership-pathway" className="py-8 lg:py-12">
@@ -11,7 +18,7 @@ const LeadershipPathwaySection = () => {
             Your pathway to convert your Grow areas to Glow areas
           </p>
         </div>
-        <div className="relative border border-[#0000000A] bg-gray-100 rounded-2xl p-6 overflow-hidden  lg:min-h-[250px] min-h-[150px]  flex items-center justify-center">
+        <div className="relative border border-[#0000000A] bg-gray-100 rounded-2xl p-6 overflow-hidden lg:min-h-[250px] min-h-[150px] flex items-center justify-center">
           <img
             src="/assets/images/dashboard/Actionsleft.webp"
             alt="dashboard top background"
@@ -19,12 +26,20 @@ const LeadershipPathwaySection = () => {
           />
           <div className="relative z-10 flex flex-col justify-center items-center text-center">
             <h3 className="text-xl lg:text-3xl font-bold text-[#3D3D3D] mb-1 font-cormorant">
-              Action items{" "}
+              Action items
             </h3>
-            <p className="lg:text-base text-xs text-[#3D3D3D]/60 font-inter max-w-xs mx-auto">
+            <p className="lg:text-base text-xs text-[#3D3D3D]/60 font-inter max-w-xs mx-auto mb-6">
               Amalia will share action items with you for your personalized
               Leadership Pathway
             </p>
+            {hasVisitedAmaliaCorner && (
+              <button
+                onClick={handleGeneratePathway}
+                className="px-5 py-3 bg-[#3D3D3D] text-white rounded-xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
+              >
+                Generate my Leadership Pathway
+              </button>
+            )}
           </div>
           <img
             src="/assets/images/dashboard/ActionRight.webp"
