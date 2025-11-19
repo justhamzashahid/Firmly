@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Clock, Lock, Check } from "lucide-react";
 import LeadershipPathwayModal from "./LeadershipPathwayModal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showPathwayDesign, setShowPathwayDesign] = useState(false);
+
+  useEffect(() => {
+    // Check if coming from Start Session
+    const fromStartSession = sessionStorage.getItem("fromStartSession");
+    if (fromStartSession === "true") {
+      setShowPathwayDesign(true);
+    }
+  }, []);
 
   const handleGeneratePathway = () => {
     setIsModalOpen(true);
@@ -14,10 +24,61 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
     // Add your logic here to generate the pathway
   };
 
+  const pathwaySteps = [
+    {
+      id: 1,
+      type: "Expert knowledge",
+      icon: "/assets/images/dashboard/expert.png",
+      duration: "8 min",
+      title: "Common Understanding",
+      description:
+        "Introducing ideas that matter to women and their place at work, based on research and industry reporting.",
+      status: "active",
+      buttonText: "Start element",
+    },
+    {
+      id: 2,
+      type: "Workbook",
+      icon: "/assets/images/dashboard/workbook.png",
+      duration: "8 min",
+      title: "Reflective Practice",
+      description:
+        "Small description about the element contents. Lorem ipsum sit dolor amet avec consect.",
+      status: "locked",
+    },
+    {
+      id: 3,
+      type: "Workbook",
+      icon: "/assets/images/dashboard/workbook.png",
+      duration: "8 min",
+      title: "Application",
+      description:
+        "Small description about the element contents. Lorem ipsum sit dolor amet avec consect.",
+      status: "locked",
+    },
+    {
+      id: 4,
+      type: "Reflection",
+      icon: "/assets/images/dashboard/expert.png",
+      duration: "15 min",
+      title: "Integration",
+      description:
+        "Small description about the element contents. Lorem ipsum sit dolor amet avec consect.",
+      status: "locked",
+    },
+  ];
+
   return (
     <>
-      <section data-tour="leadership-pathway" className="py-8 lg:py-12">
-        <div className="mb-8 sm:mb-12">
+      <section
+        data-tour="leadership-pathway"
+        className={`py-8 lg:py-12 ${
+          showPathwayDesign
+            ? "  px-4 sm:px-6 lg:px-8 border border-[#E8E8E8] rounded-2xl"
+            : " "
+        }`}
+      >
+        <div className="mb-8 sm:mb-12 ">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-1 font-cormorant">
             Leadership Pathway
           </h2>
@@ -25,35 +86,164 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
             Your pathway to convert your Grow areas to Glow areas
           </p>
         </div>
-        <div className="relative border border-[#0000000A] bg-gray-100 rounded-2xl p-6 overflow-hidden lg:min-h-[250px] min-h-[150px] flex items-center justify-center">
-          <img
-            src="/assets/images/dashboard/Actionsleft.webp"
-            alt="dashboard top background"
-            className="absolute bottom-0 left-0 lg:w-[500px] z-50 w-[120px] h-[120px] lg:h-[400px] object-cover object-top"
-          />
-          <div className="relative z-10 flex flex-col justify-center items-center text-center">
-            <h3 className="text-xl lg:text-3xl font-bold text-[#3D3D3D] mb-1 font-cormorant">
-              Action items
-            </h3>
-            <p className="lg:text-base text-xs text-[#3D3D3D]/60 font-inter max-w-xs mx-auto mb-6">
-              Amalia will share action items with you for your personalized
-              Leadership Pathway
-            </p>
-            {hasVisitedAmaliaCorner && (
-              <button
-                onClick={handleGeneratePathway}
-                className="px-5 py-3 bg-[#3D3D3D] text-white rounded-xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
-              >
-                Generate my Leadership Pathway
-              </button>
-            )}
+
+        {showPathwayDesign ? (
+          <div>
+            {/* Progress Bar */}
+            <div className="mb-5">
+              <div className="flex items-center justify-between relative ">
+                {/* Background Progress Line */}
+                <div className="absolute top-1/2 left-0 right-0 h-0.5 sm:h-1 bg-[#E5E5E5] -translate-y-1/2 z-0"></div>
+                {/* Active Progress Line - shows 1/4 progress */}
+                <div className="absolute top-1/2 left-0 w-1/4 h-0.5 sm:h-1 bg-[#578DDD] -translate-y-1/2 z-10"></div>
+
+                {/* Step Indicators */}
+                {pathwaySteps.map((step, index) => (
+                  <div
+                    key={step.id}
+                    className="relative z-20 flex flex-col items-center flex-1"
+                  >
+                    <div
+                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center border-2 transition-all ${
+                        step.status === "active"
+                          ? "bg-white border-[#578DDD] shadow-sm"
+                          : "bg-white border-[#E5E5E5]"
+                      }`}
+                    >
+                      {step.status === "active" ? (
+                        <Check
+                          className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-[#578DDD]"
+                          strokeWidth={3}
+                        />
+                      ) : (
+                        <Lock className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#9CA3AF]" />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {pathwaySteps.map((step) => (
+                <div
+                  key={step.id}
+                  className={`bg-white border-2 rounded-2xl p-4 md:p-5 lg:p-6 transition-all ${
+                    step.status === "active"
+                      ? "border-[#E5E5E5] shadow-sm"
+                      : "border-[#F5F5F5] opacity-60"
+                  }`}
+                >
+                  {/* Card Header */}
+                  <div className="flex items-start justify-between mb-3 md:mb-4">
+                    <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
+                      <img
+                        src={step.icon}
+                        alt={step.type}
+                        className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0"
+                      />
+                      <p
+                        className={`text-xs sm:text-sm font-inter-medium truncate ${
+                          step.status === "active"
+                            ? "text-[#3D3D3D]"
+                            : "text-[#9CA3AF]"
+                        }`}
+                      >
+                        {step.type}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <Clock
+                        className={`w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ${
+                          step.status === "active"
+                            ? "text-[#9CA3AF]"
+                            : "text-[#9CA3AF]"
+                        }`}
+                      />
+                      <p
+                        className={`text-xs sm:text-sm font-inter ${
+                          step.status === "active"
+                            ? "text-[#9CA3AF]"
+                            : "text-[#9CA3AF]"
+                        }`}
+                      >
+                        {step.duration}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Card Title */}
+                  <h3
+                    className={`text-base sm:text-lg md:text-xl font-cormorant font-bold mb-2 md:mb-3 ${
+                      step.status === "active"
+                        ? "text-[#3D3D3D]"
+                        : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {step.title}
+                  </h3>
+
+                  {/* Card Description */}
+                  <p
+                    className={`text-xs sm:text-sm md:text-base font-inter mb-4 md:mb-6 leading-relaxed ${
+                      step.status === "active"
+                        ? "text-[#3D3D3D]/70"
+                        : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {step.description}
+                  </p>
+
+                  {/* Card Button */}
+                  {step.status === "active" ? (
+                    <button className=" px-4 py-2.5 md:py-3 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#2D2D2D]">
+                      {step.buttonText}
+                    </button>
+                  ) : (
+                    <button
+                      className=" px-4 py-2.5 md:py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-xs sm:text-sm md:text-base flex items-center justify-center gap-2 cursor-not-allowed"
+                      disabled
+                    >
+                      <Lock className="w-3 h-3 sm:w-4 sm:h-4" />
+                      Locked
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-          <img
-            src="/assets/images/dashboard/ActionRight.webp"
-            alt="dashboard top background"
-            className="absolute top-0 right-0 lg:w-[500px] z-50 w-[120px] h-[120px] lg:h-[400px] object-cover object-top"
-          />
-        </div>
+        ) : (
+          <div className="relative border border-[#0000000A] bg-gray-100 rounded-2xl p-6 overflow-hidden lg:min-h-[250px] min-h-[150px] flex items-center justify-center">
+            <img
+              src="/assets/images/dashboard/Actionsleft.webp"
+              alt="dashboard top background"
+              className="absolute bottom-0 left-0 lg:w-[500px] z-50 w-[120px] h-[120px] lg:h-[400px] object-cover object-top"
+            />
+            <div className="relative z-10 flex flex-col justify-center items-center text-center">
+              <h3 className="text-xl lg:text-3xl font-bold text-[#3D3D3D] mb-1 font-cormorant">
+                Action items
+              </h3>
+              <p className="lg:text-base text-xs text-[#3D3D3D]/60 font-inter max-w-xs mx-auto mb-6">
+                Amalia will share action items with you for your personalized
+                Leadership Pathway
+              </p>
+              {hasVisitedAmaliaCorner && (
+                <button
+                  onClick={handleGeneratePathway}
+                  className="px-5 py-3 bg-[#3D3D3D] text-white rounded-xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
+                >
+                  Generate my Leadership Pathway
+                </button>
+              )}
+            </div>
+            <img
+              src="/assets/images/dashboard/ActionRight.webp"
+              alt="dashboard top background"
+              className="absolute top-0 right-0 lg:w-[500px] z-50 w-[120px] h-[120px] lg:h-[400px] object-cover object-top"
+            />
+          </div>
+        )}
       </section>
       <LeadershipPathwayModal
         isOpen={isModalOpen}

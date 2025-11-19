@@ -88,9 +88,10 @@ const AmaliaCornerLayout = () => {
   };
 
   const handleStartSession = () => {
-    // Handle start session action
-    console.log("Start Session clicked");
-    // Add your logic here to start the session
+    // Navigate to Dashboard to show LeadershipPathwaySection
+    sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
+    sessionStorage.setItem("fromStartSession", "true");
+    navigate("/dashboard");
   };
   const glowAreas = [
     "Goal Orientation - You excel at setting and pursuing objectives",
