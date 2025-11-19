@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import LeadershipPathwayModal from "./LeadershipPathwayModal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleGeneratePathway = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleGenerate = () => {
     // Handle generate pathway action
     console.log("Generate Leadership Pathway clicked");
+    // Add your logic here to generate the pathway
   };
 
   return (
@@ -48,6 +55,11 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
           />
         </div>
       </section>
+      <LeadershipPathwayModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onGenerate={handleGenerate}
+      />
     </>
   );
 };
