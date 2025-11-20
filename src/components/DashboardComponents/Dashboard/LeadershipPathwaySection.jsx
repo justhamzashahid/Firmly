@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Clock, Lock, Check } from "lucide-react";
 import LeadershipPathwayModal from "./LeadershipPathwayModal";
+import SessionModal from "./SessionModal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
   const [showPathwayDesign, setShowPathwayDesign] = useState(false);
 
   useEffect(() => {
@@ -197,7 +199,10 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
 
                   {/* Card Button */}
                   {step.status === "active" ? (
-                    <button className=" px-4 py-2 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#2D2D2D]">
+                    <button 
+                      onClick={() => setIsSessionModalOpen(true)}
+                      className=" px-4 py-2 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#2D2D2D]"
+                    >
                       {step.buttonText}
                     </button>
                   ) : (
@@ -249,6 +254,10 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onGenerate={handleGenerate}
+      />
+      <SessionModal
+        isOpen={isSessionModalOpen}
+        onClose={() => setIsSessionModalOpen(false)}
       />
     </>
   );
