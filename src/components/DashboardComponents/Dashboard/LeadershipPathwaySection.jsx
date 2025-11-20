@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Clock, Lock, Check } from "lucide-react";
-import LeadershipPathwayModal from "./LeadershipPathwayModal";
-import SessionModal from "./SessionModal";
-import Session2Modal from "./Session2Modal";
-import Session3Modal from "./Session3Modal";
-import Session4Modal from "./Session4Modal";
+import LeadershipPathwayModal from "../AllModals/LeadershipPathwayModal";
+import SessionModal from "../AllModals/SessionModal";
+import Session2Modal from "../AllModals/Session2Modal";
+import Session3Modal from "../AllModals/Session3Modal";
+import Session4Modal from "../AllModals/Session4Modal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

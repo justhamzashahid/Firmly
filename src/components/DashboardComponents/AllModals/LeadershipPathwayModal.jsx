@@ -107,3 +107,4 @@ const LeadershipPathwayModal = ({ isOpen, onClose, onGenerate }) => {
 };
 
 export default LeadershipPathwayModal;
+

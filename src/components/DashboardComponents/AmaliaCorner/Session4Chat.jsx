@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatInputFooter from "./ChatInputFooter";
-import SessionFeedbackModal from "./SessionFeedbackModal";
+import SessionFeedbackModal from "../AllModals/SessionFeedbackModal";
 
 const Session4Chat = ({ isSidebarCollapsed = true }) => {
   const [userResponses, setUserResponses] = useState({});

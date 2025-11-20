@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import GrowAndGlowSection from "../components/DashboardComponents/Dashboard/GrowAndGlowSection";
 import LeadershipPathwaySection from "../components/DashboardComponents/Dashboard/LeadershipPathwaySection";
 import DashboardHeader from "../components/DashboardComponents/Dashboard/DashboardHeader";
-import StartConversationModal from "../components/DashboardComponents/Dashboard/StartConversationModal";
+import StartConversationModal from "../components/DashboardComponents/AllModals/StartConversationModal";
 
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);

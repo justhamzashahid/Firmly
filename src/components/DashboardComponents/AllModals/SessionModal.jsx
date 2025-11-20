@@ -133,3 +133,4 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
 };
 
 export default SessionModal;
+
