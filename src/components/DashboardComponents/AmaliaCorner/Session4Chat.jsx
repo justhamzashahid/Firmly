@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatInputFooter from "./ChatInputFooter";
-import { useNavigate } from "react-router-dom";
+import SessionFeedbackModal from "./SessionFeedbackModal";
 
 const Session4Chat = ({ isSidebarCollapsed = true }) => {
-  const navigate = useNavigate();
   const [userResponses, setUserResponses] = useState({});
   const [userMessages, setUserMessages] = useState([]);
   const [messageIdCounter, setMessageIdCounter] = useState(10);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
   const handleUserResponse = (messageId, response) => {
@@ -34,7 +34,7 @@ const Session4Chat = ({ isSidebarCollapsed = true }) => {
   }, [userMessages]);
 
   const handleShareFeedback = () => {
-    navigate("/dashboard/feedback");
+    setIsFeedbackModalOpen(true);
   };
 
   const messages = [
@@ -192,6 +192,12 @@ const Session4Chat = ({ isSidebarCollapsed = true }) => {
       >
         <ChatInputFooter />
       </div>
+
+      {/* Session Feedback Modal */}
+      <SessionFeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={() => setIsFeedbackModalOpen(false)}
+      />
     </div>
   );
 };
