@@ -12,20 +12,13 @@ export default function Dashboard() {
   const pathwaySectionRef = useRef(null);
 
   useEffect(() => {
-    // Check if we navigated from Amalia Corner (sessionStorage flag exists)
-    // This runs on mount and whenever the pathname changes
     const visited = sessionStorage.getItem("hasVisitedAmaliaCorner");
     const fromStartSession = sessionStorage.getItem("fromStartSession");
-
     if (visited === "true") {
       setHasVisitedAmaliaCorner(true);
-      // Clear the flag after a short delay to ensure state is set
-      // This ensures it resets on refresh but works during navigation
       const timeoutId = setTimeout(() => {
         sessionStorage.removeItem("hasVisitedAmaliaCorner");
       }, 100);
-
-      // Scroll to LeadershipPathwaySection if coming from Start Session
       if (fromStartSession === "true" && pathwaySectionRef.current) {
         setTimeout(() => {
           pathwaySectionRef.current?.scrollIntoView({
@@ -35,10 +28,8 @@ export default function Dashboard() {
           sessionStorage.removeItem("fromStartSession");
         }, 200);
       }
-
       return () => clearTimeout(timeoutId);
     } else {
-      // Ensure it's false on fresh page load or direct navigation
       setHasVisitedAmaliaCorner(false);
     }
   }, [location.pathname]);

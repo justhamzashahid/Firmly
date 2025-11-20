@@ -3,35 +3,13 @@ import ChatInputFooter from "./ChatInputFooter";
 import SessionFeedbackModal from "../AllModals/SessionFeedbackModal";
 
 const Session4Chat = ({ isSidebarCollapsed = true }) => {
-  const [userResponses, setUserResponses] = useState({});
-  const [userMessages, setUserMessages] = useState([]);
-  const [messageIdCounter, setMessageIdCounter] = useState(10);
+  const userResponses = {};
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
-  const handleUserResponse = (messageId, response) => {
-    setUserResponses((prev) => ({
-      ...prev,
-      [messageId]: response,
-    }));
-  };
-
-  const handleSendMessage = (messageText) => {
-    if (messageText.trim()) {
-      const newMessage = {
-        id: messageIdCounter,
-        type: "user",
-        content: messageText.trim(),
-        showResponse: false,
-      };
-      setUserMessages((prev) => [...prev, newMessage]);
-      setMessageIdCounter((prev) => prev + 1);
-    }
-  };
-
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [userMessages]);
+  }, []);
 
   const handleShareFeedback = () => {
     setIsFeedbackModalOpen(true);
@@ -172,8 +150,6 @@ const Session4Chat = ({ isSidebarCollapsed = true }) => {
             )}
           </div>
         ))}
-
-        {/* Bottom Navigation Buttons */}
         <div className="flex lg:flex-row flex-col gap-4 max-w-fit mx-auto mt-8 mb-4">
           <button
             onClick={handleShareFeedback}
@@ -183,8 +159,6 @@ const Session4Chat = ({ isSidebarCollapsed = true }) => {
           </button>
         </div>
       </div>
-
-      {/* Chat Input Footer */}
       <div
         className={`absolute bottom-0 left-0 right-0 ${
           isSidebarCollapsed ? "z-50" : ""
@@ -192,8 +166,6 @@ const Session4Chat = ({ isSidebarCollapsed = true }) => {
       >
         <ChatInputFooter />
       </div>
-
-      {/* Session Feedback Modal */}
       <SessionFeedbackModal
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
@@ -203,5 +175,3 @@ const Session4Chat = ({ isSidebarCollapsed = true }) => {
 };
 
 export default Session4Chat;
-
-

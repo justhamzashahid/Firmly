@@ -70,7 +70,6 @@ const LeadershipPathwayModal = ({ isOpen, onClose, onGenerate }) => {
           className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden relative"
         >
           <div className="p-8  flex flex-col items-center text-center">
-            {/* Circular Icon */}
             <button className=" w-16 h-16 sm:w-24 sm:h-24 bg-[#6664D3]  active:scale-95 rounded-full flex items-center justify-center  hover:shadow-[#8A7BBF]/50 transition-all duration-300 flex-shrink-0 group">
               <img
                 src="/assets/images/dashboard/helpbtn.webp"
@@ -78,19 +77,13 @@ const LeadershipPathwayModal = ({ isOpen, onClose, onGenerate }) => {
                 className="h-10 w-10 sm:h-14 sm:w-14 transition-transform duration-300 group-hover:scale-110"
               />
             </button>
-
-            {/* Title */}
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-cormorant font-semibold text-black my-4">
               Get a Leadership Pathway
             </h2>
-
-            {/* Description */}
             <p className="text-base sm:text-lg text-black/50 font-inter mb-6 max-w-xl mx-auto">
               Amalia can help you improve your Growth Areas by generating a
               Leadership Pathway for you
             </p>
-
-            {/* Generate Button */}
             <div className="max-w-xl mx-auto">
               <button
                 onClick={handleGenerate}
@@ -107,4 +100,3 @@ const LeadershipPathwayModal = ({ isOpen, onClose, onGenerate }) => {
 };
 
 export default LeadershipPathwayModal;
-

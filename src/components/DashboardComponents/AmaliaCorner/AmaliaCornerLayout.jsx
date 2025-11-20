@@ -52,15 +52,12 @@ const AmaliaCornerLayout = () => {
   }, [isSidebarCollapsed]);
 
   useEffect(() => {
-    // Check if user came from clicking "Generate my Leadership Pathway"
     const shouldShowPathway = sessionStorage.getItem("showLeadershipPathway");
     if (shouldShowPathway === "true") {
       setShowPathwayView(true);
-      // Clear the flag after using it
       sessionStorage.removeItem("showLeadershipPathway");
     }
 
-    // Check if user came from clicking "Start session" in SessionModal
     const shouldShowSession1 = sessionStorage.getItem("showSession1");
     if (shouldShowSession1 === "true") {
       setShowSession1(true);
@@ -68,10 +65,8 @@ const AmaliaCornerLayout = () => {
       setShowSession3(false);
       setShowSession4(false);
       setSelectedConversation("session1");
-      // Clear the flag after using it
       sessionStorage.removeItem("showSession1");
     } else {
-      // Check if user came from clicking "Start session" in Session2Modal
       const shouldShowSession2 = sessionStorage.getItem("showSession2");
       if (shouldShowSession2 === "true") {
         setShowSession1(true);
@@ -79,10 +74,8 @@ const AmaliaCornerLayout = () => {
         setShowSession3(false);
         setShowSession4(false);
         setSelectedConversation("session2");
-        // Clear the flag after using it
         sessionStorage.removeItem("showSession2");
       } else {
-        // Check if user came from clicking "Start session" in Session3Modal
         const shouldShowSession3 = sessionStorage.getItem("showSession3");
         if (shouldShowSession3 === "true") {
           setShowSession1(true);
@@ -90,10 +83,8 @@ const AmaliaCornerLayout = () => {
           setShowSession3(true);
           setShowSession4(false);
           setSelectedConversation("session3");
-          // Clear the flag after using it
           sessionStorage.removeItem("showSession3");
         } else {
-          // Check if user came from clicking "Start session" in Session4Modal
           const shouldShowSession4 = sessionStorage.getItem("showSession4");
           if (shouldShowSession4 === "true") {
             setShowSession1(true);
@@ -101,10 +92,8 @@ const AmaliaCornerLayout = () => {
             setShowSession3(true);
             setShowSession4(true);
             setSelectedConversation("session4");
-            // Clear the flag after using it
             sessionStorage.removeItem("showSession4");
           } else {
-            // Default to showing Diagnostic Debrief
             setSelectedConversation("diagnostic");
           }
         }
@@ -114,22 +103,18 @@ const AmaliaCornerLayout = () => {
 
   const handleConversationSelect = (conversationId) => {
     if (conversationId === "cultivating-empathy") {
-      // Toggle sessions visibility
       if (showSession1) {
-        // If sessions are showing, hide them and show diagnostic
         setShowSession1(false);
         setShowSession2(false);
         setShowSession3(false);
         setShowSession4(false);
         setSelectedConversation("diagnostic");
       } else {
-        // If sessions are hidden, show them and select session1
         setShowSession1(true);
         setSelectedConversation("session1");
       }
     } else if (conversationId === "diagnostic") {
       setSelectedConversation("diagnostic");
-      // Don't hide sessions - keep them visible
     } else if (conversationId === "session1") {
       setShowSession1(true);
       setSelectedConversation("session1");
@@ -180,14 +165,11 @@ const AmaliaCornerLayout = () => {
     setMessages([...messages, pathwayMessage]);
   };
   const handleGoToDashboard = () => {
-    // Set flag to indicate user has visited Amalia Corner and clicked "Go to Dashboard"
-    // Use sessionStorage so it resets on page refresh
     sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
     navigate("/dashboard");
   };
 
   const handleStartSession = () => {
-    // Navigate to Dashboard to show LeadershipPathwaySection
     sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
     sessionStorage.setItem("fromStartSession", "true");
     navigate("/dashboard");
@@ -238,15 +220,12 @@ const AmaliaCornerLayout = () => {
           <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24 relative">
             {showPathwayView ? (
               <>
-                {/* Leadership Pathway View */}
                 <div className="mb-8">
                   <p className="text-base md:text-lg text-[#3D3D3D] font-inter">
                     I'll create a personalized development plan focused on your
                     growth areas.
                   </p>
                 </div>
-
-                {/* Pathway Details Section */}
                 <div className="bg-[#F5F5F5] rounded-2xl p-6 md:p-8 mb-8">
                   <p className="text-base md:text-lg text-[#3D3D3D] font-inter mb-6">
                     We'll start with{" "}
@@ -291,8 +270,6 @@ const AmaliaCornerLayout = () => {
                     you can work on all the points one by one.
                   </p>
                 </div>
-
-                {/* Bottom Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
                   <button
                     onClick={handleStartSession}
@@ -350,8 +327,6 @@ const AmaliaCornerLayout = () => {
                     growth areas.
                   </p>
                 </div>
-
-                {/* Three Cards Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                   <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 ">
                     <div className="flex items-start justify-between mb-4">
@@ -385,8 +360,6 @@ const AmaliaCornerLayout = () => {
                       Start element
                     </button>
                   </div>
-
-                  {/* Reflective Practice Card - Locked */}
                   <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -420,8 +393,6 @@ const AmaliaCornerLayout = () => {
                       Locked
                     </button>
                   </div>
-
-                  {/* Application Card - Locked */}
                   <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -456,8 +427,6 @@ const AmaliaCornerLayout = () => {
                     </button>
                   </div>
                 </div>
-
-                {/* Pathway Details Section */}
                 <div className="bg-[#F5F5FF] rounded-xl p-4  mb-4 md:mb-6">
                   <p className="text-base  text-black font-regular font-inter mb-2">
                     We'll start with Empathy. For that, I've scheduled 4
@@ -501,8 +470,6 @@ const AmaliaCornerLayout = () => {
                     you can work on all the points one by one.
                   </p>
                 </div>
-
-                {/* Bottom Buttons */}
                 <div className="flex lg:flex-row flex-col gap-4 lg:max-w-sm lg:mx-auto">
                   <button
                     onClick={handleStartSession}

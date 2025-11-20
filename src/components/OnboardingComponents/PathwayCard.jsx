@@ -5,7 +5,6 @@ const PathwayCard = ({ onPrevious, onNext }) => {
     <div className="w-full h-full flex items-center justify-center px-6 overflow-hidden">
       <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10 text-center drop-shadow-lg max-w-2xl w-full">
         <div className="flex flex-col items-center gap-5">
-          {/* Pathway Image - Smaller & Responsive */}
           <div className="w-full max-w-xs md:max-w-sm">
             <img
               src="/assets/images/onboarding/Screen2_Pic.webp"
@@ -13,8 +12,6 @@ const PathwayCard = ({ onPrevious, onNext }) => {
               className="w-full h-auto rounded-lg object-contain"
             />
           </div>
-
-          {/* Header Section */}
           <div className="w-full">
             <h1 className="text-white text-2xl md:text-3xl font-bold mb-3 font-cormorant leading-tight">
               Get Your Personalized Pathway
@@ -23,8 +20,6 @@ const PathwayCard = ({ onPrevious, onNext }) => {
               Amalia creates a tailored leadership journey just for you—complete with reading assignments, conversation tactics, skill-building exercises, and voice coaching sessions.
             </p>
           </div>
-
-          {/* Navigation Buttons */}
           <div className="flex items-center justify-center gap-3 w-full mt-4">
             <button
               onClick={onPrevious}

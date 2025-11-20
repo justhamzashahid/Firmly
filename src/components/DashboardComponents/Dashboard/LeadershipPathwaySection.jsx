@@ -18,13 +18,11 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [fromSession3Next, setFromSession3Next] = useState(false);
 
   useEffect(() => {
-    // Check if coming from Start Session
     const fromStartSession = sessionStorage.getItem("fromStartSession");
     if (fromStartSession === "true") {
       setShowPathwayDesign(true);
     }
 
-    // Check if coming from Next Session (Session 1 -> Session 2)
     const fromNext = sessionStorage.getItem("fromNextSession");
     if (fromNext === "true") {
       setShowPathwayDesign(true);
@@ -32,7 +30,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       sessionStorage.removeItem("fromNextSession");
     }
 
-    // Check if coming from Session 2 Next Session (Session 2 -> Session 3)
     const fromSession2 = sessionStorage.getItem("fromSession2Next");
     if (fromSession2 === "true") {
       setShowPathwayDesign(true);
@@ -40,7 +37,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       sessionStorage.removeItem("fromSession2Next");
     }
 
-    // Check if coming from Session 3 Next Session (Session 3 -> Session 4)
     const fromSession3 = sessionStorage.getItem("fromSession3Next");
     if (fromSession3 === "true") {
       setShowPathwayDesign(true);
@@ -54,9 +50,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   };
 
   const handleGenerate = () => {
-    // Handle generate pathway action
     console.log("Generate Leadership Pathway clicked");
-    // Add your logic here to generate the pathway
   };
 
   const pathwaySteps = [
@@ -147,12 +141,9 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
 
         {showPathwayDesign ? (
           <div>
-            {/* Progress Bar */}
             <div className="mb-6">
               <div className="flex items-center justify-between relative ">
-                {/* Background Progress Line */}
                 <div className="absolute top-1/2 left-0 right-0 h-2 lg:h-4 rounded-full bg-[#E5E5E5] -translate-y-1/2 z-0"></div>
-                {/* Active Progress Line - shows progress based on completed steps */}
                 <div
                   className={`absolute top-1/2 left-0 h-2 lg:h-4 rounded-full bg-[#5C91E0] -translate-y-1/2 z-10 ${
                     fromSession3Next
@@ -164,8 +155,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                       : "w-1/4"
                   }`}
                 ></div>
-
-                {/* Step Indicators */}
                 {pathwaySteps.map((step, index) => (
                   <div
                     key={step.id}
@@ -193,8 +182,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                 ))}
               </div>
             </div>
-
-            {/* Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pathwaySteps.map((step) => (
                 <div
@@ -205,7 +192,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                       : "border-none opacity-40"
                   }`}
                 >
-                  {/* Card Header */}
                   <div className="flex items-start justify-between mb-3 md:mb-4">
                     <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
                       <img
@@ -243,8 +229,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                       </p>
                     </div>
                   </div>
-
-                  {/* Card Title */}
                   <h3
                     className={`text-base sm:text-lg md:text-xl font-cormorant font-bold mb-2 md:mb-3 ${
                       step.status === "active" || step.status === "completed"
@@ -254,8 +238,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   >
                     {step.title}
                   </h3>
-
-                  {/* Card Description */}
                   <p
                     className={`text-xs sm:text-sm md:text-base font-inter mb-4 md:mb-6 leading-relaxed ${
                       step.status === "active" || step.status === "completed"
@@ -265,8 +247,6 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   >
                     {step.description}
                   </p>
-
-                  {/* Card Button */}
                   {step.status === "completed" ? (
                     <button
                       onClick={() => {

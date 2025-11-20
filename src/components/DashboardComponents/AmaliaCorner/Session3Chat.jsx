@@ -1,40 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ChatInputFooter from "./ChatInputFooter";
 import { useNavigate } from "react-router-dom";
 
 const Session3Chat = ({ isSidebarCollapsed = true }) => {
   const navigate = useNavigate();
-  const [userResponses, setUserResponses] = useState({});
-  const [userMessages, setUserMessages] = useState([]);
-  const [messageIdCounter, setMessageIdCounter] = useState(10);
+  const userResponses = {};
   const messagesEndRef = useRef(null);
-
-  const handleUserResponse = (messageId, response) => {
-    setUserResponses((prev) => ({
-      ...prev,
-      [messageId]: response,
-    }));
-  };
-
-  const handleSendMessage = (messageText) => {
-    if (messageText.trim()) {
-      const newMessage = {
-        id: messageIdCounter,
-        type: "user",
-        content: messageText.trim(),
-        showResponse: false,
-      };
-      setUserMessages((prev) => [...prev, newMessage]);
-      setMessageIdCounter((prev) => prev + 1);
-    }
-  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [userMessages]);
+  }, []);
 
   const handleNextSession = () => {
-    // Navigate to Dashboard and show Leadership Pathway section with session 4 active
     sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
     sessionStorage.setItem("fromStartSession", "true");
     sessionStorage.setItem("fromSession3Next", "true");
@@ -165,8 +142,6 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
             )}
           </div>
         ))}
-
-        {/* Bottom Navigation Buttons */}
         <div className="flex lg:flex-row flex-col gap-4 lg:max-w-sm lg:mx-auto mt-8 mb-4">
           <button
             onClick={handleNextSession}
@@ -182,8 +157,6 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
           </button>
         </div>
       </div>
-
-      {/* Chat Input Footer */}
       <div
         className={`absolute bottom-0 left-0 right-0 ${
           isSidebarCollapsed ? "z-50" : ""
@@ -196,5 +169,3 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
 };
 
 export default Session3Chat;
-
-
