@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-const Sidebar = ({
-  isCollapsed,
-  onToggleCollapse,
-  showSession1 = false,
-  onConversationSelect,
-  selectedConversation,
-}) => {
+const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSession2 = false, onConversationSelect, selectedConversation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <>
@@ -85,14 +79,11 @@ const Sidebar = ({
         <div className="flex-1 overflow-y-auto px-3 pb-4">
           {showSession1 && (
             <>
-              <div
-                onClick={() =>
-                  onConversationSelect &&
-                  onConversationSelect("cultivating-empathy")
-                }
+              <div 
+                onClick={() => onConversationSelect && onConversationSelect("cultivating-empathy")}
                 className={`rounded-xl border border-[#ECECEC] p-3 mb-2 cursor-pointer transition-colors ${
-                  selectedConversation === "cultivating-empathy"
-                    ? "bg-[#F5F5F5]"
+                  selectedConversation === "cultivating-empathy" 
+                    ? "bg-[#F5F5F5]" 
                     : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                 }`}
               >
@@ -103,13 +94,11 @@ const Sidebar = ({
                   Cultivating Empathy
                 </p>
               </div>
-              <div
-                onClick={() =>
-                  onConversationSelect && onConversationSelect("session1")
-                }
+              <div 
+                onClick={() => onConversationSelect && onConversationSelect("session1")}
                 className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
-                  selectedConversation === "session1"
-                    ? "bg-[#F5F5F5]"
+                  selectedConversation === "session1" 
+                    ? "bg-[#F5F5F5]" 
                     : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                 }`}
               >
@@ -117,15 +106,27 @@ const Sidebar = ({
                   • Session 1
                 </p>
               </div>
+              {showSession2 && (
+                <div 
+                  onClick={() => onConversationSelect && onConversationSelect("session2")}
+                  className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
+                    selectedConversation === "session2" 
+                      ? "bg-[#F5F5F5]" 
+                      : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
+                  }`}
+                >
+                  <p className="text-xs md:text-sm text-[#3D3D3D] font-inter">
+                    • Session 2
+                  </p>
+                </div>
+              )}
             </>
           )}
-          <div
-            onClick={() =>
-              onConversationSelect && onConversationSelect("diagnostic")
-            }
+          <div 
+            onClick={() => onConversationSelect && onConversationSelect("diagnostic")}
             className={`rounded-xl border border-[#ECECEC] p-3 mb-2 cursor-pointer transition-colors ${
-              selectedConversation === "diagnostic"
-                ? "bg-[#F5F5F5]"
+              selectedConversation === "diagnostic" 
+                ? "bg-[#F5F5F5]" 
                 : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
             }`}
           >

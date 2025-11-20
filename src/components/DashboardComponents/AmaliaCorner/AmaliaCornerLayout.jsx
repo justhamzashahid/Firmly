@@ -7,6 +7,7 @@ import ProgressBarsSection from "./ProgressBarsSection";
 import TextBlock from "./TextBlock";
 import ChatInputFooter from "./ChatInputFooter";
 import Session1Chat from "./Session1Chat";
+import Session2Chat from "./Session2Chat";
 import { Clock, Lock } from "lucide-react";
 const AmaliaCornerLayout = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const AmaliaCornerLayout = () => {
   const [messages, setMessages] = useState([]);
   const [showPathwayView, setShowPathwayView] = useState(false);
   const [showSession1, setShowSession1] = useState(false);
+  const [showSession2, setShowSession2] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState(null);
   useEffect(() => {
     const handleResize = () => {
@@ -58,25 +60,49 @@ const AmaliaCornerLayout = () => {
     const shouldShowSession1 = sessionStorage.getItem("showSession1");
     if (shouldShowSession1 === "true") {
       setShowSession1(true);
+      setShowSession2(false);
       setSelectedConversation("session1");
       // Clear the flag after using it
       sessionStorage.removeItem("showSession1");
     } else {
-      // Default to showing Diagnostic Debrief
-      setSelectedConversation("diagnostic");
+      // Check if user came from clicking "Start session" in Session2Modal
+      const shouldShowSession2 = sessionStorage.getItem("showSession2");
+      if (shouldShowSession2 === "true") {
+        setShowSession1(true);
+        setShowSession2(true);
+        setSelectedConversation("session2");
+        // Clear the flag after using it
+        sessionStorage.removeItem("showSession2");
+      } else {
+        // Default to showing Diagnostic Debrief
+        setSelectedConversation("diagnostic");
+      }
     }
   }, []);
 
   const handleConversationSelect = (conversationId) => {
-    setSelectedConversation(conversationId);
-    if (conversationId === "diagnostic") {
-      setShowSession1(false);
-    } else if (conversationId === "session1" || conversationId === "cultivating-empathy") {
-      setShowSession1(true);
-      if (conversationId === "cultivating-empathy") {
-        // If clicking on "Cultivating Empathy", also select session1
+    if (conversationId === "cultivating-empathy") {
+      // Toggle sessions visibility
+      if (showSession1) {
+        // If sessions are showing, hide them and show diagnostic
+        setShowSession1(false);
+        setShowSession2(false);
+        setSelectedConversation("diagnostic");
+      } else {
+        // If sessions are hidden, show them and select session1
+        setShowSession1(true);
         setSelectedConversation("session1");
       }
+    } else if (conversationId === "diagnostic") {
+      setSelectedConversation("diagnostic");
+      // Don't hide sessions - keep them visible
+    } else if (conversationId === "session1") {
+      setShowSession1(true);
+      setSelectedConversation("session1");
+    } else if (conversationId === "session2") {
+      setShowSession1(true);
+      setShowSession2(true);
+      setSelectedConversation("session2");
     }
   };
   const initialMessage = (
@@ -137,6 +163,7 @@ const AmaliaCornerLayout = () => {
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         showSession1={showSession1}
+        showSession2={showSession2}
         onConversationSelect={handleConversationSelect}
         selectedConversation={selectedConversation}
       />
@@ -147,6 +174,10 @@ const AmaliaCornerLayout = () => {
         {selectedConversation === "session1" ? (
           <div className="flex-1 overflow-hidden relative">
             <Session1Chat isSidebarCollapsed={isSidebarCollapsed} />
+          </div>
+        ) : selectedConversation === "session2" ? (
+          <div className="flex-1 overflow-hidden relative">
+            <Session2Chat isSidebarCollapsed={isSidebarCollapsed} />
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24 relative">
