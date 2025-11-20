@@ -71,8 +71,12 @@ const AmaliaCornerLayout = () => {
     setSelectedConversation(conversationId);
     if (conversationId === "diagnostic") {
       setShowSession1(false);
-    } else if (conversationId === "session1") {
+    } else if (conversationId === "session1" || conversationId === "cultivating-empathy") {
       setShowSession1(true);
+      if (conversationId === "cultivating-empathy") {
+        // If clicking on "Cultivating Empathy", also select session1
+        setSelectedConversation("session1");
+      }
     }
   };
   const initialMessage = (
