@@ -2,17 +2,28 @@ import React, { useState, useEffect } from "react";
 import { Clock, Lock, Check } from "lucide-react";
 import LeadershipPathwayModal from "./LeadershipPathwayModal";
 import SessionModal from "./SessionModal";
+import Session2Modal from "./Session2Modal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
+  const [isSession2ModalOpen, setIsSession2ModalOpen] = useState(false);
   const [showPathwayDesign, setShowPathwayDesign] = useState(false);
+  const [fromNextSession, setFromNextSession] = useState(false);
 
   useEffect(() => {
     // Check if coming from Start Session
     const fromStartSession = sessionStorage.getItem("fromStartSession");
     if (fromStartSession === "true") {
       setShowPathwayDesign(true);
+    }
+    
+    // Check if coming from Next Session
+    const fromNext = sessionStorage.getItem("fromNextSession");
+    if (fromNext === "true") {
+      setShowPathwayDesign(true);
+      setFromNextSession(true);
+      sessionStorage.removeItem("fromNextSession");
     }
   }, []);
 
@@ -35,8 +46,8 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       title: "Common Understanding",
       description:
         "Introducing ideas that matter to women and their place at work, based on research and industry reporting.",
-      status: "active",
-      buttonText: "Start element",
+      status: fromNextSession ? "completed" : "active",
+      buttonText: fromNextSession ? "View" : "Start element",
     },
     {
       id: 2,
@@ -46,7 +57,8 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       title: "Reflective Practice",
       description:
         "Small description about the element contents. Lorem ipsum sit dolor amet avec consect.",
-      status: "locked",
+      status: fromNextSession ? "active" : "locked",
+      buttonText: "Start element",
     },
     {
       id: 3,
@@ -96,8 +108,10 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
               <div className="flex items-center justify-between relative ">
                 {/* Background Progress Line */}
                 <div className="absolute top-1/2 left-0 right-0 h-2 lg:h-4 rounded-full bg-[#E5E5E5] -translate-y-1/2 z-0"></div>
-                {/* Active Progress Line - shows 1/4 progress */}
-                <div className="absolute top-1/2 left-0 w-1/4 h-2 lg:h-4 rounded-full bg-[#5C91E0] -translate-y-1/2 z-10"></div>
+                {/* Active Progress Line - shows progress based on completed steps */}
+                <div className={`absolute top-1/2 left-0 h-2 lg:h-4 rounded-full bg-[#5C91E0] -translate-y-1/2 z-10 ${
+                  fromNextSession ? "w-2/4" : "w-1/4"
+                }`}></div>
 
                 {/* Step Indicators */}
                 {pathwaySteps.map((step, index) => (
@@ -107,16 +121,18 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   >
                     <div
                       className={`lg:w-10 lg:h-10 w-7 h-7   rounded-full flex items-center justify-center border-2 transition-all ${
-                        step.status === "active"
+                        step.status === "active" || step.status === "completed"
                           ? "bg-white border-none  shadow-sm"
                           : "bg-white border-[#E5E5E5]"
                       }`}
                     >
-                      {step.status === "active" ? (
+                      {step.status === "completed" ? (
                         <Check
                           className="lg:w-5 lg:h-5 w-4 h-4   text-[#5C91E0]"
                           strokeWidth={3}
                         />
+                      ) : step.status === "active" ? (
+                        <div className="lg:w-3 lg:h-3 w-2 h-2 rounded-full bg-[#5C91E0]"></div>
                       ) : (
                         <Lock className="lg:w-5 lg:h-5 w-3 h-3  text-[#9CA3AF]" />
                       )}
@@ -132,7 +148,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                 <div
                   key={step.id}
                   className={`bg-white border-2 rounded-2xl p-4 md:p-5 lg:p-6 transition-all ${
-                    step.status === "active"
+                    step.status === "active" || step.status === "completed"
                       ? "border-none shadow-sm"
                       : "border-none opacity-40"
                   }`}
@@ -147,7 +163,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                       />
                       <p
                         className={`text-xs sm:text-sm font-inter-medium truncate ${
-                          step.status === "active"
+                          step.status === "active" || step.status === "completed"
                             ? "text-[#3D3D3D]"
                             : "text-[#9CA3AF]"
                         }`}
@@ -178,7 +194,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   {/* Card Title */}
                   <h3
                     className={`text-base sm:text-lg md:text-xl font-cormorant font-bold mb-2 md:mb-3 ${
-                      step.status === "active"
+                      step.status === "active" || step.status === "completed"
                         ? "text-[#3D3D3D]"
                         : "text-[#9CA3AF]"
                     }`}
@@ -189,7 +205,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   {/* Card Description */}
                   <p
                     className={`text-xs sm:text-sm md:text-base font-inter mb-4 md:mb-6 leading-relaxed ${
-                      step.status === "active"
+                      step.status === "active" || step.status === "completed"
                         ? "text-[#3D3D3D]/70"
                         : "text-[#9CA3AF]"
                     }`}
@@ -198,9 +214,21 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   </p>
 
                   {/* Card Button */}
-                  {step.status === "active" ? (
+                  {step.status === "completed" ? (
                     <button 
-                      onClick={() => setIsSessionModalOpen(true)}
+                      className=" px-4 py-2 bg-[#F5F5F5] text-[#3D3D3D] rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors"
+                    >
+                      {step.buttonText}
+                    </button>
+                  ) : step.status === "active" ? (
+                    <button 
+                      onClick={() => {
+                        if (step.id === 2) {
+                          setIsSession2ModalOpen(true);
+                        } else {
+                          setIsSessionModalOpen(true);
+                        }
+                      }}
                       className=" px-4 py-2 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#2D2D2D]"
                     >
                       {step.buttonText}
@@ -258,6 +286,10 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       <SessionModal
         isOpen={isSessionModalOpen}
         onClose={() => setIsSessionModalOpen(false)}
+      />
+      <Session2Modal
+        isOpen={isSession2ModalOpen}
+        onClose={() => setIsSession2ModalOpen(false)}
       />
     </>
   );

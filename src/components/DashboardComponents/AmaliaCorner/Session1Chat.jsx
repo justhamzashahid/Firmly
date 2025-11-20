@@ -34,8 +34,11 @@ const Session1Chat = ({ isSidebarCollapsed = true }) => {
   }, [userMessages]);
 
   const handleNextSession = () => {
-    // Handle next session navigation
-    console.log("Next Session clicked");
+    // Navigate to Dashboard and show Leadership Pathway section with next step active
+    sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
+    sessionStorage.setItem("fromStartSession", "true");
+    sessionStorage.setItem("fromNextSession", "true");
+    navigate("/dashboard");
   };
 
   const handleGoToDashboard = () => {
