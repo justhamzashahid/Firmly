@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SessionModal = ({ isOpen, onClose, sessionData }) => {
   const modalRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
@@ -65,13 +67,10 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
         className="fixed inset-0 bg-black/50 z-[299]"
         onClick={onClose}
       ></div>
-      
+
       {/* Modal Container */}
       <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 overflow-y-auto">
-        <div
-          ref={modalRef}
-          className="relative w-full max-w-2xl"
-        >
+        <div ref={modalRef} className="relative w-full max-w-2xl">
           {/* White Card with rounded corners */}
           <div className="relative z-10 bg-white rounded-2xl shadow-2xl p-8  flex flex-col items-center text-center">
             {/* Icon - Prominent at top */}
@@ -116,7 +115,11 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
             {/* Start Session Button */}
             <div className="flex justify-center w-full">
               <button
-                onClick={onClose}
+                onClick={() => {
+                  sessionStorage.setItem("showSession1", "true");
+                  onClose();
+                  navigate("/amalia-corner");
+                }}
                 className="w-full sm:w-auto px-6 py-3 bg-[#3D3D3D] text-white rounded-xl font-inter font-medium text-base transition-colors hover:bg-[#2D2D2D] active:scale-95"
               >
                 Start session
@@ -130,4 +133,3 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
 };
 
 export default SessionModal;
-

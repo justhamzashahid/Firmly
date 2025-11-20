@@ -6,12 +6,15 @@ import ChatMessage from "./ChatMessage";
 import ProgressBarsSection from "./ProgressBarsSection";
 import TextBlock from "./TextBlock";
 import ChatInputFooter from "./ChatInputFooter";
+import Session1Chat from "./Session1Chat";
 import { Clock, Lock } from "lucide-react";
 const AmaliaCornerLayout = () => {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const [messages, setMessages] = useState([]);
   const [showPathwayView, setShowPathwayView] = useState(false);
+  const [showSession1, setShowSession1] = useState(false);
+  const [selectedConversation, setSelectedConversation] = useState(null);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -50,7 +53,28 @@ const AmaliaCornerLayout = () => {
       // Clear the flag after using it
       sessionStorage.removeItem("showLeadershipPathway");
     }
+
+    // Check if user came from clicking "Start session" in SessionModal
+    const shouldShowSession1 = sessionStorage.getItem("showSession1");
+    if (shouldShowSession1 === "true") {
+      setShowSession1(true);
+      setSelectedConversation("session1");
+      // Clear the flag after using it
+      sessionStorage.removeItem("showSession1");
+    } else {
+      // Default to showing Diagnostic Debrief
+      setSelectedConversation("diagnostic");
+    }
   }, []);
+
+  const handleConversationSelect = (conversationId) => {
+    setSelectedConversation(conversationId);
+    if (conversationId === "diagnostic") {
+      setShowSession1(false);
+    } else if (conversationId === "session1") {
+      setShowSession1(true);
+    }
+  };
   const initialMessage = (
     <>
       Hi, Lily, <br /> I'm so glad you decided to dive deeper into your results
@@ -108,301 +132,310 @@ const AmaliaCornerLayout = () => {
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        showSession1={showSession1}
+        onConversationSelect={handleConversationSelect}
+        selectedConversation={selectedConversation}
       />
       <div className="flex-1  flex flex-col overflow-hidden bg-white rounded-2xl border border-[#ECECEC] relative">
         <ChatHeader
           onMenuClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
-        <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24">
-          {showPathwayView ? (
-            <>
-              {/* Leadership Pathway View */}
-              <div className="mb-8">
-                <p className="text-base md:text-lg text-[#3D3D3D] font-inter">
-                  I'll create a personalized development plan focused on your
-                  growth areas.
-                </p>
-              </div>
-
-              {/* Pathway Details Section */}
-              <div className="bg-[#F5F5F5] rounded-2xl p-6 md:p-8 mb-8">
-                <p className="text-base md:text-lg text-[#3D3D3D] font-inter mb-6">
-                  We'll start with{" "}
-                  <span className="font-semibold">Empathy</span>. For that, I've
-                  scheduled 4 sessions for you:
-                </p>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#6664D3] font-bold mt-1">•</span>
-                    <span className="text-base text-[#3D3D3D] font-inter">
-                      Session 1: The Power of Empathetic Leadership (Common
-                      Understanding)
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#6664D3] font-bold mt-1">•</span>
-                    <span className="text-base text-[#3D3D3D] font-inter">
-                      Session 2: Reflective Practice - Empathy in Action
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#6664D3] font-bold mt-1">•</span>
-                    <span className="text-base text-[#3D3D3D] font-inter">
-                      Session 3: The Empathy Toolkit - Practical Applications
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#6664D3] font-bold mt-1">•</span>
-                    <span className="text-base text-[#3D3D3D] font-inter">
-                      Session 4: Integration and Forward Movement
-                    </span>
-                  </li>
-                </ul>
-                <p className="text-sm md:text-base text-[#3D3D3D]/70 font-inter mb-4 leading-relaxed">
-                  Each session is designed to be conversational and practical,
-                  building on real workplace scenarios. We'll work together to
-                  develop your empathetic leadership skills through
-                  evidence-based techniques.
-                </p>
-                <p className="text-sm md:text-base text-[#3D3D3D]/70 font-inter">
-                  You would always have this pathway on the main dashboard so
-                  you can work on all the points one by one.
-                </p>
-              </div>
-
-              {/* Bottom Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-                <button
-                  onClick={handleStartSession}
-                  className="flex-1 px-6 py-3 bg-[#F5F5F5] text-[#3D3D3D] rounded-xl font-inter-medium text-base hover:bg-[#E5E5E5] transition-colors"
-                >
-                  Start Session
-                </button>
-                <button
-                  onClick={handleGoToDashboard}
-                  className="flex-1 px-6 py-3 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-base hover:bg-[#2D2D2D] transition-colors"
-                >
-                  Go to Dashboard
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <ChatMessage message={initialMessage} />
-              {messages.map((msg, index) => (
-                <ChatMessage key={index} message={msg} />
-              ))}
-              <ProgressBarsSection />
-              <TextBlock
-                title="Based on your profile, I can see your Glow Areas (strengths) are:"
-                items={glowAreas}
-                bgColor="bg-[#F5F5FF]"
-              />
-              <TextBlock
-                title="Your Grow Areas (development opportunities) are:"
-                items={growAreas}
-                bgColor="bg-[#F5F5FF]"
-              />
-              <p className="text-sm md:text-base font-inter-regular text-black   bg-[#F5F5FF] p-4 rounded-xl">
-                You can now view your Glow and Grow areas at all times on your
-                dashboard. I will help you to work on them and improve your
-                skills.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 my-6 md:my-8  max-w-2xl mx-auto">
-                <button
-                  onClick={handleGeneratePathway}
-                  className="flex-1 px-5  py-3.5  bg-[#F5F5F5]  text-[#578DDD] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
-                >
-                  Generate my Leadership Pathway
-                </button>
-                <button
-                  onClick={handleGoToDashboard}
-                  className="flex-1   py-3.5 px-5  bg-[#3D3D3D] text-[#F5F5F5] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
-                >
-                  Go to Dashboard
-                </button>
-              </div>
-              <div className="mb-8">
-                <p className="text-sm md:text-base font-inter-regular text-black  mb-6 md:mb-8 bg-[#F5F5FF] p-4 rounded-xl">
-                  I'll create a personalized development plan focused on your
-                  growth areas.
-                </p>
-              </div>
-
-              {/* Three Cards Section */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 ">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src="/assets/images/dashboard/expert.png"
-                        alt="Workbook"
-                        className="w-4 h-4"
-                      />
-                      <div>
-                        <p className="text-xs font-inter-medium text-[#3D3D3D]">
-                          Expert knowledge
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-[#9CA3AF]" />
-                        <p className="text-xs font-inter text-[#9CA3AF]">
-                          8 min
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#3D3D3D] mb-3">
-                    Common Understanding
-                  </h3>
-                  <p className="text-sm text-[#3D3D3D]/70 font-inter mb-6 leading-relaxed">
-                    Introducing ideas that matter to women and their place at
-                    work, based on research and industry reporting.
+        {selectedConversation === "session1" ? (
+          <div className="flex-1 overflow-hidden relative">
+            <Session1Chat isSidebarCollapsed={isSidebarCollapsed} />
+          </div>
+        ) : (
+          <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24 relative">
+            {showPathwayView ? (
+              <>
+                {/* Leadership Pathway View */}
+                <div className="mb-8">
+                  <p className="text-base md:text-lg text-[#3D3D3D] font-inter">
+                    I'll create a personalized development plan focused on your
+                    growth areas.
                   </p>
-                  <button className=" px-4 py-3 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-sm  transition-colors">
-                    Start element
-                  </button>
                 </div>
 
-                {/* Reflective Practice Card - Locked */}
-                <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src="/assets/images/dashboard/workbook.png"
-                        alt="Workbook"
-                        className="w-6 h-6"
-                      />
-                      <div>
-                        <p className="text-xs font-inter-medium text-[#9CA3AF]">
-                          Workbook
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-[#9CA3AF]" />
-                        <p className="text-xs font-inter text-[#9CA3AF]">
-                          8 min
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#9CA3AF] mb-3">
-                    Reflective Practice
-                  </h3>
-                  <p className="text-sm text-[#9CA3AF] font-inter mb-6 leading-relaxed">
-                    Small description about the element contents. Lorem ipsum
-                    sit dolor amet avec consect.
+                {/* Pathway Details Section */}
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 md:p-8 mb-8">
+                  <p className="text-base md:text-lg text-[#3D3D3D] font-inter mb-6">
+                    We'll start with{" "}
+                    <span className="font-semibold">Empathy</span>. For that,
+                    I've scheduled 4 sessions for you:
                   </p>
-                  <button className=" px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
-                    <Lock className="w-4 h-4" />
-                    Locked
-                  </button>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#6664D3] font-bold mt-1">•</span>
+                      <span className="text-base text-[#3D3D3D] font-inter">
+                        Session 1: The Power of Empathetic Leadership (Common
+                        Understanding)
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#6664D3] font-bold mt-1">•</span>
+                      <span className="text-base text-[#3D3D3D] font-inter">
+                        Session 2: Reflective Practice - Empathy in Action
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#6664D3] font-bold mt-1">•</span>
+                      <span className="text-base text-[#3D3D3D] font-inter">
+                        Session 3: The Empathy Toolkit - Practical Applications
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#6664D3] font-bold mt-1">•</span>
+                      <span className="text-base text-[#3D3D3D] font-inter">
+                        Session 4: Integration and Forward Movement
+                      </span>
+                    </li>
+                  </ul>
+                  <p className="text-sm md:text-base text-[#3D3D3D]/70 font-inter mb-4 leading-relaxed">
+                    Each session is designed to be conversational and practical,
+                    building on real workplace scenarios. We'll work together to
+                    develop your empathetic leadership skills through
+                    evidence-based techniques.
+                  </p>
+                  <p className="text-sm md:text-base text-[#3D3D3D]/70 font-inter">
+                    You would always have this pathway on the main dashboard so
+                    you can work on all the points one by one.
+                  </p>
                 </div>
 
-                {/* Application Card - Locked */}
-                <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src="/assets/images/dashboard/workbook.png"
-                        alt="Workbook"
-                        className="w-6 h-6"
-                      />
-                      <div>
-                        <p className="text-xs font-inter-medium text-[#9CA3AF]">
-                          Workbook
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-[#9CA3AF]" />
-                        <p className="text-xs font-inter text-[#9CA3AF]">
-                          8 min
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#9CA3AF] mb-3">
-                    Application
-                  </h3>
-                  <p className="text-sm text-[#9CA3AF] font-inter mb-6 leading-relaxed">
-                    Small description about the element contents. Lorem ipsum
-                    sit dolor amet avec consect.
-                  </p>
-                  <button className=" px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
-                    <Lock className="w-4 h-4" />
-                    Locked
+                {/* Bottom Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+                  <button
+                    onClick={handleStartSession}
+                    className="flex-1 px-6 py-3 bg-[#F5F5F5] text-[#3D3D3D] rounded-xl font-inter-medium text-base hover:bg-[#E5E5E5] transition-colors"
+                  >
+                    Start Session
+                  </button>
+                  <button
+                    onClick={handleGoToDashboard}
+                    className="flex-1 px-6 py-3 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-base hover:bg-[#2D2D2D] transition-colors"
+                  >
+                    Go to Dashboard
                   </button>
                 </div>
-              </div>
+              </>
+            ) : (
+              <>
+                <ChatMessage message={initialMessage} />
+                {messages.map((msg, index) => (
+                  <ChatMessage key={index} message={msg} />
+                ))}
+                <ProgressBarsSection />
+                <TextBlock
+                  title="Based on your profile, I can see your Glow Areas (strengths) are:"
+                  items={glowAreas}
+                  bgColor="bg-[#F5F5FF]"
+                />
+                <TextBlock
+                  title="Your Grow Areas (development opportunities) are:"
+                  items={growAreas}
+                  bgColor="bg-[#F5F5FF]"
+                />
+                <p className="text-sm md:text-base font-inter-regular text-black   bg-[#F5F5FF] p-4 rounded-xl">
+                  You can now view your Glow and Grow areas at all times on your
+                  dashboard. I will help you to work on them and improve your
+                  skills.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 my-6 md:my-8  max-w-2xl mx-auto">
+                  <button
+                    onClick={handleGeneratePathway}
+                    className="flex-1 px-5  py-3.5  bg-[#F5F5F5]  text-[#578DDD] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
+                  >
+                    Generate my Leadership Pathway
+                  </button>
+                  <button
+                    onClick={handleGoToDashboard}
+                    className="flex-1   py-3.5 px-5  bg-[#3D3D3D] text-[#F5F5F5] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
+                  >
+                    Go to Dashboard
+                  </button>
+                </div>
+                <div className="mb-8">
+                  <p className="text-sm md:text-base font-inter-regular text-black  mb-6 md:mb-8 bg-[#F5F5FF] p-4 rounded-xl">
+                    I'll create a personalized development plan focused on your
+                    growth areas.
+                  </p>
+                </div>
 
-              {/* Pathway Details Section */}
-              <div className="bg-[#F5F5FF] rounded-xl p-4  mb-4 md:mb-6">
-                <p className="text-base  text-black font-regular font-inter mb-2">
-                  We'll start with Empathy. For that, I've scheduled 4 sessions
-                  for you:
-                </p>
-                <ul className="space-y-1 mb-2">
-                  <li className="flex items-center gap-3">
-                    <span className="text-black font-bold ">•</span>
-                    <span className="text-base text-black font-regular font-inter">
-                      Session 1: The Power of Empathetic Leadership (Common
-                      Understanding)
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-black font-bold ">•</span>
-                    <span className="text-base text-black font-regular font-inter">
-                      Session 2: Reflective Practice - Empathy in Action
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-black font-bold ">•</span>
-                    <span className="text-base text-black font-regular font-inter">
-                      Session 3: The Empathy Toolkit - Practical Applications
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-black font-bold ">•</span>
-                    <span className="text-base text-black font-regular font-inter">
-                      Session 4: Integration and Forward Movement
-                    </span>
-                  </li>
-                </ul>
-                <p className="text-base text-black font-regular/70 font-inter mb-2 leading-relaxed">
-                  Each session is designed to be conversational and practical,
-                  building on real workplace scenarios. We'll work together to
-                  develop your empathetic leadership skills through
-                  evidence-based techniques.
-                </p>
-                <p className="text-base text-black font-regular/70 font-inter">
-                  You would always have this pathway on the main dashboard so
-                  you can work on all the points one by one.
-                </p>
-              </div>
+                {/* Three Cards Section */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 ">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src="/assets/images/dashboard/expert.png"
+                          alt="Workbook"
+                          className="w-4 h-4"
+                        />
+                        <div>
+                          <p className="text-xs font-inter-medium text-[#3D3D3D]">
+                            Expert knowledge
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4 text-[#9CA3AF]" />
+                          <p className="text-xs font-inter text-[#9CA3AF]">
+                            8 min
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#3D3D3D] mb-3">
+                      Common Understanding
+                    </h3>
+                    <p className="text-sm text-[#3D3D3D]/70 font-inter mb-6 leading-relaxed">
+                      Introducing ideas that matter to women and their place at
+                      work, based on research and industry reporting.
+                    </p>
+                    <button className=" px-4 py-3 bg-[#3D3D3D] text-white rounded-xl font-inter-medium text-sm  transition-colors">
+                      Start element
+                    </button>
+                  </div>
 
-              {/* Bottom Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 max-w-sm mx-auto">
-                <button
-                  onClick={handleStartSession}
-                  className="flex-1 px-5  py-3  bg-[#F5F5F5]  text-[#578DDD] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
-                >
-                  Start Session
-                </button>
-                <button
-                  onClick={handleGoToDashboard}
-                  className="flex-1 px-5 py-3 bg-[#3D3D3D] text-white rounded-2xl font-inter-medium text-base hover:bg-[#2D2D2D] transition-colors"
-                >
-                  Go to Dashboard
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-        {!showPathwayView && (
+                  {/* Reflective Practice Card - Locked */}
+                  <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src="/assets/images/dashboard/workbook.png"
+                          alt="Workbook"
+                          className="w-6 h-6"
+                        />
+                        <div>
+                          <p className="text-xs font-inter-medium text-[#9CA3AF]">
+                            Workbook
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4 text-[#9CA3AF]" />
+                          <p className="text-xs font-inter text-[#9CA3AF]">
+                            8 min
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#9CA3AF] mb-3">
+                      Reflective Practice
+                    </h3>
+                    <p className="text-sm text-[#9CA3AF] font-inter mb-6 leading-relaxed">
+                      Small description about the element contents. Lorem ipsum
+                      sit dolor amet avec consect.
+                    </p>
+                    <button className=" px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+                      <Lock className="w-4 h-4" />
+                      Locked
+                    </button>
+                  </div>
+
+                  {/* Application Card - Locked */}
+                  <div className="bg-white border-2 border-[#f7f7f7] rounded-2xl p-5 opacity-60">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src="/assets/images/dashboard/workbook.png"
+                          alt="Workbook"
+                          className="w-6 h-6"
+                        />
+                        <div>
+                          <p className="text-xs font-inter-medium text-[#9CA3AF]">
+                            Workbook
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4 text-[#9CA3AF]" />
+                          <p className="text-xs font-inter text-[#9CA3AF]">
+                            8 min
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 className="text-lg md:text-xl font-cormorant font-bold text-[#9CA3AF] mb-3">
+                      Application
+                    </h3>
+                    <p className="text-sm text-[#9CA3AF] font-inter mb-6 leading-relaxed">
+                      Small description about the element contents. Lorem ipsum
+                      sit dolor amet avec consect.
+                    </p>
+                    <button className=" px-4 py-3 bg-[#F5F5F5] text-[#9CA3AF] rounded-xl font-inter-medium text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+                      <Lock className="w-4 h-4" />
+                      Locked
+                    </button>
+                  </div>
+                </div>
+
+                {/* Pathway Details Section */}
+                <div className="bg-[#F5F5FF] rounded-xl p-4  mb-4 md:mb-6">
+                  <p className="text-base  text-black font-regular font-inter mb-2">
+                    We'll start with Empathy. For that, I've scheduled 4
+                    sessions for you:
+                  </p>
+                  <ul className="space-y-1 mb-2">
+                    <li className="flex items-center gap-3">
+                      <span className="text-black font-bold ">•</span>
+                      <span className="text-base text-black font-regular font-inter">
+                        Session 1: The Power of Empathetic Leadership (Common
+                        Understanding)
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="text-black font-bold ">•</span>
+                      <span className="text-base text-black font-regular font-inter">
+                        Session 2: Reflective Practice - Empathy in Action
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="text-black font-bold ">•</span>
+                      <span className="text-base text-black font-regular font-inter">
+                        Session 3: The Empathy Toolkit - Practical Applications
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="text-black font-bold ">•</span>
+                      <span className="text-base text-black font-regular font-inter">
+                        Session 4: Integration and Forward Movement
+                      </span>
+                    </li>
+                  </ul>
+                  <p className="text-base text-black font-regular/70 font-inter mb-2 leading-relaxed">
+                    Each session is designed to be conversational and practical,
+                    building on real workplace scenarios. We'll work together to
+                    develop your empathetic leadership skills through
+                    evidence-based techniques.
+                  </p>
+                  <p className="text-base text-black font-regular/70 font-inter">
+                    You would always have this pathway on the main dashboard so
+                    you can work on all the points one by one.
+                  </p>
+                </div>
+
+                {/* Bottom Buttons */}
+                <div className="flex lg:flex-row flex-col gap-4 lg:max-w-sm lg:mx-auto">
+                  <button
+                    onClick={handleStartSession}
+                    className="flex-1 px-5  py-3  bg-[#F5F5F5]  text-[#578DDD] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
+                  >
+                    Start Session
+                  </button>
+                  <button
+                    onClick={handleGoToDashboard}
+                    className="flex-1 px-5 py-3 bg-[#3D3D3D] text-white rounded-2xl font-inter-medium text-base hover:bg-[#2D2D2D] transition-colors"
+                  >
+                    Go to Dashboard
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {!showPathwayView && selectedConversation !== "session1" && (
           <div
-            className={`absolute bottom-0  left-0 right-0 ${
-              isSidebarCollapsed ? "z-50" : "z-50"
-            } `}
+            className={`absolute bottom-0 left-0 right-0 ${
+              isSidebarCollapsed ? "z-50" : ""
+            } md:z-50`}
           >
             <ChatInputFooter />
           </div>
