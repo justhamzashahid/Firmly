@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSession2 = false, showSession3 = false, showSession4 = false, onConversationSelect, selectedConversation }) => {
+const Sidebar = ({
+  isCollapsed,
+  onToggleCollapse,
+  showSession1 = false,
+  showSession2 = false,
+  showSession3 = false,
+  showSession4 = false,
+  onConversationSelect,
+  selectedConversation,
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <>
@@ -79,11 +88,14 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
         <div className="flex-1 overflow-y-auto px-3 pb-4">
           {showSession1 && (
             <>
-              <div 
-                onClick={() => onConversationSelect && onConversationSelect("cultivating-empathy")}
+              <div
+                onClick={() =>
+                  onConversationSelect &&
+                  onConversationSelect("cultivating-empathy")
+                }
                 className={`rounded-xl border border-[#ECECEC] p-3 mb-2 cursor-pointer transition-colors ${
-                  selectedConversation === "cultivating-empathy" 
-                    ? "bg-[#F5F5F5]" 
+                  selectedConversation === "cultivating-empathy"
+                    ? "bg-[#F5F5F5]"
                     : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                 }`}
               >
@@ -94,11 +106,13 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
                   Cultivating Empathy
                 </p>
               </div>
-              <div 
-                onClick={() => onConversationSelect && onConversationSelect("session1")}
+              <div
+                onClick={() =>
+                  onConversationSelect && onConversationSelect("session1")
+                }
                 className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
-                  selectedConversation === "session1" 
-                    ? "bg-[#F5F5F5]" 
+                  selectedConversation === "session1"
+                    ? "bg-[#E8E8E8]"
                     : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                 }`}
               >
@@ -107,11 +121,13 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
                 </p>
               </div>
               {showSession2 && (
-                <div 
-                  onClick={() => onConversationSelect && onConversationSelect("session2")}
+                <div
+                  onClick={() =>
+                    onConversationSelect && onConversationSelect("session2")
+                  }
                   className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
-                    selectedConversation === "session2" 
-                      ? "bg-[#F5F5F5]" 
+                    selectedConversation === "session2"
+                      ? "bg-[#E8E8E8]"
                       : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                   }`}
                 >
@@ -121,11 +137,13 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
                 </div>
               )}
               {showSession3 && (
-                <div 
-                  onClick={() => onConversationSelect && onConversationSelect("session3")}
+                <div
+                  onClick={() =>
+                    onConversationSelect && onConversationSelect("session3")
+                  }
                   className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
-                    selectedConversation === "session3" 
-                      ? "bg-[#F5F5F5]" 
+                    selectedConversation === "session3"
+                      ? "bg-[#E8E8E8]"
                       : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                   }`}
                 >
@@ -135,11 +153,13 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
                 </div>
               )}
               {showSession4 && (
-                <div 
-                  onClick={() => onConversationSelect && onConversationSelect("session4")}
+                <div
+                  onClick={() =>
+                    onConversationSelect && onConversationSelect("session4")
+                  }
                   className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
-                    selectedConversation === "session4" 
-                      ? "bg-[#F5F5F5]" 
+                    selectedConversation === "session4"
+                      ? "bg-[#E8E8E8]"
                       : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
                   }`}
                 >
@@ -150,11 +170,13 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
               )}
             </>
           )}
-          <div 
-            onClick={() => onConversationSelect && onConversationSelect("diagnostic")}
+          <div
+            onClick={() =>
+              onConversationSelect && onConversationSelect("diagnostic")
+            }
             className={`rounded-xl border border-[#ECECEC] p-3 mb-2 cursor-pointer transition-colors ${
-              selectedConversation === "diagnostic" 
-                ? "bg-[#F5F5F5]" 
+              selectedConversation === "diagnostic"
+                ? "bg-[#F5F5F5]"
                 : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
             }`}
           >

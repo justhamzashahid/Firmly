@@ -16,7 +16,7 @@ export default function Dashboard() {
     // This runs on mount and whenever the pathname changes
     const visited = sessionStorage.getItem("hasVisitedAmaliaCorner");
     const fromStartSession = sessionStorage.getItem("fromStartSession");
-    
+
     if (visited === "true") {
       setHasVisitedAmaliaCorner(true);
       // Clear the flag after a short delay to ensure state is set
@@ -24,18 +24,18 @@ export default function Dashboard() {
       const timeoutId = setTimeout(() => {
         sessionStorage.removeItem("hasVisitedAmaliaCorner");
       }, 100);
-      
+
       // Scroll to LeadershipPathwaySection if coming from Start Session
       if (fromStartSession === "true" && pathwaySectionRef.current) {
         setTimeout(() => {
-          pathwaySectionRef.current?.scrollIntoView({ 
-            behavior: "smooth", 
-            block: "start" 
+          pathwaySectionRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
           });
           sessionStorage.removeItem("fromStartSession");
         }, 200);
       }
-      
+
       return () => clearTimeout(timeoutId);
     } else {
       // Ensure it's false on fresh page load or direct navigation
@@ -53,7 +53,9 @@ export default function Dashboard() {
       <div className="bg-[#f5f5f5] 2xl:px-16 xl:px-12 lg:px-8 md:px-6 sm:px-4 px-4">
         <GrowAndGlowSection hasVisitedAmaliaCorner={hasVisitedAmaliaCorner} />
         <div className="lg:pb-10 pb-7" ref={pathwaySectionRef}>
-          <LeadershipPathwaySection hasVisitedAmaliaCorner={hasVisitedAmaliaCorner} />
+          <LeadershipPathwaySection
+            hasVisitedAmaliaCorner={hasVisitedAmaliaCorner}
+          />
         </div>
       </div>
       <button

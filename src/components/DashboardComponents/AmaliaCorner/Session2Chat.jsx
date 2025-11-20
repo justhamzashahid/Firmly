@@ -51,26 +51,23 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          Welcome back! I'm excited to continue our empathy development journey
-          together. In this session, we'll focus on reflective practice—applying
-          empathy to real workplace situations. This is where theory meets
-          practice, and where you'll begin to see empathy transform your
-          leadership approach.
+          Welcome to our third session! Today I'm excited to introduce your
+          Empathy Leadership Workbook, which contains research-backed exercises
+          designed specifically for women in leadership positions. Before we
+          discuss specific strategies to develop your empathy skills, I want to
+          emphasize that empathy is a skill that can be developed with
+          practice—it's not a fixed trait. Research by Riess and colleagues
+          (2012) demonstrated that empathy can be effectively taught through
+          structured interventions.
         </>
       ),
-      showResponse: false,
-    },
-    {
-      id: 2,
-      type: "amalia",
-      content: "How did the observations from our last session go?",
       showResponse: false,
     },
     {
       id: 3,
       type: "user",
       content:
-        "I noticed a few situations where empathy could have made a difference. It was eye-opening!",
+        "User response appears here",
       showResponse: false,
     },
     {
@@ -81,22 +78,24 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
           That's wonderful! Your observations are the foundation of reflective
           practice. Reflective practice in empathy means taking time to examine
           workplace interactions—both your own and others'—through an empathetic
-          lens. It's about asking: "What emotions were present? What perspectives
-          might I have missed? How could empathy have changed the outcome?"
+          lens. It's about asking: "What emotions were present? What
+          perspectives might I have missed? How could empathy have changed the
+          outcome?"
           <br />
           <br />
           Research by Schön (1983) shows that reflective practice helps leaders
           develop what he called "reflection-in-action"—the ability to think
-          empathetically in real-time during interactions. For women leaders, this
-          skill is particularly valuable because it allows you to navigate complex
-          social dynamics while maintaining authenticity.
+          empathetically in real-time during interactions. For women leaders,
+          this skill is particularly valuable because it allows you to navigate
+          complex social dynamics while maintaining authenticity.
           <br />
           <br />
-          Today, we'll work through a structured reflection process. I'll guide you
-          through analyzing a workplace scenario, identifying the emotional
-          dimensions, and exploring how different empathetic responses might have
-          led to different outcomes. This isn't about finding "right" answers—it's
-          about expanding your empathetic awareness and response options.
+          Today, we'll work through a structured reflection process. I'll guide
+          you through analyzing a workplace scenario, identifying the emotional
+          dimensions, and exploring how different empathetic responses might
+          have led to different outcomes. This isn't about finding "right"
+          answers—it's about expanding your empathetic awareness and response
+          options.
           <br />
           <br />
           Are you ready to dive into a specific scenario?
@@ -110,15 +109,17 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          Excellent! Remember, reflective practice is a skill that strengthens with
-          use. The more you practice seeing situations through an empathetic lens,
-          the more naturally it will come to you in real-time interactions. In our
-          next session, we'll build on this foundation by exploring practical
-          empathy tools you can use in your daily leadership.
+          Excellent! Remember, reflective practice is a skill that strengthens
+          with use. The more you practice seeing situations through an
+          empathetic lens, the more naturally it will come to you in real-time
+          interactions. In our next session, we'll build on this foundation by
+          exploring practical empathy tools you can use in your daily
+          leadership.
           <br />
           <br />
-          Before we meet again, I encourage you to practice this reflection process
-          with one more real situation from your week. Notice what you discover.
+          Before we meet again, I encourage you to practice this reflection
+          process with one more real situation from your week. Notice what you
+          discover.
         </>
       ),
       showResponse: false,
@@ -192,4 +193,3 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
 };
 
 export default Session2Chat;
-
