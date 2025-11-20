@@ -82,34 +82,27 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
           techniques that research shows are effective for developing empathetic
           leadership skills.
           <br />
-
-          <br />
           Today, we'll explore three key tools:
-          <br />
           <br />
           <strong>1. Active Listening Framework:</strong> A structured approach to
           truly hearing and understanding others' perspectives, developed from
           Rogers' (1957) person-centered therapy principles and adapted for
           leadership contexts.
           <br />
-          <br />
           <strong>2. Perspective-Taking Exercises:</strong> Practical techniques
           to systematically consider situations from multiple viewpoints, based on
           Galinsky and colleagues' (2008) research on perspective-taking and
           negotiation.
-          <br />
           <br />
           <strong>3. Empathetic Response Strategies:</strong> Concrete methods
           for responding to others in ways that demonstrate understanding and
           connection, drawing from Goleman's (2006) work on emotional
           intelligence in leadership.
           <br />
-          <br />
           These tools aren't just theoretical—they're practical techniques you
           can use in meetings, one-on-ones, and difficult conversations. We'll
           practice them together so you feel confident applying them in real
           situations.
-          <br />
           <br />
           Are you ready to start with the Active Listening Framework?
         </>
@@ -126,7 +119,6 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
           more you use them, the more natural they'll become. In our final
           session, we'll focus on integrating all of these skills into your
           ongoing leadership practice.
-          <br />
           <br />
           Before we meet again, I encourage you to try at least one of these
           tools in a real workplace situation. Notice what happens when you apply
