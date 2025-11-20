@@ -30,8 +30,8 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
         <>
           Welcome back! I'm thrilled to continue our journey together. In this
           session, we'll move from understanding and reflection to practical
-          application. This is where you'll develop concrete tools and techniques
-          that you can use immediately in your leadership practice.
+          application. This is where you'll develop concrete tools and
+          techniques that you can use immediately in your leadership practice.
         </>
       ),
       showResponse: false,
@@ -39,7 +39,8 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
     {
       id: 2,
       type: "amalia",
-      content: "How have you been applying the reflective practices we discussed?",
+      content:
+        "How have you been applying the reflective practices we discussed?",
       showResponse: false,
     },
     {
@@ -61,14 +62,14 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
           <br />
           Today, we'll explore three key tools:
           <br />
-          <strong>1. Active Listening Framework:</strong> A structured approach to
-          truly hearing and understanding others' perspectives, developed from
-          Rogers' (1957) person-centered therapy principles and adapted for
+          <strong>1. Active Listening Framework:</strong> A structured approach
+          to truly hearing and understanding others' perspectives, developed
+          from Rogers' (1957) person-centered therapy principles and adapted for
           leadership contexts.
           <br />
           <strong>2. Perspective-Taking Exercises:</strong> Practical techniques
-          to systematically consider situations from multiple viewpoints, based on
-          Galinsky and colleagues' (2008) research on perspective-taking and
+          to systematically consider situations from multiple viewpoints, based
+          on Galinsky and colleagues' (2008) research on perspective-taking and
           negotiation.
           <br />
           <strong>3. Empathetic Response Strategies:</strong> Concrete methods
@@ -92,14 +93,14 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          Wonderful! Remember, these tools become more powerful with practice. The
-          more you use them, the more natural they'll become. In our final
+          Wonderful! Remember, these tools become more powerful with practice.
+          The more you use them, the more natural they'll become. In our final
           session, we'll focus on integrating all of these skills into your
           ongoing leadership practice.
           <br />
           Before we meet again, I encourage you to try at least one of these
-          tools in a real workplace situation. Notice what happens when you apply
-          it.
+          tools in a real workplace situation. Notice what happens when you
+          apply it.
         </>
       ),
       showResponse: false,
@@ -145,13 +146,13 @@ const Session3Chat = ({ isSidebarCollapsed = true }) => {
         <div className="flex lg:flex-row flex-col gap-4 lg:max-w-sm lg:mx-auto mt-8 mb-4">
           <button
             onClick={handleNextSession}
-            className="flex-1 px-5  py-3.5  bg-[#F5F5F5] max-w-fit text-[#578DDD] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
+            className="flex-1 px-5  py-3.5  bg-[#F5F5F5] lg:max-w-fit text-[#578DDD] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#E5E5E5]"
           >
             Next Session
           </button>
           <button
             onClick={handleGoToDashboard}
-            className="flex-1   py-3.5 px-5  bg-[#3D3D3D] max-w-fit text-[#F5F5F5] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
+            className="flex-1   py-3.5 px-5  bg-[#3D3D3D] lg:max-w-fit text-[#F5F5F5] rounded-2xl font-medium transition-colors text-sm md:text-base hover:bg-[#2D2D2D]"
           >
             Go to Dashboard
           </button>
