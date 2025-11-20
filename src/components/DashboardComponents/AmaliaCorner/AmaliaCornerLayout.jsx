@@ -8,6 +8,7 @@ import TextBlock from "./TextBlock";
 import ChatInputFooter from "./ChatInputFooter";
 import Session1Chat from "./Session1Chat";
 import Session2Chat from "./Session2Chat";
+import Session3Chat from "./Session3Chat";
 import { Clock, Lock } from "lucide-react";
 const AmaliaCornerLayout = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const AmaliaCornerLayout = () => {
   const [showPathwayView, setShowPathwayView] = useState(false);
   const [showSession1, setShowSession1] = useState(false);
   const [showSession2, setShowSession2] = useState(false);
+  const [showSession3, setShowSession3] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState(null);
   useEffect(() => {
     const handleResize = () => {
@@ -61,6 +63,7 @@ const AmaliaCornerLayout = () => {
     if (shouldShowSession1 === "true") {
       setShowSession1(true);
       setShowSession2(false);
+      setShowSession3(false);
       setSelectedConversation("session1");
       // Clear the flag after using it
       sessionStorage.removeItem("showSession1");
@@ -70,12 +73,24 @@ const AmaliaCornerLayout = () => {
       if (shouldShowSession2 === "true") {
         setShowSession1(true);
         setShowSession2(true);
+        setShowSession3(false);
         setSelectedConversation("session2");
         // Clear the flag after using it
         sessionStorage.removeItem("showSession2");
       } else {
-        // Default to showing Diagnostic Debrief
-        setSelectedConversation("diagnostic");
+        // Check if user came from clicking "Start session" in Session3Modal
+        const shouldShowSession3 = sessionStorage.getItem("showSession3");
+        if (shouldShowSession3 === "true") {
+          setShowSession1(true);
+          setShowSession2(true);
+          setShowSession3(true);
+          setSelectedConversation("session3");
+          // Clear the flag after using it
+          sessionStorage.removeItem("showSession3");
+        } else {
+          // Default to showing Diagnostic Debrief
+          setSelectedConversation("diagnostic");
+        }
       }
     }
   }, []);
@@ -87,6 +102,7 @@ const AmaliaCornerLayout = () => {
         // If sessions are showing, hide them and show diagnostic
         setShowSession1(false);
         setShowSession2(false);
+        setShowSession3(false);
         setSelectedConversation("diagnostic");
       } else {
         // If sessions are hidden, show them and select session1
@@ -103,6 +119,11 @@ const AmaliaCornerLayout = () => {
       setShowSession1(true);
       setShowSession2(true);
       setSelectedConversation("session2");
+    } else if (conversationId === "session3") {
+      setShowSession1(true);
+      setShowSession2(true);
+      setShowSession3(true);
+      setSelectedConversation("session3");
     }
   };
   const initialMessage = (
@@ -164,6 +185,7 @@ const AmaliaCornerLayout = () => {
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         showSession1={showSession1}
         showSession2={showSession2}
+        showSession3={showSession3}
         onConversationSelect={handleConversationSelect}
         selectedConversation={selectedConversation}
       />
@@ -178,6 +200,10 @@ const AmaliaCornerLayout = () => {
         ) : selectedConversation === "session2" ? (
           <div className="flex-1 overflow-hidden relative">
             <Session2Chat isSidebarCollapsed={isSidebarCollapsed} />
+          </div>
+        ) : selectedConversation === "session3" ? (
+          <div className="flex-1 overflow-hidden relative">
+            <Session3Chat isSidebarCollapsed={isSidebarCollapsed} />
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24 relative">
@@ -466,7 +492,7 @@ const AmaliaCornerLayout = () => {
             )}
           </div>
         )}
-        {!showPathwayView && selectedConversation !== "session1" && (
+        {!showPathwayView && selectedConversation !== "session1" && selectedConversation !== "session2" && selectedConversation !== "session3" && (
           <div
             className={`absolute bottom-0 left-0 right-0 ${
               isSidebarCollapsed ? "z-50" : ""

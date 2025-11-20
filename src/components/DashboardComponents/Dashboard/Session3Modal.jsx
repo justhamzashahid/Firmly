@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SessionModal = ({ isOpen, onClose, sessionData }) => {
+const Session3Modal = ({ isOpen, onClose, sessionData }) => {
   const modalRef = useRef(null);
   const navigate = useNavigate();
 
@@ -51,11 +51,11 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
   if (!isOpen) return null;
 
   const defaultSession = {
-    sessionNumber: "Session 1",
-    title: "The Power of Empathetic Leadership",
-    description: "Understand empathy as a cornerstone of inclusive leadership",
+    sessionNumber: "Session 3",
+    title: "The Empathy Toolkit - Practical Applications",
+    description: "Introduce structured exercises for developing empathetic leadership",
     duration: "30 minutes",
-    icon: "/assets/images/dashboard/session1.png",
+    icon: "/assets/images/dashboard/session3.png",
   };
 
   const session = sessionData || defaultSession;
@@ -116,7 +116,7 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
             <div className="flex justify-center w-full">
               <button
                 onClick={() => {
-                  sessionStorage.setItem("showSession1", "true");
+                  sessionStorage.setItem("showSession3", "true");
                   onClose();
                   navigate("/amalia-corner");
                 }}
@@ -132,4 +132,5 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
   );
 };
 
-export default SessionModal;
+export default Session3Modal;
+

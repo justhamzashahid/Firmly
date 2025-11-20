@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSession2 = false, onConversationSelect, selectedConversation }) => {
+const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSession2 = false, showSession3 = false, onConversationSelect, selectedConversation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <>
@@ -117,6 +117,20 @@ const Sidebar = ({ isCollapsed, onToggleCollapse, showSession1 = false, showSess
                 >
                   <p className="text-xs md:text-sm text-[#3D3D3D] font-inter">
                     • Session 2
+                  </p>
+                </div>
+              )}
+              {showSession3 && (
+                <div 
+                  onClick={() => onConversationSelect && onConversationSelect("session3")}
+                  className={`rounded-xl border border-[#ECECEC] p-3 mb-2 ml-4 cursor-pointer transition-colors ${
+                    selectedConversation === "session3" 
+                      ? "bg-[#F5F5F5]" 
+                      : "bg-[#F5F5F5] hover:bg-[#E5E5E5]"
+                  }`}
+                >
+                  <p className="text-xs md:text-sm text-[#3D3D3D] font-inter">
+                    • Session 3
                   </p>
                 </div>
               )}

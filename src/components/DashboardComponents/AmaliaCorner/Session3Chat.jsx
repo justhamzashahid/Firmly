@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ChatInputFooter from "./ChatInputFooter";
 import { useNavigate } from "react-router-dom";
 
-const Session2Chat = ({ isSidebarCollapsed = true }) => {
+const Session3Chat = ({ isSidebarCollapsed = true }) => {
   const navigate = useNavigate();
   const [userResponses, setUserResponses] = useState({});
   const [userMessages, setUserMessages] = useState([]);
@@ -34,10 +34,10 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
   }, [userMessages]);
 
   const handleNextSession = () => {
-    // Navigate to Dashboard and show Leadership Pathway section with session 3 active
+    // Navigate to Dashboard and show Leadership Pathway section with session 4 active
     sessionStorage.setItem("hasVisitedAmaliaCorner", "true");
     sessionStorage.setItem("fromStartSession", "true");
-    sessionStorage.setItem("fromSession2Next", "true");
+    sessionStorage.setItem("fromSession3Next", "true");
     navigate("/dashboard");
   };
 
@@ -51,11 +51,10 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          Welcome back! I'm excited to continue our empathy development journey
-          together. In this session, we'll focus on reflective practice—applying
-          empathy to real workplace situations. This is where theory meets
-          practice, and where you'll begin to see empathy transform your
-          leadership approach.
+          Welcome back! I'm thrilled to continue our journey together. In this
+          session, we'll move from understanding and reflection to practical
+          application. This is where you'll develop concrete tools and techniques
+          that you can use immediately in your leadership practice.
         </>
       ),
       showResponse: false,
@@ -63,14 +62,14 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
     {
       id: 2,
       type: "amalia",
-      content: "How did the observations from our last session go?",
+      content: "How have you been applying the reflective practices we discussed?",
       showResponse: false,
     },
     {
       id: 3,
       type: "user",
       content:
-        "I noticed a few situations where empathy could have made a difference. It was eye-opening!",
+        "I've been trying to pause and consider different perspectives before responding. It's been challenging but really insightful!",
       showResponse: false,
     },
     {
@@ -78,28 +77,40 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          That's wonderful! Your observations are the foundation of reflective
-          practice. Reflective practice in empathy means taking time to examine
-          workplace interactions—both your own and others'—through an empathetic
-          lens. It's about asking: "What emotions were present? What perspectives
-          might I have missed? How could empathy have changed the outcome?"
+          That's excellent progress! Now let's build on that foundation with
+          practical tools. The Empathy Toolkit consists of evidence-based
+          techniques that research shows are effective for developing empathetic
+          leadership skills.
           <br />
           <br />
-          Research by Schön (1983) shows that reflective practice helps leaders
-          develop what he called "reflection-in-action"—the ability to think
-          empathetically in real-time during interactions. For women leaders, this
-          skill is particularly valuable because it allows you to navigate complex
-          social dynamics while maintaining authenticity.
+          Today, we'll explore three key tools:
           <br />
           <br />
-          Today, we'll work through a structured reflection process. I'll guide you
-          through analyzing a workplace scenario, identifying the emotional
-          dimensions, and exploring how different empathetic responses might have
-          led to different outcomes. This isn't about finding "right" answers—it's
-          about expanding your empathetic awareness and response options.
+          <strong>1. Active Listening Framework:</strong> A structured approach to
+          truly hearing and understanding others' perspectives, developed from
+          Rogers' (1957) person-centered therapy principles and adapted for
+          leadership contexts.
           <br />
           <br />
-          Are you ready to dive into a specific scenario?
+          <strong>2. Perspective-Taking Exercises:</strong> Practical techniques
+          to systematically consider situations from multiple viewpoints, based on
+          Galinsky and colleagues' (2008) research on perspective-taking and
+          negotiation.
+          <br />
+          <br />
+          <strong>3. Empathetic Response Strategies:</strong> Concrete methods
+          for responding to others in ways that demonstrate understanding and
+          connection, drawing from Goleman's (2006) work on emotional
+          intelligence in leadership.
+          <br />
+          <br />
+          These tools aren't just theoretical—they're practical techniques you
+          can use in meetings, one-on-ones, and difficult conversations. We'll
+          practice them together so you feel confident applying them in real
+          situations.
+          <br />
+          <br />
+          Are you ready to start with the Active Listening Framework?
         </>
       ),
       showResponse: true,
@@ -110,15 +121,15 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          Excellent! Remember, reflective practice is a skill that strengthens with
-          use. The more you practice seeing situations through an empathetic lens,
-          the more naturally it will come to you in real-time interactions. In our
-          next session, we'll build on this foundation by exploring practical
-          empathy tools you can use in your daily leadership.
+          Wonderful! Remember, these tools become more powerful with practice. The
+          more you use them, the more natural they'll become. In our final
+          session, we'll focus on integrating all of these skills into your
+          ongoing leadership practice.
           <br />
           <br />
-          Before we meet again, I encourage you to practice this reflection process
-          with one more real situation from your week. Notice what you discover.
+          Before we meet again, I encourage you to try at least one of these
+          tools in a real workplace situation. Notice what happens when you apply
+          it.
         </>
       ),
       showResponse: false,
@@ -191,5 +202,5 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
   );
 };
 
-export default Session2Chat;
+export default Session3Chat;
 

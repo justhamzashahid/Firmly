@@ -3,13 +3,16 @@ import { Clock, Lock, Check } from "lucide-react";
 import LeadershipPathwayModal from "./LeadershipPathwayModal";
 import SessionModal from "./SessionModal";
 import Session2Modal from "./Session2Modal";
+import Session3Modal from "./Session3Modal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
   const [isSession2ModalOpen, setIsSession2ModalOpen] = useState(false);
+  const [isSession3ModalOpen, setIsSession3ModalOpen] = useState(false);
   const [showPathwayDesign, setShowPathwayDesign] = useState(false);
   const [fromNextSession, setFromNextSession] = useState(false);
+  const [fromSession2Next, setFromSession2Next] = useState(false);
 
   useEffect(() => {
     // Check if coming from Start Session
@@ -18,12 +21,20 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       setShowPathwayDesign(true);
     }
     
-    // Check if coming from Next Session
+    // Check if coming from Next Session (Session 1 -> Session 2)
     const fromNext = sessionStorage.getItem("fromNextSession");
     if (fromNext === "true") {
       setShowPathwayDesign(true);
       setFromNextSession(true);
       sessionStorage.removeItem("fromNextSession");
+    }
+
+    // Check if coming from Session 2 Next Session (Session 2 -> Session 3)
+    const fromSession2 = sessionStorage.getItem("fromSession2Next");
+    if (fromSession2 === "true") {
+      setShowPathwayDesign(true);
+      setFromSession2Next(true);
+      sessionStorage.removeItem("fromSession2Next");
     }
   }, []);
 
@@ -46,8 +57,8 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       title: "Common Understanding",
       description:
         "Introducing ideas that matter to women and their place at work, based on research and industry reporting.",
-      status: fromNextSession ? "completed" : "active",
-      buttonText: fromNextSession ? "View" : "Start element",
+      status: fromSession2Next ? "completed" : fromNextSession ? "completed" : "active",
+      buttonText: fromSession2Next || fromNextSession ? "View" : "Start element",
     },
     {
       id: 2,
@@ -57,8 +68,8 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       title: "Reflective Practice",
       description:
         "Small description about the element contents. Lorem ipsum sit dolor amet avec consect.",
-      status: fromNextSession ? "active" : "locked",
-      buttonText: "Start element",
+      status: fromSession2Next ? "completed" : fromNextSession ? "active" : "locked",
+      buttonText: fromSession2Next ? "View" : "Start element",
     },
     {
       id: 3,
@@ -68,7 +79,8 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       title: "Application",
       description:
         "Small description about the element contents. Lorem ipsum sit dolor amet avec consect.",
-      status: "locked",
+      status: fromSession2Next ? "active" : "locked",
+      buttonText: "Start element",
     },
     {
       id: 4,
@@ -110,7 +122,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                 <div className="absolute top-1/2 left-0 right-0 h-2 lg:h-4 rounded-full bg-[#E5E5E5] -translate-y-1/2 z-0"></div>
                 {/* Active Progress Line - shows progress based on completed steps */}
                 <div className={`absolute top-1/2 left-0 h-2 lg:h-4 rounded-full bg-[#5C91E0] -translate-y-1/2 z-10 ${
-                  fromNextSession ? "w-2/4" : "w-1/4"
+                  fromSession2Next ? "w-3/4" : fromNextSession ? "w-2/4" : "w-1/4"
                 }`}></div>
 
                 {/* Step Indicators */}
@@ -216,7 +228,14 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                   {/* Card Button */}
                   {step.status === "completed" ? (
                     <button 
-                      className=" px-4 py-2 bg-[#F5F5F5] text-[#3D3D3D] rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors"
+                      onClick={() => {
+                        if (step.id === 1) {
+                          setIsSessionModalOpen(true);
+                        } else if (step.id === 2) {
+                          setIsSession2ModalOpen(true);
+                        }
+                      }}
+                      className=" px-4 py-2 bg-[#F5F5F5] text-[#3D3D3D] rounded-xl font-inter-medium text-xs sm:text-sm md:text-base transition-colors hover:bg-[#E5E5E5]"
                     >
                       {step.buttonText}
                     </button>
@@ -225,6 +244,8 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                       onClick={() => {
                         if (step.id === 2) {
                           setIsSession2ModalOpen(true);
+                        } else if (step.id === 3) {
+                          setIsSession3ModalOpen(true);
                         } else {
                           setIsSessionModalOpen(true);
                         }
@@ -290,6 +311,10 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       <Session2Modal
         isOpen={isSession2ModalOpen}
         onClose={() => setIsSession2ModalOpen(false)}
+      />
+      <Session3Modal
+        isOpen={isSession3ModalOpen}
+        onClose={() => setIsSession3ModalOpen(false)}
       />
     </>
   );

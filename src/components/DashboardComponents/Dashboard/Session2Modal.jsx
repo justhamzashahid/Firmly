@@ -70,7 +70,7 @@ const Session2Modal = ({ isOpen, onClose, sessionData }) => {
 
       {/* Modal Container */}
       <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 overflow-y-auto">
-        <div ref={modalRef} className="relative w-full max-w-2xl">
+        <div ref={modalRef} className="relative w-full max-w-3xl">
           {/* White Card with rounded corners */}
           <div className="relative z-10 bg-white rounded-2xl shadow-2xl p-8  flex flex-col items-center text-center">
             {/* Icon - Prominent at top */}
