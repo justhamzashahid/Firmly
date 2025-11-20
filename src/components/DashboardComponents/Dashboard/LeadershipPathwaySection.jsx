@@ -4,12 +4,14 @@ import LeadershipPathwayModal from "./LeadershipPathwayModal";
 import SessionModal from "./SessionModal";
 import Session2Modal from "./Session2Modal";
 import Session3Modal from "./Session3Modal";
+import Session4Modal from "./Session4Modal";
 
 const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
   const [isSession2ModalOpen, setIsSession2ModalOpen] = useState(false);
   const [isSession3ModalOpen, setIsSession3ModalOpen] = useState(false);
+  const [isSession4ModalOpen, setIsSession4ModalOpen] = useState(false);
   const [showPathwayDesign, setShowPathwayDesign] = useState(false);
   const [fromNextSession, setFromNextSession] = useState(false);
   const [fromSession2Next, setFromSession2Next] = useState(false);
@@ -259,8 +261,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
                         } else if (step.id === 3) {
                           setIsSession3ModalOpen(true);
                         } else if (step.id === 4) {
-                          // Handle Session 4 - can be updated later when Session4Modal is created
-                          setIsSessionModalOpen(true);
+                          setIsSession4ModalOpen(true);
                         } else {
                           setIsSessionModalOpen(true);
                         }
@@ -330,6 +331,10 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
       <Session3Modal
         isOpen={isSession3ModalOpen}
         onClose={() => setIsSession3ModalOpen(false)}
+      />
+      <Session4Modal
+        isOpen={isSession4ModalOpen}
+        onClose={() => setIsSession4ModalOpen(false)}
       />
     </>
   );
