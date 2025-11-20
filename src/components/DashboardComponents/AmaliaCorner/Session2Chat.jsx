@@ -64,10 +64,62 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       showResponse: false,
     },
     {
-      id: 3,
+      id: 2,
       type: "user",
-      content:
-        "User response appears here",
+      content: "User response appears here",
+      showResponse: false,
+    },
+    {
+      id: 3,
+      type: "amalia",
+      content: (
+        <>
+          Let's explore the key components of the workbook together:
+          <br />
+          <strong>1. The Three Perspectives Exercise:</strong>
+          <br />
+          • Examine situations from your perspective, others' viewpoints, and a
+          neutral observer's stance
+          <br />
+          • Document insights and patterns you discover
+          <br />
+          • Track how this practice influences your decision-making
+          <br />
+          This exercise draws on Todd and colleagues' (2011) research showing
+          how perspective-taking exercises can help reduce bias and improve
+          understanding across different groups.
+          <br />
+          <br />
+          <strong>2. Active Listening Practice:</strong>
+          <br />
+          • Focus completely on what others are saying without planning your
+          response
+          <br />
+          • Try to understand not just their words but the emotions behind them
+          <br />
+          • Practice identifying emotions through facial expressions, tone of
+          voice, and body language
+          <br />
+          <br />
+          <strong>3. Empathetic Curiosity Conversations:</strong>
+          <br />
+          • Structured question framework for understanding others' experiences
+          <br />
+          • Active listening techniques that demonstrate empathy while
+          maintaining authority
+          <br />
+          • Conversation starters that build what Edmondson (2018) identified as
+          psychological safety
+          <br />
+          <br />
+          <strong>4. Empathy-Based Problem-Solving Framework:</strong>
+          <br />
+          • Step-by-step approach to using empathy in conflict resolution
+          <br />
+          • Techniques for balancing empathy with accountability
+          <br />• Strategies for leveraging empathy in negotiation and influence
+        </>
+      ),
       showResponse: false,
     },
     {
@@ -75,30 +127,25 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          That's wonderful! Your observations are the foundation of reflective
-          practice. Reflective practice in empathy means taking time to examine
-          workplace interactions—both your own and others'—through an empathetic
-          lens. It's about asking: "What emotions were present? What
-          perspectives might I have missed? How could empathy have changed the
-          outcome?"
+          Let's work through the 'Three Perspectives' technique together. When
+          facing a workplace situation, you'll practice identifying three
+          different perspectives:
           <br />
+          1. Your own perspective
           <br />
-          Research by Schön (1983) shows that reflective practice helps leaders
-          develop what he called "reflection-in-action"—the ability to think
-          empathetically in real-time during interactions. For women leaders,
-          this skill is particularly valuable because it allows you to navigate
-          complex social dynamics while maintaining authenticity.
+          2. A colleague's perspective
           <br />
+          3. A neutral observer's perspective
           <br />
-          Today, we'll work through a structured reflection process. I'll guide
-          you through analyzing a workplace scenario, identifying the emotional
-          dimensions, and exploring how different empathetic responses might
-          have led to different outcomes. This isn't about finding "right"
-          answers—it's about expanding your empathetic awareness and response
-          options.
+          Think of a recent workplace interaction that didn't go as smoothly as
+          you'd hoped. Let's apply this technique:
           <br />
+          • From your perspective, what happened?
           <br />
-          Are you ready to dive into a specific scenario?
+          • Now, try to step into your colleague's shoes. What might they have
+          been experiencing?
+          <br />• Finally, if a neutral third party had observed this
+          interaction, what might they have noticed?
         </>
       ),
       showResponse: true,
@@ -109,17 +156,37 @@ const Session2Chat = ({ isSidebarCollapsed = true }) => {
       type: "amalia",
       content: (
         <>
-          Excellent! Remember, reflective practice is a skill that strengthens
-          with use. The more you practice seeing situations through an
-          empathetic lens, the more naturally it will come to you in real-time
-          interactions. In our next session, we'll build on this foundation by
-          exploring practical empathy tools you can use in your daily
-          leadership.
-          <br />
-          <br />
-          Before we meet again, I encourage you to practice this reflection
-          process with one more real situation from your week. Notice what you
-          discover.
+          You've done excellent work with this exercise. I'll email you the
+          complete downloadable worksheet after our session so you can continue
+          practicing these techniques. I recommend spending 10-15 minutes once a
+          week on this exercise. Businessolver's (2024) research on workplace
+          empathy indicates that consistent practice of empathy skills
+          contributes to improved workplace relationships and leadership
+          effectiveness.
+        </>
+      ),
+      showResponse: false,
+    },
+    {
+      id: 6,
+      type: "amalia",
+      content: (
+        <>
+          For our final session, I'd like to discuss your experiences applying
+          these tools and create a sustainable empathy development plan. Does
+          that approach work for you?
+        </>
+      ),
+      showResponse: true,
+      responseId: "response2",
+    },
+    {
+      id: 7,
+      type: "amalia",
+      content: (
+        <>
+          Wonderful! I'll send the workbook today, and I look forward to our
+          final session where we'll reflect on your progress and insights.
         </>
       ),
       showResponse: false,
