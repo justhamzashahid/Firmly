@@ -9,6 +9,7 @@ import ChatInputFooter from "./ChatInputFooter";
 import Session1Chat from "./Session1Chat";
 import Session2Chat from "./Session2Chat";
 import Session3Chat from "./Session3Chat";
+import Session4Chat from "./Session4Chat";
 import { Clock, Lock } from "lucide-react";
 const AmaliaCornerLayout = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const AmaliaCornerLayout = () => {
   const [showSession1, setShowSession1] = useState(false);
   const [showSession2, setShowSession2] = useState(false);
   const [showSession3, setShowSession3] = useState(false);
+  const [showSession4, setShowSession4] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState(null);
   useEffect(() => {
     const handleResize = () => {
@@ -64,6 +66,7 @@ const AmaliaCornerLayout = () => {
       setShowSession1(true);
       setShowSession2(false);
       setShowSession3(false);
+      setShowSession4(false);
       setSelectedConversation("session1");
       // Clear the flag after using it
       sessionStorage.removeItem("showSession1");
@@ -74,6 +77,7 @@ const AmaliaCornerLayout = () => {
         setShowSession1(true);
         setShowSession2(true);
         setShowSession3(false);
+        setShowSession4(false);
         setSelectedConversation("session2");
         // Clear the flag after using it
         sessionStorage.removeItem("showSession2");
@@ -84,12 +88,25 @@ const AmaliaCornerLayout = () => {
           setShowSession1(true);
           setShowSession2(true);
           setShowSession3(true);
+          setShowSession4(false);
           setSelectedConversation("session3");
           // Clear the flag after using it
           sessionStorage.removeItem("showSession3");
         } else {
-          // Default to showing Diagnostic Debrief
-          setSelectedConversation("diagnostic");
+          // Check if user came from clicking "Start session" in Session4Modal
+          const shouldShowSession4 = sessionStorage.getItem("showSession4");
+          if (shouldShowSession4 === "true") {
+            setShowSession1(true);
+            setShowSession2(true);
+            setShowSession3(true);
+            setShowSession4(true);
+            setSelectedConversation("session4");
+            // Clear the flag after using it
+            sessionStorage.removeItem("showSession4");
+          } else {
+            // Default to showing Diagnostic Debrief
+            setSelectedConversation("diagnostic");
+          }
         }
       }
     }
@@ -103,6 +120,7 @@ const AmaliaCornerLayout = () => {
         setShowSession1(false);
         setShowSession2(false);
         setShowSession3(false);
+        setShowSession4(false);
         setSelectedConversation("diagnostic");
       } else {
         // If sessions are hidden, show them and select session1
@@ -124,6 +142,12 @@ const AmaliaCornerLayout = () => {
       setShowSession2(true);
       setShowSession3(true);
       setSelectedConversation("session3");
+    } else if (conversationId === "session4") {
+      setShowSession1(true);
+      setShowSession2(true);
+      setShowSession3(true);
+      setShowSession4(true);
+      setSelectedConversation("session4");
     }
   };
   const initialMessage = (
@@ -186,6 +210,7 @@ const AmaliaCornerLayout = () => {
         showSession1={showSession1}
         showSession2={showSession2}
         showSession3={showSession3}
+        showSession4={showSession4}
         onConversationSelect={handleConversationSelect}
         selectedConversation={selectedConversation}
       />
@@ -204,6 +229,10 @@ const AmaliaCornerLayout = () => {
         ) : selectedConversation === "session3" ? (
           <div className="flex-1 overflow-hidden relative">
             <Session3Chat isSidebarCollapsed={isSidebarCollapsed} />
+          </div>
+        ) : selectedConversation === "session4" ? (
+          <div className="flex-1 overflow-hidden relative">
+            <Session4Chat isSidebarCollapsed={isSidebarCollapsed} />
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto max-w-5xl mx-auto  px-4 pb-24 relative">
@@ -492,7 +521,7 @@ const AmaliaCornerLayout = () => {
             )}
           </div>
         )}
-        {!showPathwayView && selectedConversation !== "session1" && selectedConversation !== "session2" && selectedConversation !== "session3" && (
+        {!showPathwayView && selectedConversation !== "session1" && selectedConversation !== "session2" && selectedConversation !== "session3" && selectedConversation !== "session4" && (
           <div
             className={`absolute bottom-0 left-0 right-0 ${
               isSidebarCollapsed ? "z-50" : ""
