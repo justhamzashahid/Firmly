@@ -357,7 +357,7 @@ const AmaliaCornerLayout = () => {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src="/assets/images/dashboard/expert.png"
+                          src="/assets/images/dashboard/expert.webp"
                           alt="Workbook"
                           className="w-4 h-4"
                         />
@@ -391,7 +391,7 @@ const AmaliaCornerLayout = () => {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src="/assets/images/dashboard/workbook.png"
+                          src="/assets/images/dashboard/workbook.webp"
                           alt="Workbook"
                           className="w-6 h-6"
                         />
@@ -426,7 +426,7 @@ const AmaliaCornerLayout = () => {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src="/assets/images/dashboard/workbook.png"
+                          src="/assets/images/dashboard/workbook.webp"
                           alt="Workbook"
                           className="w-6 h-6"
                         />

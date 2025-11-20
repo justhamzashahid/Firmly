@@ -55,7 +55,7 @@ const SessionModal = ({ isOpen, onClose, sessionData }) => {
     title: "The Power of Empathetic Leadership",
     description: "Understand empathy as a cornerstone of inclusive leadership",
     duration: "30 minutes",
-    icon: "/assets/images/dashboard/session1.png",
+    icon: "/assets/images/dashboard/session1.webp",
   };
 
   const session = sessionData || defaultSession;

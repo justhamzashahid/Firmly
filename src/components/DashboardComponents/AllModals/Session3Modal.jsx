@@ -55,7 +55,7 @@ const Session3Modal = ({ isOpen, onClose, sessionData }) => {
     title: "The Empathy Toolkit - Practical Applications",
     description: "Introduce structured exercises for developing empathetic leadership",
     duration: "30 minutes",
-    icon: "/assets/images/dashboard/session3.png",
+    icon: "/assets/images/dashboard/session3.webp",
   };
 
   const session = sessionData || defaultSession;

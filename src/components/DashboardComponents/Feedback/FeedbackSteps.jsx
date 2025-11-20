@@ -67,7 +67,7 @@ const FeedbackSteps = () => {
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#f5f5f5] rounded-2xl">
       <img
-        src="/assets/images/dashboard/feedbacktop.png"
+        src="/assets/images/dashboard/feedbacktop.webp"
         alt="dashboard top background"
         className="absolute top-0 left-0 lg:w-[613px] w-[350px] z-0 lg:h-[515px] h-[250px] object-cover object-top pointer-events-none"
       />
@@ -182,7 +182,7 @@ const FeedbackSteps = () => {
                   }}
                 >
                   <img
-                    src="/assets/images/dashboard/Subtract.png"
+                    src="/assets/images/dashboard/Subtract.webp"
                     alt="slider handle"
                     className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
                   />
@@ -213,7 +213,7 @@ const FeedbackSteps = () => {
         </div>
       </div>
       <img
-        src="/assets/images/dashboard/feedbackbottom.png"
+        src="/assets/images/dashboard/feedbackbottom.webp"
         alt="dashboard bottom background"
         className="absolute bottom-0 right-0 lg:w-[613px] w-[350px] z-0 lg:h-[515px] h-[250px] object-cover object-bottom pointer-events-none"
       />

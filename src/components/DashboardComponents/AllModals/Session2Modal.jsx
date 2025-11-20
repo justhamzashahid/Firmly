@@ -55,7 +55,7 @@ const Session2Modal = ({ isOpen, onClose, sessionData }) => {
     title: "Reflective Practice - Empathy in Action",
     description: "Analyze real workplace situations through an empathetic lens",
     duration: "30 minutes",
-    icon: "/assets/images/dashboard/session2.png",
+    icon: "/assets/images/dashboard/session2.webp",
   };
 
   const session = sessionData || defaultSession;

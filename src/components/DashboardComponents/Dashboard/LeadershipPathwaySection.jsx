@@ -63,7 +63,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
     {
       id: 1,
       type: "Expert knowledge",
-      icon: "/assets/images/dashboard/expert.png",
+      icon: "/assets/images/dashboard/expert.webp",
       duration: "8 min",
       title: "Common Understanding",
       description:
@@ -83,7 +83,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
     {
       id: 2,
       type: "Workbook",
-      icon: "/assets/images/dashboard/workbook.png",
+      icon: "/assets/images/dashboard/workbook.webp",
       duration: "8 min",
       title: "Reflective Practice",
       description:
@@ -101,7 +101,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
     {
       id: 3,
       type: "Workbook",
-      icon: "/assets/images/dashboard/workbook.png",
+      icon: "/assets/images/dashboard/workbook.webp",
       duration: "8 min",
       title: "Application",
       description:
@@ -116,7 +116,7 @@ const LeadershipPathwaySection = ({ hasVisitedAmaliaCorner = false }) => {
     {
       id: 4,
       type: "Reflection",
-      icon: "/assets/images/dashboard/expert.png",
+      icon: "/assets/images/dashboard/expert.webp",
       duration: "15 min",
       title: "Integration",
       description:

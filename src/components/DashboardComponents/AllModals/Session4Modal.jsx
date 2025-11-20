@@ -55,7 +55,7 @@ const Session4Modal = ({ isOpen, onClose, sessionData }) => {
     title: "Integration and Forward Movement",
     description: "Assess progress and create a sustainable empathy development plan",
     duration: "30 minutes",
-    icon: "/assets/images/dashboard/session4.png",
+    icon: "/assets/images/dashboard/session4.webp",
   };
 
   const session = sessionData || defaultSession;
