@@ -6,6 +6,28 @@ const questions = [
   "I now have resources, tools, and frameworks to develop my empathy as a leadership skill",
   "I now feel more confident about developing an empathetic leadership style",
   "I now plan to develop empathy as a skill in my career",
+  "I take the time to make a plan to help me reach my goals",
+  "I struggle to move on from setbacks at work",
+  "I generally figure out a way to manage challenges at work",
+  "I can handle tough times at work because I've dealt with challenges in the past",
+  "I usually bounce back quickly from difficult situations at work",
+  "I usually manage tough times at work without much difficulty",
+  "I tend to take a while to recover from setbacks at work",
+  "Before criticizing someone at work, I make an effort to consider how I would experience the situation from their perspective",
+  "I dont't spend much time listening to opposing views as work if I am confident that I'm right about somethings(reverse scoring)",
+  "I believe there are always mutiple perspectives to consider at work and strive to see every side of an issue",
+  "I make an effort o understand everyone's point of view in a disagreement at work before making a decision",
+  " I sometimes feel like I fit in at work, and other times I dont't.",
+  "When something negative occurs at work, I question if I truly belong",
+  "When something positive happens at work, I feel a strong sense of belonging. (reverse scoring)",
+  "There is alignment between my works and my personel values,beliefs, and behaviors",
+  "I derive a sense of meaning or purpose from my work",
+  "My work contributes to my sense of personal mission in life",
+  "I know I can achieve most of the work goals I set for myself",
+  "I think I can achieve outcomes that are important to me",
+  "I believe I can succeed in anything I set my mind to",
+  "I am confident in my ability to perform task at work effectively",
+  "I am capable of doing most tasks very well compared to others."
 ];
 
 const FeedbackSteps = () => {
