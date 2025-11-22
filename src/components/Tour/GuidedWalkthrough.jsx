@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import DiagnosticDebriefModal from "../DashboardComponents/AllModals/DiagnosticDebriefModal";
 
 const steps = [
   {
@@ -60,6 +61,7 @@ const GuidedWalkthrough = ({ onComplete }) => {
   const [isActive, setIsActive] = useState(false);
   const [highlightedElement, setHighlightedElement] = useState(null);
   const [highlightRect, setHighlightRect] = useState(null);
+  const [isDebriefModalOpen, setIsDebriefModalOpen] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 1024,
     height: typeof window !== "undefined" ? window.innerHeight : 768,
@@ -113,6 +115,17 @@ const GuidedWalkthrough = ({ onComplete }) => {
     if (!isActive || currentStep === -1) {
       setHighlightedElement(null);
       setHighlightRect(null);
+      // Clean up any applied styles when walkthrough ends
+      steps.forEach((step) => {
+        const element = document.querySelector(step.targetSelector);
+        if (element) {
+          element.style.zIndex = "";
+          const computedPosition = getComputedStyle(element).position;
+          if (computedPosition === "relative" && element.style.position) {
+            element.style.position = "";
+          }
+        }
+      });
       return;
     }
 
@@ -163,19 +176,54 @@ const GuidedWalkthrough = ({ onComplete }) => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      handleComplete();
+      // Close walkthrough completely first
+      setIsActive(false);
+      setCurrentStep(-1);
+      setHighlightedElement(null);
+      setHighlightRect(null);
+      
+      // Clean up any applied styles
+      steps.forEach((step) => {
+        const element = document.querySelector(step.targetSelector);
+        if (element) {
+          element.style.zIndex = "";
+          const computedPosition = getComputedStyle(element).position;
+          if (computedPosition === "relative" && element.style.position) {
+            element.style.position = "";
+          }
+        }
+      });
+      
+      markWalkthroughCompleted();
+      
+      // Open modal after a small delay to ensure walkthrough is fully closed
+      setTimeout(() => {
+        setIsDebriefModalOpen(true);
+      }, 150);
+      
+      if (onComplete) onComplete();
     }
   };
 
-  const handleComplete = () => {
-    setIsActive(false);
-    setCurrentStep(-1);
-    setHighlightedElement(null);
-    markWalkthroughCompleted();
-    if (onComplete) onComplete();
+  const handleGetDebrief = () => {
+    // Handle the "Get Debrief" action
+    // You can navigate to a specific page or trigger an action here
+    console.log("Get Debrief clicked");
   };
 
-  if (!isActive || currentStep === -1) return null;
+  // Always render modal, even when walkthrough is not active
+  // Don't render walkthrough if not active
+  if (!isActive || currentStep === -1) {
+    return (
+      <>
+        <DiagnosticDebriefModal
+          isOpen={isDebriefModalOpen}
+          onClose={() => setIsDebriefModalOpen(false)}
+          onGetDebrief={handleGetDebrief}
+        />
+      </>
+    );
+  }
 
   const currentStepData = steps[currentStep];
   if (!currentStepData) return null;
@@ -187,8 +235,6 @@ const GuidedWalkthrough = ({ onComplete }) => {
 
   if (targetElement && highlightRect) {
     const rect = targetElement.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    const scrollX = window.scrollX;
     const viewportWidth = windowSize.width;
     const viewportHeight = windowSize.height;
 
@@ -588,6 +634,11 @@ const GuidedWalkthrough = ({ onComplete }) => {
           </button>
         </div>
       </div>
+      <DiagnosticDebriefModal
+        isOpen={isDebriefModalOpen}
+        onClose={() => setIsDebriefModalOpen(false)}
+        onGetDebrief={handleGetDebrief}
+      />
     </>
   );
 };
