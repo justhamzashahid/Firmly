@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import CreateAccountModal from "./CreateAccountModal";
 
-const Screen3Card = ({ onPrevious, onNext }) => {
+const Screen3Card = ({ onPrevious, onNext, onLogin }) => {
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
+
+  const handleExistingAccount = () => {
+    if (typeof onLogin === "function") {
+      onLogin();
+      return;
+    }
+
+    if (typeof onPrevious === "function") {
+      onPrevious();
+    }
+  };
+
+  const handleCreateAccount = () => {
+    setShowCreateAccount(true);
+  };
+
+  // Show create account modal if requested
+  if (showCreateAccount) {
+    return (
+      <CreateAccountModal
+        isOpen={true}
+        onClose={() => {
+          setShowCreateAccount(false);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="w-full h-full flex items-center justify-center px-6 overflow-hidden">
       <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10 text-center drop-shadow-lg max-w-2xl w-full">
@@ -17,21 +47,23 @@ const Screen3Card = ({ onPrevious, onNext }) => {
               Quick 1:1 Chat with Amalia™
             </h1>
             <p className="text-white/90 text-sm md:text-base w-full font-inter leading-relaxed">
-              Amalia supports you with guided conversations that fit your needs. Switch seamlessly between Normal Chat for coaching or Safe Space (Incognito Mode) when you're ready to open up and reflect.
+              Amalia supports you with guided conversations that fit your needs.
+              Switch seamlessly between Normal Chat for coaching or Safe Space
+              (Incognito Mode) when you're ready to open up and reflect.
             </p>
           </div>
           <div className="flex items-center justify-center gap-3 w-full mt-4">
             <button
-              onClick={onPrevious}
+              onClick={handleExistingAccount}
               className="px-6 py-2 bg-transparent border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-colors font-inter text-sm"
             >
-              Previous
+              I already have an Account
             </button>
             <button
-              onClick={onNext}
+              onClick={handleCreateAccount}
               className="px-6 py-2 bg-white text-[#6b4bff] font-medium rounded-full shadow-sm hover:bg-white/90 transition-colors font-inter text-sm"
             >
-              Next
+              Create Account
             </button>
           </div>
         </div>

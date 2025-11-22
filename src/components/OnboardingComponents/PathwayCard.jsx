@@ -17,7 +17,9 @@ const PathwayCard = ({ onPrevious, onNext }) => {
               Get Your Personalized Pathway
             </h1>
             <p className="text-white/90 text-sm md:text-base w-full font-inter leading-relaxed">
-              Amalia creates a tailored leadership journey just for you—complete with reading assignments, conversation tactics, skill-building exercises, and voice coaching sessions.
+              Amalia creates a tailored leadership journey just for you—complete
+              with reading assignments, conversation tactics, skill-building
+              exercises, and voice coaching sessions.
             </p>
           </div>
           <div className="flex items-center justify-center gap-3 w-full mt-4">
@@ -25,13 +27,13 @@ const PathwayCard = ({ onPrevious, onNext }) => {
               onClick={onPrevious}
               className="px-6 py-2 bg-transparent border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-colors font-inter text-sm"
             >
-              I already have an Account
+              Previous
             </button>
             <button
               onClick={onNext}
               className="px-6 py-2 bg-white text-[#6b4bff] font-medium rounded-full shadow-sm hover:bg-white/90 transition-colors font-inter text-sm"
             >
-              Create Account
+              Next
             </button>
           </div>
         </div>
