@@ -148,8 +148,8 @@ const FeedbackSteps = () => {
             <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-cormorant font-bold text-black text-center mb-10 sm:mb-16 md:mb-20 leading-tight px-4">
               {questions[currentStep]}
             </h2>
-            <div className="relative px-4 lg:px-0">
-              <div className="relative p-2 bg-[#e3e3e3] rounded-full overflow-visible">
+            <div className="relative px-4 lg:px-0 overflow-visible">
+              <div className="relative p-2 bg-[#e3e3e3] rounded-full overflow-visible pl-[calc(0.5rem+1.5rem)] pr-[calc(0.5rem+1.5rem)] sm:pl-[calc(0.5rem+2.5rem)] sm:pr-[calc(0.5rem+2.5rem)] md:pl-[calc(0.5rem+3.5rem)] md:pr-[calc(0.5rem+3.5rem)]">
                 <div className="absolute inset-0 flex items-center overflow-visible">
                   {[0, 1, 2, 3, 4, 5, 6].map((point) => {
                     const posPercent = (point / 6) * 100;
@@ -179,12 +179,14 @@ const FeedbackSteps = () => {
                   style={{
                     left: `${(responses[currentStep] / 6) * 100}%`,
                     transform: "translate(-50%, -50%)",
+                    minWidth: "max-content",
                   }}
                 >
                   <img
                     src="/assets/images/dashboard/Subtract.webp"
                     alt="slider handle"
                     className="w-12 h-12 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
+                    style={{ display: "block" }}
                   />
                 </div>
                 <input
