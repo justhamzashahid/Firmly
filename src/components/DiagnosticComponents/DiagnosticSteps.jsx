@@ -7,7 +7,9 @@ const DiagnosticSteps = () => {
 
   // State for assessment flow
   const [runId, setRunId] = useState(() => {
-    const saved = localStorage.getItem("diagnosticRunId");
+    const saved =
+      localStorage.getItem("diagnosticRunId") ||
+      localStorage.getItem("assessmentId");
     return saved || null;
   });
 
@@ -46,12 +48,18 @@ const DiagnosticSteps = () => {
   }, [currentStepIndex]);
 
   useEffect(() => {
-    localStorage.setItem("diagnosticCurrentResponse", currentResponse.toString());
+    localStorage.setItem(
+      "diagnosticCurrentResponse",
+      currentResponse.toString(),
+    );
   }, [currentResponse]);
 
   useEffect(() => {
     if (currentQuestion) {
-      localStorage.setItem("diagnosticCurrentQuestion", JSON.stringify(currentQuestion));
+      localStorage.setItem(
+        "diagnosticCurrentQuestion",
+        JSON.stringify(currentQuestion),
+      );
     }
   }, [currentQuestion]);
 
@@ -67,7 +75,10 @@ const DiagnosticSteps = () => {
 
   useEffect(() => {
     if (totalQuestions) {
-      localStorage.setItem("diagnosticTotalQuestions", totalQuestions.toString());
+      localStorage.setItem(
+        "diagnosticTotalQuestions",
+        totalQuestions.toString(),
+      );
     }
   }, [totalQuestions]);
 
@@ -76,10 +87,69 @@ const DiagnosticSteps = () => {
       if (highlightRun.current) return;
 
       // If we have a saved state with currentQuestion and runId, we're resuming
+      // But still validate progress from the backend
       if (currentQuestion && runId) {
         highlightRun.current = true;
+        try {
+          const progressData = await assessmentService.getProgress(runId);
+          const answeredCount =
+            progressData?.answered_count ?? progressData?.answered ?? null;
+          if (answeredCount !== null && typeof answeredCount === "number") {
+            setCurrentStepIndex(answeredCount);
+            // If progress shows more answered than our local state, fetch the correct next question
+            if (answeredCount > currentStepIndex) {
+              const nextQ = await assessmentService.getNextQuestion(runId);
+              if (nextQ && (nextQ.id || nextQ.question_id || nextQ.pk)) {
+                setCurrentQuestion(nextQ);
+                setCurrentResponse(3);
+              } else {
+                // Assessment is complete
+                navigate("/diagnostic/completed", { state: { runId } });
+                return;
+              }
+            }
+          }
+          if (progressData?.total) {
+            setTotalQuestions(progressData.total);
+          }
+        } catch (ignore) {
+          console.warn("Could not validate progress on resume", ignore);
+        }
         setIsLoading(false);
         return;
+      }
+
+      // If we have a runId but no currentQuestion (e.g. new tab with assessmentId in storage),
+      // try to resume from the existing run
+      if (runId && !currentQuestion) {
+        highlightRun.current = true;
+        try {
+          setIsLoading(true);
+          const progressData = await assessmentService.getProgress(runId);
+          const answeredCount =
+            progressData?.answered_count ?? progressData?.answered ?? 0;
+          if (progressData?.total) {
+            setTotalQuestions(progressData.total);
+          }
+          setCurrentStepIndex(answeredCount);
+
+          const nextQ = await assessmentService.getNextQuestion(runId);
+          if (nextQ && (nextQ.id || nextQ.question_id || nextQ.pk)) {
+            setCurrentQuestion(nextQ);
+            setCurrentResponse(3);
+          } else {
+            navigate("/diagnostic/completed", { state: { runId } });
+            return;
+          }
+          setIsLoading(false);
+          return;
+        } catch (err) {
+          console.warn(
+            "Could not resume from existing runId, starting fresh:",
+            err,
+          );
+          // Fall through to start a new assessment
+        }
       }
 
       highlightRun.current = true;
@@ -112,12 +182,13 @@ const DiagnosticSteps = () => {
 
           try {
             const progressData = await assessmentService.getProgress(rId);
-            if (
-              progressData &&
-              typeof progressData.answered_count === "number"
-            ) {
-              // Restore index from backend if available
-              setCurrentStepIndex(progressData.answered_count);
+            const answeredCount =
+              progressData?.answered_count ?? progressData?.answered ?? null;
+            if (answeredCount !== null && typeof answeredCount === "number") {
+              setCurrentStepIndex(answeredCount);
+            }
+            if (progressData?.total) {
+              setTotalQuestions(progressData.total);
             }
           } catch (ignore) {
             console.warn("Could not fetch progress", ignore);
