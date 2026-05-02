@@ -440,10 +440,11 @@ const DiagnosticSteps = () => {
                 />
               </div>
 
-              {history.length > 0 ? (
+              {currentStepIndex > 0 ? (
                 <button
                   onClick={handlePrevious}
-                  className="relative z-10 flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 md:px-3 py-1 sm:py-1.5 md:py-2 rounded-lg sm:rounded-xl transition-all flex-shrink-0 bg-[#ebebeb] text-[#3D3D3D]/60 active:scale-95"
+                  disabled={history.length === 0}
+                  className={`relative z-10 flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 md:px-3 py-1 sm:py-1.5 md:py-2 rounded-lg sm:rounded-xl transition-all flex-shrink-0 bg-[#ebebeb] text-[#3D3D3D]/60 active:scale-95 ${history.length === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
                   style={{ color: colors.text }}
                 >
                   <svg
