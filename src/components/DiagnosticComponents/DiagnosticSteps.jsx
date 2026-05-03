@@ -417,7 +417,7 @@ const DiagnosticSteps = () => {
       className="relative h-full w-full overflow-hidden"
       style={{ background: colors.background }}
     >
-      {/* Top Background Image */}
+      {/* Top BACKGROUND Image */}
       <img
         src="/assets/images/dashboard/feedbacktop.webp"
         alt="dashboard top background"
